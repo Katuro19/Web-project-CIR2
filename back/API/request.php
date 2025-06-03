@@ -7,6 +7,50 @@
     Arguments :
         table : Doit contenir le nom de la table correspondant dans la BDD 
         id : Un int representant la clé primaire definie dans "db"
+        column : Le nom de la colonne (sans guillement)
+        sortColumn : Le nom de la colonne dans l'ordre a trier
+        asc : 1 ou 0 (ascendant ou descendant)
+
+
+
+    Réponses : 
+        La réponse se trouve dans "data". La réponse peut etre sous forme de tableau ou non (a verifier apres l'appel)
+        Les autres données sont purement indicatives.
+
+        Type JSON avec la forme suivante :
+
+            {
+            "status": "success",
+            "called_method": "request_if",
+            "parameters": [
+                "nom",
+                "oui"
+            ],
+            "data": [
+                {
+                "id": 1,
+                "nom": "oui"
+                },
+                {
+                "id": 2,
+                "nom": "oui"
+                }
+            ]
+            }
+                    
+    Exemples d'appels :
+
+    Récuperer seulement la personne avec l'id 1 :
+        http://localhost:4321/back/API/request.php?table=marque_panneau&id=1
+
+    Récuperer toute la BDD :
+        http://localhost:4321/back/API/request.php?table=marque_panneau
+
+    Récuperer la BDD triée :
+        http://localhost/back/API/request.php?table=marque_panneau&sortColumn=id&asc=0
+
+    Récuperer seulement le nom "oui" :
+        http://localhost:4321/back/API/request.php?table=marque_panneau&column=nom&value=oui
 
 */
 
@@ -29,7 +73,8 @@ $allowedMethods = [
     'request' => ['id'], //Request prend seulment l'id et renvoie l'entiertée de la ligne 
     'request_if' => ['column', 'value'], //request if renvoie toute les lignes qui verifie la condition "value dans column"
     'request_if_null' => ['column'], //Renvoie toute les lignes pour lequelles la column donnée est nulle
-    'request_in_order' => ['column', 'value', 'sortColumn', 'asc'], //Renvoie la DB entiere triée en fonction des parametres donnés
+    'request_in_order' => ['sortColumn', 'asc'], //Renvoie la BDD entiere triée en fonction des param
+    'request_if_in_order' => ['column', 'value', 'sortColumn', 'asc'], //Renvoie la DB entiere triée en fonction des parametres donnés. ATTENTION, asc doit etre 1 ou 0
     'request_all' => [] //Renvoie toute la DB (ne prend aucun parametre sauf table !)
     //'delete' => ['id'],
     //'change_if' => ['id', 'column', 'value'],
@@ -39,16 +84,19 @@ $allowedMethods = [
 $calledMethod = null;
 $methodParams = [];
 
+
 foreach ($allowedMethods as $method => $expectedParams) { //Boucle sur chaque clé du dico et prend en compte les valeures associées
     $getKeys = array_keys($_GET); //Crée un dico a partir des parametres de l'url (que pour GET !)
     $filteredKeys = array_diff($getKeys, ['table', 'method']); // Retire les clé table et method du nouveau dictionnaire (on en a pas besoin !)
 
+    $unsortedParams = $expectedParams;
+
     sort($expectedParams);
     sort($filteredKeys);
 
-    if ($expectedParams === $filteredKeys) { //If our keys are the same as the parameters required in allowedMethods
-        $calledMethod = $method; //Our method to call is this one
-        $methodParams = array_map(fn($param) => $_GET[$param], $expectedParams); //Recupere les valeures de toute les clés de expectedParams dans le $_GET
+    if ($expectedParams === $filteredKeys) { //check si on a les memes clés que la fonction qu'on verifie
+        $calledMethod = $method; //On choisi donc celle ci a appelé
+        $methodParams = array_map(fn($param) => $_GET[$param], $unsortedParams); //Recupere les valeures de toute les clés de expectedParams dans le $_GET
         break;
     }
 }
@@ -60,7 +108,6 @@ if ($calledMethod && method_exists($DatabaseInstance, $calledMethod)) { //si la 
             Cette fonction magique apelle la fonction calledMethod depuis l'instance DatabaseInstance
             en passant les params du dico methodeParams". 
             La fonction call_user_func_array place automatiquement les parametres et gere l'appel !
-
 
         */
         $result = call_user_func_array([$DatabaseInstance, $calledMethod], $methodParams); 
