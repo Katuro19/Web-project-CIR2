@@ -21,7 +21,7 @@
       </div>
 
       <div class="title-container">
-        <span class="title">Solaire</span>
+        <span class="title">Gestion de panneau solaire</span>
       </div>
 
       <div class="right-menu">
