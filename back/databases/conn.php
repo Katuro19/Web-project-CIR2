@@ -19,11 +19,6 @@ function loadEnv(string $filepath): array {
     $lines = file($filepath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
     foreach ($lines as $line) {
-        // Ignore les commentaires
-        if (str_starts_with($line, '#')) {
-            continue;
-        }
-
         // Sépare à la première occurrence de '='
         $parts = explode('=', $line, 2);
 
@@ -54,14 +49,24 @@ $password = $env['DB_PASSWORD'];
 $databaseConnected = false;
 
 try {
-    // Create a new PDO instance for PostgreSQL
-    $conn = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
+    // On fait un PDO pour mysql
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $databaseConnected = true;
 
 } 
-catch (PDOException $e) {
-    echo "Erreur : " . $e->getMessage();
+catch (PDOException $e1) {
+    try {
+        // On fait le PDO pour postgres si jamais celui pour mysql a fail (au cas ou)
+        $conn = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $databaseConnected = true;
+    }
+    catch (PDOException $e2){
+        echo "Erreur (connection mysql) : " . $e1->getMessage();
+        echo "Erreur (connection postgres) : " . $e2->getMessage();
+
+    }
 
 }
 
