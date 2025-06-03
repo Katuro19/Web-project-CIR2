@@ -1,5 +1,4 @@
-
--- MySQL Schema for Solar Panel Installation System (Final Cleaned Version)
+-- MySQL Schema for Solar Panel Installation System
 
 DROP TABLE IF EXISTS doc;
 DROP TABLE IF EXISTS installateur;
@@ -24,28 +23,28 @@ CREATE TABLE marque_onduleur (
 
 CREATE TABLE modele_panneau (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL,
-    marque_panneau_id INT,
-    FOREIGN KEY (marque_panneau_id) REFERENCES marque_panneau(id)
+    nom VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE modele_onduleur (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL,
-    marque_onduleur_id INT,
-    FOREIGN KEY (marque_onduleur_id) REFERENCES marque_onduleur(id)
+    nom VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE panneau (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    modele_id INT,
-    FOREIGN KEY (modele_id) REFERENCES modele_panneau(id)
+    marque_panneau INT,
+    modele_panneau INT,
+    FOREIGN KEY (marque_panneau) REFERENCES marque_panneau(id),
+    FOREIGN KEY (modele_panneau) REFERENCES modele_panneau(id)
 );
 
 CREATE TABLE onduleur (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    modele_id INT,
-    FOREIGN KEY (modele_id) REFERENCES modele_onduleur(id)
+    modele_onduleur INT,
+    marque_onduleur INT,
+    FOREIGN KEY (modele_onduleur) REFERENCES modele_onduleur(id),
+    FOREIGN KEY (marque_onduleur) REFERENCES marque_onduleur(id)
 );
 
 CREATE TABLE region (
@@ -59,7 +58,7 @@ CREATE TABLE region (
 CREATE TABLE localisation (
     id INT AUTO_INCREMENT PRIMARY KEY,
     lat FLOAT,
-    `long` FLOAT,
+    `long` FLOAT, -- mot-clé réservé, on l'entoure avec des backticks
     pays VARCHAR(255),
     postcode VARCHAR(10),
     postcodeSuff VARCHAR(10),
@@ -83,7 +82,7 @@ CREATE TABLE doc (
     pente FLOAT,
     penteOpti FLOAT,
     orientation VARCHAR(50),
-    pvgis TINYINT(1),
+    pvgis FLOAT,
     panneau_id INT,
     onduleur_id INT,
     localisation_id INT,

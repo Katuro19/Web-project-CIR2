@@ -24,24 +24,24 @@
 
     CREATE TABLE modele_panneau (
         id SERIAL PRIMARY KEY,
-        nom VARCHAR(255) NOT NULL,
-        marque_panneau_id INTEGER REFERENCES marque_panneau(id)
+        nom VARCHAR(255) NOT NULL
     );
 
     CREATE TABLE modele_onduleur (
         id SERIAL PRIMARY KEY,
-        nom VARCHAR(255) NOT NULL,
-        marque_onduleur_id INTEGER REFERENCES marque_onduleur(id)
+        nom VARCHAR(255) NOT NULL
     );
 
     CREATE TABLE panneau (
         id SERIAL PRIMARY KEY,
-        modele_id INTEGER REFERENCES modele_panneau(id)
+        marque_panneau INTEGER REFERENCES modele_panneau(id),
+        modele_panneau INTEGER REFERENCES modele_panneau(id)
     );
 
     CREATE TABLE onduleur (
         id SERIAL PRIMARY KEY,
-        modele_id INTEGER REFERENCES modele_onduleur(id)
+        modele_onduleur INTEGER REFERENCES modele_onduleur(id),
+        marque_onduleur INTEGER REFERENCES marque_onduleur(id)
     );
 
     CREATE TABLE region (
@@ -78,7 +78,7 @@
         pente FLOAT,
         penteOpti FLOAT,
         orientation VARCHAR(50),
-        pvgis BOOLEAN,
+        pvgis FLOAT,
         panneau_id INTEGER REFERENCES panneau(id),
         onduleur_id INTEGER REFERENCES onduleur(id),
         localisation_id INTEGER REFERENCES localisation(id),

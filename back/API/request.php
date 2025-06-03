@@ -2,16 +2,16 @@
 
 /* Cette API répond au requete de la forme :
 
-    ./back/API/request.php?table=matable&id=0
+    ./back/API/request.php?table=matable&...
 
-    Arguments :
+    Arguments possibles:
         table : Doit contenir le nom de la table correspondant dans la BDD 
         id : Un int representant la clé primaire definie dans "db"
         column : Le nom de la colonne (sans guillement)
         sortColumn : Le nom de la colonne dans l'ordre a trier
         asc : 1 ou 0 (ascendant ou descendant)
 
-
+    Important : La fonction appelée differe en fonction des arguments donnés (automatique)
 
     Réponses : 
         La réponse se trouve dans "data". La réponse peut etre sous forme de tableau ou non (a verifier apres l'appel)
@@ -41,16 +41,16 @@
     Exemples d'appels :
 
     Récuperer seulement la personne avec l'id 1 :
-        http://localhost:4321/back/API/request.php?table=marque_panneau&id=1
+        http://localhost/back/API/request.php?table=marque_panneau&id=1
 
     Récuperer toute la BDD :
-        http://localhost:4321/back/API/request.php?table=marque_panneau
+        http://localhost/back/API/request.php?table=marque_panneau
 
     Récuperer la BDD triée :
         http://localhost/back/API/request.php?table=marque_panneau&sortColumn=id&asc=0
 
     Récuperer seulement le nom "oui" :
-        http://localhost:4321/back/API/request.php?table=marque_panneau&column=nom&value=oui
+        http://localhost/back/API/request.php?table=marque_panneau&column=nom&value=oui
 
 */
 
