@@ -1,10 +1,4 @@
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 /* Corps en flex pour garder le footer en bas */
 body {
   display: flex;
@@ -21,7 +15,6 @@ header {
   top: 0;
   background: #1a1a1a;
   color: white;
-  z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -110,7 +103,7 @@ header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Affiche burger et masque nav-desktop en dessous de 768px */
+/* Affiche burger et masque nav-desktop en dessous de 750px */
 @media (max-width: 750px) {
   .nav-desktop {
     display: none;
@@ -126,7 +119,7 @@ header {
 
 .main {
   flex: 1;
-  max-width: 1100px;
+  width: 1150px;
   margin: 100px auto 40px; 
   background: white;
   padding: 20px;
@@ -170,7 +163,6 @@ header {
   padding: 10px 20px;
   border-radius: 6px;
   text-decoration: none;
-  transition: transform 0.2s ease, background 0.2s ease;
   margin: 5px;
 }
 .btn:hover {
@@ -199,8 +191,8 @@ header {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  width: 380px;     
-  height: 300;
+  width: 300px;     
+  height: 500px;
   border-radius: 4px; 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -214,7 +206,7 @@ header {
 }
 
 /* Cache les images sur petits écrans */
-@media (max-width: 768px) {
+@media (max-width: 1450px) {
   .side-img {
     display: none;
   }
@@ -255,7 +247,6 @@ header {
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 1rem;
-  justify-content: center;
   width: 30%;
 }
 
@@ -267,7 +258,6 @@ header {
   border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
 .page-carte .search-bar button:hover {
