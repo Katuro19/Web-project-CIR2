@@ -96,7 +96,7 @@ class db{
         }
         catch(PDOException $e){
             if($verbose)
-                echo "Error on request function : ".$e->getMessage();
+                echo "<br>Error on request function : ".$e->getMessage();
             return [];
         }
     }
