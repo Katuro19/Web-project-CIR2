@@ -1,21 +1,42 @@
 <?php
 
-function loadEnv($path) {
-    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+include_once "requests.php";
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
+function loadEnv(string $filepath): array {
     $env = [];
+
+    // Vérifie si le fichier existe et est lisible
+    if (!is_readable($filepath)) {
+        throw new Exception("Fichier non lisible ou inexistant : $filepath");
+    }
+
+    // Ouvre et lit le fichier ligne par ligne
+    $lines = file($filepath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
     foreach ($lines as $line) {
         // Ignore les commentaires
-        if (strpos(trim($line), '#') === 0) {
+        if (str_starts_with($line, '#')) {
             continue;
         }
-        // Sépare la clé et la valeur
-        list($key, $value) = explode('=', $line, 2);
-        $env[trim($key)] = trim($value);
+
+        // Sépare à la première occurrence de '='
+        $parts = explode('=', $line, 2);
+
+        if (count($parts) === 2) {
+            $key = trim($parts[0]);
+            $value = trim($parts[1]);
+            $env[$key] = $value;
+        }
     }
 
     return $env;
 }
+
 
 
 
@@ -37,6 +58,8 @@ try {
     $conn = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $databaseConnected = true;
+    echo "Yipeee";
+
 } 
 catch (PDOException $e) {
     echo "Erreur : " . $e->getMessage();
@@ -50,11 +73,6 @@ $result = $Table->request($truc); (read the doc)
 */
 
 
-$Doctors = new db($conn, 'doctors', 'id',['id','firstname','lastname','email','phone','password','postcode','expertise_id']);
-$Patients = new db($conn, 'patients', 'id', ['id','firstname','lastname','email','phone','password']);
-$Rendezvous = new db($conn, 'rendezvous', 'id', ['id','date','start','end','patient_id','doctor_id','location_id']);
-$Expertise = new db($conn, 'expertise', 'id',['id','name']);
-$Locations = new db($conn, 'locations', 'id',['id','name','postcode']);
-
+$Doc = new db($conn, 'doc', 'id',['id','firstname','lastname','email','phone','password','postcode','expertise_id']);
 
 ?> 
