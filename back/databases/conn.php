@@ -56,7 +56,7 @@ try {
 } 
 catch (PDOException $e1) {
     try {
-        // On fait le PDO pour postgres si jamais celui pour mysql a fail (au cas ou)
+        // On fait le PDO pour postgres si jamais celui pour mysql a fail (au cas ou on serais sur la bdd dev)
         $conn = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $databaseConnected = true;
@@ -69,10 +69,6 @@ catch (PDOException $e1) {
 }
 
 
-//$stmt = $conn->query("SELECT current_database();");
-//echo "Connecté à la base : " . $stmt->fetchColumn() . "<br>";
-
-
 /* 
 $Table = new db($conn,'tableName','primaryKey');
  And then you can do request :
@@ -82,11 +78,14 @@ $result = $Table->request($truc); (read the doc)
 
 //$Doc = new db($conn, 'doc', 'id',['id','mois','an','nbpanneaux','nbonduleur','puissancecrete','surface','pente','penteopti','orientation','pvgis','panneau_id','onduleur_id','localisation_id','installateur_id']);
 $MarquePanneau = new db($conn, 'marque_panneau', 'id', ['id','nom']);
-//print_r($MarquePanneau->mainTable);
 
-$result = $MarquePanneau->request(1,true,true);
 
-echo "result :";
-print_r($result);
+/* 
+    La variable $databaseTables est utilisée pour faire correspondre une instance de classe a un parametre passé dans les requetes GET !
+*/
+
+$databaseTables = [
+    'marque_panneau' => $MarquePanneau
+]
 
 ?> 
