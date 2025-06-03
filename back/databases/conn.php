@@ -63,9 +63,8 @@ catch (PDOException $e1) {
         $databaseConnected = true;
     }
     catch (PDOException $e2){
-        echo "Erreur (connection mysql) : " . $e1->getMessage();
-        echo "Erreur (connection postgres) : " . $e2->getMessage();
-
+        echo "Erreur (connection mysql) : " . $e1->getMessage() . "<br>";
+        echo "Erreur (connection postgres) : " . $e2->getMessage() . "<br>";
     }
 
 }
