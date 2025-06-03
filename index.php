@@ -1,9 +1,10 @@
 
 
 <?php
-    include_once "./databases/conn.php";
+    include_once "./back/databases/conn.php";
+    var_dump($databaseConnected);
 
-    echo "oui";
+    echo $databaseConnected;
 
 
 ?>
