@@ -1,5 +1,17 @@
 
--- PostgreSQL Schema for Solar Panel Installation System
+-- PostgreSQL Schema for Solar Panel Installation System (Updated with DROP)
+
+DROP TABLE IF EXISTS doc;
+DROP TABLE IF EXISTS installateur;
+DROP TABLE IF EXISTS localisation;
+DROP TABLE IF EXISTS region;
+DROP TABLE IF EXISTS onduleur;
+DROP TABLE IF EXISTS panneau;
+DROP TABLE IF EXISTS modele;
+DROP TABLE IF EXISTS marque;
+
+
+-- PostgreSQL Schema for Solar Panel Installation System (Updated)
 
 CREATE TABLE marque (
     id SERIAL PRIMARY KEY,
@@ -25,15 +37,6 @@ CREATE TABLE onduleur (
     marque_id INTEGER REFERENCES marque(id)
 );
 
-CREATE TABLE localisation (
-    id SERIAL PRIMARY KEY,
-    lat FLOAT,
-    long FLOAT,
-    pays VARCHAR(255),
-    postcode VARCHAR(10),
-    postcodeSuff VARCHAR(10)
-);
-
 CREATE TABLE region (
     id SERIAL PRIMARY KEY,
     ville VARCHAR(255),
@@ -42,10 +45,14 @@ CREATE TABLE region (
     political VARCHAR(255)
 );
 
-CREATE TABLE appartient (
-    localisation_id INTEGER REFERENCES localisation(id),
-    region_id INTEGER REFERENCES region(id),
-    PRIMARY KEY (localisation_id, region_id)
+CREATE TABLE localisation (
+    id SERIAL PRIMARY KEY,
+    lat FLOAT,
+    long FLOAT,
+    pays VARCHAR(255),
+    postcode VARCHAR(10),
+    postcodeSuff VARCHAR(10),
+    region_id INTEGER REFERENCES region(id)
 );
 
 CREATE TABLE installateur (

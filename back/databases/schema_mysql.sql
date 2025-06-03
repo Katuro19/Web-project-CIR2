@@ -1,5 +1,17 @@
 
--- MySQL Schema for Solar Panel Installation System
+-- MySQL Schema for Solar Panel Installation System (Updated with DROP)
+
+DROP TABLE IF EXISTS doc;
+DROP TABLE IF EXISTS installateur;
+DROP TABLE IF EXISTS localisation;
+DROP TABLE IF EXISTS region;
+DROP TABLE IF EXISTS onduleur;
+DROP TABLE IF EXISTS panneau;
+DROP TABLE IF EXISTS modele;
+DROP TABLE IF EXISTS marque;
+
+
+-- MySQL Schema for Solar Panel Installation System (Updated)
 
 CREATE TABLE marque (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,15 +42,6 @@ CREATE TABLE onduleur (
     FOREIGN KEY (marque_id) REFERENCES marque(id)
 );
 
-CREATE TABLE localisation (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    lat FLOAT,
-    `long` FLOAT,
-    pays VARCHAR(255),
-    postcode VARCHAR(10),
-    postcodeSuff VARCHAR(10)
-);
-
 CREATE TABLE region (
     id INT AUTO_INCREMENT PRIMARY KEY,
     ville VARCHAR(255),
@@ -47,11 +50,14 @@ CREATE TABLE region (
     political VARCHAR(255)
 );
 
-CREATE TABLE appartient (
-    localisation_id INT,
+CREATE TABLE localisation (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    lat FLOAT,
+    `long` FLOAT,
+    pays VARCHAR(255),
+    postcode VARCHAR(10),
+    postcodeSuff VARCHAR(10),
     region_id INT,
-    PRIMARY KEY (localisation_id, region_id),
-    FOREIGN KEY (localisation_id) REFERENCES localisation(id),
     FOREIGN KEY (region_id) REFERENCES region(id)
 );
 
