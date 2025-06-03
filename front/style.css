@@ -1,0 +1,221 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corps en flex pour garder le footer en bas */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9f9;
+}
+
+/* En-tête fixe */
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background: #1a1a1a;
+  color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Conteneur header en trois colonnes */
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+/* Colonne gauche : logo */
+.logo-title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.logo {
+  height: 40px;
+}
+
+/* Colonne centrale : titre centré */
+.title-container {
+  flex: 1;
+  text-align: center;
+}
+.title {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+/* Colonne droite : burger + nav desktop */
+.right-menu {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 18px;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+.burger span {
+  display: block;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+}
+
+
+.nav-desktop a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 1rem;
+  transition: color 0.2s ease;
+}
+.nav-desktop a:hover {
+  color: #cccccc;
+}
+
+
+.nav-mobile {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 60px; 
+  right: 0;
+  background: #1a1a1a;
+}
+.nav-mobile a {
+  padding: 10px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  text-decoration: none;
+}
+.nav-mobile a:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Affiche burger et masque nav-desktop en dessous de 768px */
+@media (max-width: 750px) {
+  .nav-desktop {
+    display: none;
+  }
+  .burger {
+    display: flex;
+  }
+  .nav-mobile.show {
+    display: flex;
+  }
+}
+
+
+.main {
+  flex: 1;
+  max-width: 1100px;
+  margin: 100px auto 40px; 
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Sections */
+.section + .section {
+  margin-top: 40px;
+}
+.section h2 {
+  font-size: 1.5rem;
+  border-bottom: 2px solid #555;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+/* Grille de statistiques */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.box {
+  background: #e6f0fa;
+  flex: 1 1 calc(33% - 10px);
+  min-width: 150px;
+  padding: 15px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Boutons */
+.btn {
+  display: inline-block;
+  background: #0d6efd;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+  margin: 5px;
+}
+.btn:hover {
+  background: #084298;
+  transform: scale(1.05);
+}
+
+/* Pied de page */
+.footer {
+  background: #1a1a1a;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: auto; 
+}
+
+
+.text-center {
+  text-align: center;
+}
+
+/* ----------------------------------------------------
+   Images fixes sur les côtés
+---------------------------------------------------- */
+.side-img {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 380px;     
+  height: 300;
+  border-radius: 4px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.side-img.left {
+  left: 10px;       /* à 10px du bord gauche */
+}
+
+.side-img.right {
+  right: 10px;      /* à 10px du bord droit */
+}
+
+/* Cache les images sur petits écrans */
+@media (max-width: 768px) {
+  .side-img {
+    display: none;
+  }
+}
