@@ -49,14 +49,13 @@
         ville VARCHAR(255),
         admin1 VARCHAR(255),
         admin2 VARCHAR(255),
-        political VARCHAR(255)
+        pays VARCHAR(255)
     );
 
     CREATE TABLE localisation (
         id SERIAL PRIMARY KEY,
         lat FLOAT,
         long FLOAT,
-        pays VARCHAR(255),
         postcode VARCHAR(10),
         postcodeSuff VARCHAR(10),
         code_insee VARCHAR(255) REFERENCES region(code_insee)
