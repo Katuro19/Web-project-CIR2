@@ -74,11 +74,12 @@ $allowedMethods = [
     'request_insee' => ['code_insee'], //Request avec region (donc code_insee)
     'request_if' => ['column', 'value'], //request if renvoie toute les lignes qui verifie la condition "value dans column"
     'request_if_null' => ['column'], //Renvoie toute les lignes pour lequelles la column donnée est nulle
-    'request_in_order_no_asc' => ['sortColumn'], //renvoie la BDD entiere triée en fonction du param
-    'request_in_order' => ['sortColumn', 'asc'], //Renvoie la BDD entiere triée en fonction des param
-    'request_if_in_order' => ['column', 'value', 'sortColumn', 'asc'], //Renvoie la DB entiere triée en fonction des parametres donnés. ATTENTION, asc doit etre 1 ou 0
-    'request_all' => [], //Renvoie toute la DB (ne prend aucun parametre sauf table !)
-    'random_limit' => ['limit'] //Renvoie un morceau limité de données dans un ordre aléatoire !
+    'request_in_order_no_asc' => ['sortColumn'], //renvoie la table entiere triée en fonction du param
+    'request_in_order' => ['sortColumn', 'asc'], //Renvoie la table entiere triée en fonction des param
+    'request_if_in_order' => ['column', 'value', 'sortColumn', 'asc'], //Renvoie la table entiere triée en fonction des parametres donnés. ATTENTION, asc doit etre 1 ou 0
+    'request_all' => [], //Renvoie toute la table (ne prend aucun parametre sauf table !)
+    'random_limit' => ['limit'], //Renvoie un morceau limité de données dans un ordre aléatoire !
+    'distinct_count' => ['countColumn'] //Compte toute les valeures unique dans une colonne
     //'delete' => ['id'],
     //'change_if' => ['id', 'column', 'value'],
 ];

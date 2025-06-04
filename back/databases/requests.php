@@ -43,6 +43,7 @@ class db{
     - request_if_null (public)
     - request_if_in_order (public)
     - random_limit (public)
+    - distinct_count (public)
 
     \ -------------------------------- /
 
@@ -331,11 +332,9 @@ class db{
         */
 
         if(!in_array($column,$this->columns)){
-            if($verbose){
-                echo "<br>The column '".$column."' was not set as a valid column by your admin. If this is not normal, check the database definition in your code.";
-            }
-            return [];
+            throw new Exception("Error in request_if_null, Invalid column :" . $column);
         }
+
     
         try {
             
@@ -376,12 +375,10 @@ class db{
         */
 
 
-        if(!in_array($sortColumn,$this->columns)){
-            if($verbose){
-                echo "<br>The column '".$sortColumn."' was not set as a valid column by your admin. If this is not normal, check the database definition in your code.";
-            }
-            return [];
+        if(!in_array($column,$this->columns)){
+            throw new Exception("Error in request_in_order, Invalid column :" . $column);
         }
+
     
         try {
             $ascOrDesc = "asc";
@@ -427,16 +424,11 @@ class db{
         */
 
         if(!in_array($column,$this->columns)){
-            if($verbose){
-                echo "<br>The column '".$column."' was not set as a valid column by your admin. If this is not normal, check the database definition in your code.";
-            }
-            return [];
+            throw new Exception("Error in request_if_in_order, Invalid column :" . $column);
         }
         if(!in_array($sortColumn,$this->columns)){
-            if($verbose){
-                echo "<br>The column '".$sortColumn."' was not set as a valid column by your admin. If this is not normal, check the database definition in your code.";
-            }
-            return [];
+            throw new Exception("Error in request_if_in_order, Invalid sortColumn :" . $sortColumn);
+
         }
     
         try {
@@ -475,15 +467,15 @@ class db{
 
 
     public function random_limit($limit,$verbose=false,$details=false){
-        /* Return an array of array containing all the lines (fetched) of the database that valide the condition in order
-        Will sort using the $sortColumn values. 
-        ARGS : column,value,sortColumn,asc=true,verbose=false,details=false
+        /* Return an array of random lines from the database
+        ARGS : $limit, verbose=false,details=false
         - Fetched : YES
 
         In case of failure, return an empty array
         Verbose will display informations about the failure
         Details will display informations about the queries
         */
+
 
         try {
 
@@ -519,6 +511,46 @@ class db{
         }
         catch(PDOException $e){
             throw new Exception("Error in random_limit : Request failed. Infos : " . $e->getMessage());          
+        } 
+    }
+
+
+    public function distinct_count($countColumn, $verbose=false,$details=false){
+        /* Return an int of the number of line in the table that are distinct
+        ARGS : countColumn, verbose=false,details=false
+        - Fetched : YES
+
+        In case of failure, return an empty array
+        Verbose will display informations about the failure
+        Details will display informations about the queries
+        */
+        if(!in_array($countColumn,$this->columns)){
+            throw new Exception("Error in distinct_count, Invalid countColumn :" . $countColumn);
+        }
+
+        try {
+
+            $query = "SELECT COUNT(DISTINCT $countColumn) FROM ". $this->mainTable . ";";
+            
+            if($details)
+            echo "<br>Requested query : ".$query;
+
+            $request = ($this->conn)->prepare($query);
+            if($details)
+                echo "<br>The prepare is done";
+
+
+            $request->execute();
+
+            $result = $request->fetchAll(PDO::FETCH_ASSOC);
+            if($details)
+                echo "<br>Request executed and fetched"; 
+            
+            
+            return $result;
+        }
+        catch(PDOException $e){
+            throw new Exception("Error in distinct count : Request failed. Infos : " . $e->getMessage());          
         } 
     }
 }
