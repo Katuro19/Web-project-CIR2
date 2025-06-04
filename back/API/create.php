@@ -1,6 +1,7 @@
 <?php
 
-/* Cette API répond au requete POST envoyée via un formulaire ($_POST):
+/* Cette API répond au requete POST, PUT et DELETE envoyée via un formulaire ($_POST):
+    En fonction du type de parametre, on peut précisé si on veut un POST, PUT ou un DELETE, directment via un seul POST pour plus de simplicitée !
 
     Réponses : 
         La réponse (réussite ou echec) se trouve dans "data", sous forme de BOOL
@@ -8,7 +9,7 @@
 
         ATTENTION : La requete peut afficher "success" mais si "data" est a false, cela veut dire que la requete a réussi mais pas l'insertion dans la BDD.
 
-        Les $_POST doivent a minima contenir la table sur laquelle operer, une ID.
+        Les $_POST doivent a minima contenir la table sur laquelle operer et une ID.
 */
 
 
@@ -27,7 +28,10 @@ $DatabaseInstance = $databaseTables[$_POST['table']];
 
 // Définition des méthodes disponibles
 $allowedMethods = [
-    //'change_if' => ['id', 'column', 'value'], //Change if prend 3 parametre et remplace la valeure de la colonne donnée pour un certain ID
+    //Methode PUT
+    'change_if' => ['id', 'column', 'value'], //Change if prend 3 parametre et remplace la valeure de la colonne donnée pour un certain ID
+
+    //Methode POST
     'add_with' => ['id'] //Add with peut avoir une infinité d'argument !
 ];
 
