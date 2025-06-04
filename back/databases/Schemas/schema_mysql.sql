@@ -62,8 +62,8 @@ CREATE TABLE localisation (
     pays VARCHAR(255),
     postcode VARCHAR(10),
     postcodeSuff VARCHAR(10),
-    region_code_insee VARCHAR(255),
-    FOREIGN KEY (region_code_insee) REFERENCES region(code_insee)
+    code_insee VARCHAR(255),
+    FOREIGN KEY (code_insee) REFERENCES region(code_insee)
 );
 
 CREATE TABLE installateur (
@@ -82,6 +82,7 @@ CREATE TABLE doc (
     pente FLOAT,
     penteOpti FLOAT,
     orientation VARCHAR(50),
+    orientation_opti VARCHAR(50),
     pvgis FLOAT,
     panneau_id INT,
     onduleur_id INT,

@@ -59,7 +59,7 @@
         pays VARCHAR(255),
         postcode VARCHAR(10),
         postcodeSuff VARCHAR(10),
-        region_code_insee VARCHAR(255) REFERENCES region(code_insee)
+        code_insee VARCHAR(255) REFERENCES region(code_insee)
     );
 
     CREATE TABLE installateur (
@@ -78,6 +78,7 @@
         pente FLOAT,
         penteOpti FLOAT,
         orientation VARCHAR(50),
+        orientation_opti VARCHAR(50),
         pvgis FLOAT,
         panneau_id INTEGER REFERENCES panneau(id),
         onduleur_id INTEGER REFERENCES onduleur(id),
