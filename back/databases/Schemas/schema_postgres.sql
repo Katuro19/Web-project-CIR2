@@ -1,5 +1,6 @@
 
     -- PostgreSQL Schema for Solar Panel Installation System (Final Cleaned Version)
+    BEGIN;
 
     DROP TABLE IF EXISTS doc;
     DROP TABLE IF EXISTS installateur;
@@ -84,3 +85,6 @@
         localisation_id INTEGER REFERENCES localisation(id),
         installateur_id INTEGER REFERENCES installateur(id)
     );
+
+
+COMMIT;

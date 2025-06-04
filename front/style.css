@@ -1,34 +1,40 @@
+/* === RÉINITIALISATION ET STYLE GÉNÉRAL === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* Corps en flex pour garder le footer en bas */
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
   background: #f9f9f9;
+  margin: 0;
 }
 
-/* En-tête fixe */
+/* === HEADER FIXE === */
 header {
   width: 100%;
   position: fixed;
   top: 0;
   background: #1a1a1a;
   color: white;
+  z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Conteneur header en trois colonnes */
 .header-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   max-width: 1100px;
   margin: 0 auto;
   padding: 10px 20px;
 }
 
-/* Colonne gauche : logo */
 .logo-title {
   flex: 1;
   display: flex;
@@ -38,7 +44,6 @@ header {
   height: 40px;
 }
 
-/* Colonne centrale : titre centré */
 .title-container {
   flex: 1;
   text-align: center;
@@ -48,7 +53,6 @@ header {
   font-weight: 500;
 }
 
-/* Colonne droite : burger + nav desktop */
 .right-menu {
   flex: 1;
   display: flex;
@@ -56,6 +60,22 @@ header {
   align-items: center;
 }
 
+/* Menu desktop */
+.nav-desktop {
+  display: flex;
+}
+.nav-desktop a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.nav-desktop a:hover {
+  color: #cccccc;
+}
+
+/* Burger (mobile) */
 .burger {
   display: none;
   flex-direction: column;
@@ -72,38 +92,27 @@ header {
   border-radius: 2px;
 }
 
-
-.nav-desktop a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  margin-left: 1rem;
-  transition: color 0.2s ease;
-}
-.nav-desktop a:hover {
-  color: #cccccc;
-}
-
-
+/* Menu mobile (caché par défaut) */
 .nav-mobile {
   display: none;
   flex-direction: column;
   position: absolute;
-  top: 60px; 
+  top: 60px; /* sous header */
   right: 0;
   background: #1a1a1a;
+  width: 200px;
 }
 .nav-mobile a {
-  padding: 10px 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
   text-decoration: none;
+  padding: 10px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 .nav-mobile a:last-child {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Affiche burger et masque nav-desktop en dessous de 750px */
+/* Affiche burger, masque menu desktop en dessous de 750px */
 @media (max-width: 750px) {
   .nav-desktop {
     display: none;
@@ -116,18 +125,69 @@ header {
   }
 }
 
-
-.main {
+/* === LAYOUT EN 3 COLONNES === */
+.layout {
+  display: flex;
   flex: 1;
-  width: 115  0px;
-  margin: 100px auto 40px; 
+  margin-top: 80px;   /* espace sous header (hauteur ~60px + marge) */
+  margin-bottom: 60px;/* espace pour footer (hauteur ~60px) */
+  width: 100%;
+  min-height: calc(100vh - 140px); /* total header+footer ≈ 140px */
+}
+
+/* Sidebar (pubs) */
+.sidebar {
+  flex: 1;           /* prend équitablement l’espace restant */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: #f2f2f2;
+}
+.sidebar img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+/* Masquer les pubs si l’écran < 1000px */
+@media (max-width: 1400px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+/* Contenu principal */
+.main {
+  flex: 0 0 850px;    /* largeur fixe de 850px */
+  max-width: 850px;
   background: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+  overflow: auto;
 }
 
-/* Sections */
+/* Adaptation pour écrans intermédiaires */
+@media (max-width: 1200px) {
+  .layout {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+    margin-bottom: 60px;
+  }
+  .sidebar,
+  .main {
+    flex: none;
+    width: 100%;
+    max-width: 950px; /* pour rester lisible sur tablette large */
+    margin-bottom: 20px;
+  }
+}
+
+/* === CONTENU PRINCIPAL (sections, grille, boutons) === */
 .section + .section {
   margin-top: 40px;
 }
@@ -138,128 +198,46 @@ header {
   margin-bottom: 15px;
 }
 
-/* Grille de statistiques */
 .grid {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 .box {
-  background: #e6f0fa;
   flex: 1 1 calc(33% - 10px);
-  min-width: 150px;
+  min-width: 120px;
+  background: #e6f0fa;
   padding: 15px;
   border-radius: 6px;
   text-align: center;
   font-weight: 500;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Boutons */
+.text-center {
+  text-align: center;
+}
 .btn {
   display: inline-block;
   background: #0d6efd;
   color: white;
   padding: 10px 20px;
-  border-radius: 6px;
+  margin: 10px 5px;
   text-decoration: none;
-  margin: 5px;
+  border-radius: 5px;
 }
 .btn:hover {
   background: #084298;
   transform: scale(1.05);
 }
 
-/* Pied de page */
+/* === FOOTER FIXE EN BAS === */
 .footer {
+  width: 100%;
   background: #1a1a1a;
   color: white;
   text-align: center;
   padding: 15px 0;
-  margin-top: auto; 
-}
-
-
-.text-center {
-  text-align: center;
-}
-
-/* ----------------------------------------------------
-   Images fixes sur les côtés
----------------------------------------------------- */
-.side-img {
   position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 300px;     
-  height: 500px;
-  border-radius: 4px; 
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.side-img.left {
-  left: 10px;       /* à 10px du bord gauche */
-}
-
-.side-img.right {
-  right: 10px;      /* à 10px du bord droit */
-}
-
-/* Cache les images sur petits écrans */
-@media (max-width: 1450px) {
-  .side-img {
-    display: none;
-  }
-}
-
-
-.page-carte .main.no-padding {
-  flex: 1;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  max-width: none;
-  background: none;
-  box-shadow: none;
-  border-radius: 0;
-}
-
-.page-carte #map-container {
-  flex: 1;
-  width: 100%;
-  min-height: 500px;
-  background-color: #ddd;
-}
-
-.page-carte .search-bar {
-  display: flex;
-  gap: 10px;
-  padding: 15px 20px;
-  background-color: #f1f1f1;
-  align-items: center;
-  justify-content: center;
-  flex: 30%;
-}
-
-.page-carte .search-bar input {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  width: 30%;
-}
-
-.page-carte .search-bar button {
-  background: #0d6efd;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.page-carte .search-bar button:hover {
-  background: #084298;
+  bottom: 0;
 }

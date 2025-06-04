@@ -7,6 +7,8 @@
         Les autres données sont purement indicatives.
 
         ATTENTION : La requete peut afficher "success" mais si "data" est a false, cela veut dire que la requete a réussi mais pas l'insertion dans la BDD.
+
+        Les $_POST doivent a minima contenir la table sur laquelle operer.
 */
 
 
