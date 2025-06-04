@@ -81,7 +81,7 @@ class db{
         if($details)
             echo "<br>The prepare is done";
 
-        $request->bindParam(1, $id); 
+        $request->bindValue(1, $id, PDO::PARAM_STR); // for VARCHAR primary keys
         if($details)
             echo "<br>ID bind successfull"; 
 
@@ -90,8 +90,7 @@ class db{
         $result = $request->fetch(PDO::FETCH_ASSOC);
         if($details)
             echo "<br>Request executed and fetched<br>"; 
-        
-        
+        if(!$result) return [];
         return $result;
 
         }

@@ -8,7 +8,7 @@
 
         ATTENTION : La requete peut afficher "success" mais si "data" est a false, cela veut dire que la requete a réussi mais pas l'insertion dans la BDD.
 
-        Les $_POST doivent a minima contenir la table sur laquelle operer.
+        Les $_POST doivent a minima contenir la table sur laquelle operer, une ID.
 */
 
 
@@ -27,7 +27,7 @@ $DatabaseInstance = $databaseTables[$_POST['table']];
 
 // Définition des méthodes disponibles
 $allowedMethods = [
-    'change_if' => ['id', 'column', 'value'], //Change if prend 3 parametre et remplace la valeure de la colonne donnée pour un certain ID
+    //'change_if' => ['id', 'column', 'value'], //Change if prend 3 parametre et remplace la valeure de la colonne donnée pour un certain ID
     'add_with' => ['id'] //Add with peut avoir une infinité d'argument !
 ];
 
@@ -58,6 +58,8 @@ if($calledMethod == null || $calledMethod == 'add_with'){
 
     $calledMethod = 'add_with';
     $methodParams = [$dataToAdd];
+    if($filteredKeys == []) $calledMethod = null;
+
 }
 
 if ($calledMethod && method_exists($DatabaseInstance, $calledMethod)) { //si la methode est valide
