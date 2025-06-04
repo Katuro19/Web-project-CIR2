@@ -96,9 +96,7 @@ class db{
 
         }
         catch(PDOException $e){
-            if($verbose)
-                echo "<br>Error on request function : ".$e->getMessage();
-            return [];
+            throw new Exception("Error in add_with : Request failed" . $e->getMessage());
         }
     }
 
@@ -115,9 +113,7 @@ class db{
         */
 
         if(!in_array($column,$this->columns)){
-            if($verbose){
-                echo "<br>The column '".$column."' was not set as a valid column by your admin. If this is not normal, check the database definition in your code.";
-            }
+            throw new Exception("Error in request_if, Invalid column :" . $column  );
             return [];
         }
     
@@ -145,8 +141,7 @@ class db{
             return $result;
         }
         catch(PDOException $e){
-            if($verbose)
-                echo "Error on request_if function : ".$e->getMessage();
+            throw new Exception("Error in request_if : Request failed. Infos : " . $e->getMessage());
             return [];            
         } 
     }
@@ -166,17 +161,14 @@ class db{
         }
 
 
-        In case of failure, return false, and if case of success, return true
+        In case of failure, return false and throw an exception, and if case of success, return true
         Verbose will display informations about the failure
         Details will display informations about the queries
         */
 
         foreach(array_keys($values) as $column){
             if(!in_array($column,$this->columns)){
-                if($verbose){
-                    echo "The column '".$column."' was not set as a valid column by your admin. If this is not normal, check the database definition in your code.<br>";
-                }
-                return false;
+                throw new Exception("Error in add_with, Invalid column :" . $column  );
             }
         }
 
@@ -212,9 +204,7 @@ class db{
             
         }
         catch(PDOException $e){
-            if($verbose)
-                echo "Error on request_if function : ".$e->getMessage();
-            return false;            
+            throw new Exception("Error in add_with : Request failed. Infos :" . $e->getMessage());
         } 
     }
 
@@ -229,9 +219,8 @@ class db{
         Details will display informations about the queries
         */
         if(!in_array($column,$this->columns)){
-            if($verbose){
-                echo "<br>The column '".$column."' was not set as a valid column by your admin. If this is not normal, check the database definition in your code.";
-            }
+            throw new Exception("Error in change_if, Invalid column :" . $column);
+
             return false;
         }
 
@@ -253,8 +242,7 @@ class db{
             return true;
         }
         catch(PDOException $e){
-            if($verbose)
-                echo "<br>Error on request_if function : ".$e->getMessage();
+            throw new Exception("Error in change_if : Request failed. Infos : " . $e->getMessage());
             return false;            
         } 
     }
@@ -289,8 +277,8 @@ class db{
             return true;
         }
         catch(PDOException $e){
-            if($verbose)
-                echo "<br>Error on request_if function : ".$e->getMessage();
+            throw new Exception("Error in delete : Request failed. Infos : " . $e->getMessage());
+
             return false;            
         } 
     }

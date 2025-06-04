@@ -1,56 +1,97 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Test API PHP</title>
-    <style>
-        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
-        label { display: block; margin-top: 10px; }
-        input { padding: 5px; width: 100%; }
-        button { margin-top: 15px; padding: 10px 20px; }
-        pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Test POST API</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+    .field-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    input[type="text"] {
+      flex: 1;
+    }
+    button {
+      padding: 5px 10px;
+    }
+  </style>
 </head>
 <body>
 
-<h2>Appel API dynamique</h2>
+  <h2>Test API - Ajouter une ligne</h2>
 
-<label for="table">Table :</label>
-<input type="text" id="table" placeholder="Ex: coucou">
+  <label for="table">Nom de la table :</label>
+  <input type="text" id="table" placeholder="Ex: utilisateurs" />
 
-<label for="id">ID :</label>
-<input type="text" id="id" placeholder="Ex: 1">
+  <div id="fields"></div>
 
-<button onclick="callAPI()">Envoyer</button>
+  <button onclick="addField()">Ajouter un champ</button>
+  <br><br>
+  <button onclick="submitData()">Envoyer</button>
 
-<h3>URL appelée :</h3>
-<pre id="url"></pre>
+  <pre id="result"></pre>
 
-<h3>Réponse JSON :</h3>
-<pre id="response"></pre>
+  <script>
+    const fieldsContainer = document.getElementById('fields');
 
-<script>
-function callAPI() {
-    const table = document.getElementById("table").value;
-    const id = document.getElementById("id").value;
+    function addField() {
+      const div = document.createElement('div');
+      div.className = 'field-group';
+      div.innerHTML = `
+        <input type="text" placeholder="Colonne" class="col" />
+        <input type="text" placeholder="Valeur" class="val" />
+        <button onclick="this.parentNode.remove()">❌</button>
+      `;
+      fieldsContainer.appendChild(div);
+    }
 
-    const apiUrl = `http://localhost:4321/back/API/request.php?table=${encodeURIComponent(table)}&id=${encodeURIComponent(id)}`;
+    function submitData() {
+      const table = document.getElementById('table').value.trim();
+      const cols = document.querySelectorAll('.col');
+      const vals = document.querySelectorAll('.val');
+      const data = { method: 'add_with', table };
 
-    // Affiche l’URL
-    document.getElementById("url").textContent = apiUrl;
+      cols.forEach((colInput, i) => {
+        const col = colInput.value.trim();
+        const val = vals[i].value.trim();
+        if (col) {
+          data[col] = val;
+        }
+      });
 
-    // Appel fetch
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById("response").textContent = JSON.stringify(data, null, 2);
+        fetch('http://localhost:4321/back/API/insert.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(data)
         })
-        .catch(error => {
-            document.getElementById("response").textContent = "Erreur : " + error;
+        .then(async res => {
+        const text = await res.text();
+        try {
+            const json = JSON.parse(text);
+            document.getElementById('result').textContent = JSON.stringify(json, null, 2);
+        } catch (e) {
+            // Si ce n’est pas du JSON, on affiche le texte brut
+            document.getElementById('result').textContent = 'Réponse brute:\n\n' + text;
+        }
+        })
+        .catch(err => {
+        document.getElementById('result').textContent = 'Erreur: ' + err;
         });
-}
-</script>
+
+    }
+
+    // Ajoute un champ de base au démarrage
+    addField();
+  </script>
 
 </body>
 </html>
-

@@ -69,15 +69,11 @@ catch (PDOException $e1) {
 }
 
 
-/* 
-$Table = new db($conn,'tableName','primaryKey');
- And then you can do request :
-$result = $Table->request($truc); (read the doc)
-*/
 
 
 //$Doc = new db($conn, 'doc', 'id',['id','mois','an','nbpanneaux','nbonduleur','puissancecrete','surface','pente','penteopti','orientation','pvgis','panneau_id','onduleur_id','localisation_id','installateur_id']);
 $MarquePanneau = new db($conn, 'marque_panneau', 'id', ['id','nom']);
+$MarqueOnduleur = new db($conn, 'marque_onduleur', 'id', ['id','nom']);
 
 
 /* 
@@ -85,7 +81,8 @@ $MarquePanneau = new db($conn, 'marque_panneau', 'id', ['id','nom']);
 */
 
 $databaseTables = [
-    'marque_panneau' => $MarquePanneau
+    'marque_panneau' => $MarquePanneau,
+    'marque_onduleur' => $MarqueOnduleur
 ]
 
 ?> 

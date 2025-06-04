@@ -1,6 +1,6 @@
 <?php
 
-/* Cette API répond au requete de la forme :
+/* Cette API répond au requete GET de la forme :
 
     ./back/API/request.php?table=matable&...
 
@@ -73,6 +73,7 @@ $allowedMethods = [
     'request' => ['id'], //Request prend seulment l'id et renvoie l'entiertée de la ligne 
     'request_if' => ['column', 'value'], //request if renvoie toute les lignes qui verifie la condition "value dans column"
     'request_if_null' => ['column'], //Renvoie toute les lignes pour lequelles la column donnée est nulle
+    'request_in_order_no_asc' => ['sortColumn'], //renvoie la BDD entiere triée en fonction du param
     'request_in_order' => ['sortColumn', 'asc'], //Renvoie la BDD entiere triée en fonction des param
     'request_if_in_order' => ['column', 'value', 'sortColumn', 'asc'], //Renvoie la DB entiere triée en fonction des parametres donnés. ATTENTION, asc doit etre 1 ou 0
     'request_all' => [] //Renvoie toute la DB (ne prend aucun parametre sauf table !)
@@ -96,6 +97,9 @@ foreach ($allowedMethods as $method => $expectedParams) { //Boucle sur chaque cl
 
     if ($expectedParams === $filteredKeys) { //check si on a les memes clés que la fonction qu'on verifie
         $calledMethod = $method; //On choisi donc celle ci a appelé
+        if($calledMethod == "request_in_order_no_asc"){
+            $calledMethod = "request_in_order";
+        }
         $methodParams = array_map(fn($param) => $_GET[$param], $unsortedParams); //Recupere les valeures de toute les clés de expectedParams dans le $_GET
         break;
     }
