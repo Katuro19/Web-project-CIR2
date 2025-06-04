@@ -27,6 +27,11 @@
 
   <h2>Test API - Requête REST</h2>
 
+  <label for="host">Adresse du serveur :</label>
+  <input type="text" id="host" placeholder="Ex: 192.168.1.50 ou localhost:4321" value="localhost:4321" />
+
+  <br><br>
+
   <label for="method">Méthode REST :</label>
   <select id="method">
     <option value="POST">POST</option>
@@ -63,6 +68,7 @@
     }
 
     function submitData() {
+      const host = document.getElementById('host').value.trim();
       const method = document.getElementById('method').value;
       const table = document.getElementById('table').value.trim();
       const cols = document.querySelectorAll('.col');
@@ -77,26 +83,30 @@
         }
       });
 
-      // Méthode REST → fichier PHP cible
+      // URL dynamique selon méthode
       const urlMap = {
-        GET: 'http://localhost:4321/back/API/request.php',
-        POST: 'http://localhost:4321/back/API/create.php',
-        PUT: 'http://localhost:4321/back/API/update.php',
-        DELETE: 'http://localhost:4321/back/API/request_delete.php'
+        GET: `http://${host}/back/API/request.php`,
+        POST: `http://${host}/back/API/create.php`,
+        PUT: `http://${host}/back/API/update.php`,
+        DELETE: `http://${host}/back/API/request_delete.php`
       };
       const url = urlMap[method];
 
       const options = {
         method: method,
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': method === 'PUT' ? 'application/json' : 'application/x-www-form-urlencoded'
         }
       };
 
-      // Encoder les données selon la méthode
       if (method === 'GET') {
         const queryString = new URLSearchParams(data).toString();
         fetch(`${url}?${queryString}`, options)
+          .then(handleResponse)
+          .catch(handleError);
+      } else if (method === 'PUT') {
+        options.body = JSON.stringify(data);
+        fetch(url, options)
           .then(handleResponse)
           .catch(handleError);
       } else {

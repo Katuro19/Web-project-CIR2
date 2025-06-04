@@ -80,6 +80,8 @@ $Onduleur = new db($conn, 'onduleur', 'id', ['id','modele_onduleur', 'marque_ond
 $Region = new db($conn, 'region', 'code_insee', ['code_insee','ville','admin1','admin2','pays']);
 $Localisation = new db($conn, 'localisation', 'id', ['id','lat','long','postcode','postcodesuff','code_insee']);
 
+$Installateur = new db($conn, 'installateur', 'id', ['id','nom']);
+
 $Doc = new db($conn, 'doc', 'id',['id','mois','an','nbpanneaux','nbonduleur','puissancecrete','surface','pente','penteopti','orientation', 'orientation_opti','pvgis','panneau_id','onduleur_id','localisation_id','installateur_id']);
 
 
@@ -98,6 +100,8 @@ $databaseTables = [
 
     'region' => $Region,
     'localisation' => $Localisation,
+
+    'installateur' => $Installateur,
 
     'doc' => $Doc,
 
