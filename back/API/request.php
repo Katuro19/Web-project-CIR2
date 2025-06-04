@@ -71,6 +71,7 @@ $DatabaseInstance = $databaseTables[$_GET['table']];
 // Définition des méthodes disponibles
 $allowedMethods = [
     'request' => ['id'], //Request prend seulment l'id et renvoie l'entiertée de la ligne 
+    'request_insee' => ['code_insee'], //Request avec region (donc code_insee)
     'request_if' => ['column', 'value'], //request if renvoie toute les lignes qui verifie la condition "value dans column"
     'request_if_null' => ['column'], //Renvoie toute les lignes pour lequelles la column donnée est nulle
     'request_in_order_no_asc' => ['sortColumn'], //renvoie la BDD entiere triée en fonction du param
@@ -99,7 +100,10 @@ foreach ($allowedMethods as $method => $expectedParams) { //Boucle sur chaque cl
         $calledMethod = $method; //On choisi donc celle ci a appelé
         if($calledMethod == "request_in_order_no_asc"){
             $calledMethod = "request_in_order";
+        } else if($calledMethod == "request_insee"){
+            $calledMethod = "request";
         }
+        
         $methodParams = array_map(fn($param) => $_GET[$param], $unsortedParams); //Recupere les valeures de toute les clés de expectedParams dans le $_GET
         break;
     }

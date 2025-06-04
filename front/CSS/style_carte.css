@@ -1,0 +1,207 @@
+/* === CSS pour la page “carte” === */
+
+/* Corps en flex pour gérer header et footer */
+body.page-carte {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9f9;
+  margin: 0;
+}
+
+/* === HEADER FIXE === */
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background: #1a1a1a;
+  color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+.logo-title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.logo-title .logo {
+  height: 40px;
+}
+
+.title-container {
+  flex: 1;
+  text-align: center;
+}
+.title-container .title {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.right-menu {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Menu desktop */
+.nav-desktop {
+  display: flex;
+}
+.nav-desktop a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.nav-desktop a:hover {
+  color: #cccccc;
+}
+
+/* Burger (pour mobile) */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 18px;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+.burger span {
+  display: block;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+}
+
+/* Menu mobile (caché par défaut) */
+.nav-mobile {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 60px; /* sous header */
+  right: 0;
+  background: #1a1a1a;
+  width: 200px;
+}
+.nav-mobile a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.nav-mobile a:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Affiche burger et masque nav desktop sous 750px */
+@media (max-width: 750px) {
+  .nav-desktop {
+    display: none;
+  }
+  .burger {
+    display: flex;
+  }
+  .nav-mobile.show {
+    display: flex;
+  }
+}
+
+/* === CONTENU PRINCIPAL === */
+/* Espace sous header (environ 60px) */
+.main.no-padding {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 120px); /* 60px header + 60px footer */
+  width: 100%;
+}
+
+/* Formulaire de recherche */
+.search-bar-container {
+  width: 100%;
+  background-color: #f8f8f8;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.search-bar input {
+  flex: 1 1 200px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  min-width: 120px;
+}
+
+.search-bar .btn {
+  flex: 0 0 auto;
+  background: #0d6efd;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.search-bar .btn:hover {
+  background: #084298;
+}
+
+/* Conteneur de la carte (prend tout l’espace restant) */
+#map-container {
+  flex: 1;
+  width: 100%;
+  background-color: #ddd; /* fond temporaire */
+  min-height: 200px;
+}
+
+/* === FOOTER FIXE === */
+.footer {
+  width: 100%;
+  background: #1a1a1a;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
+}
+
+/* === ADAPTATIONS RESPONSIVE === */
+@media (max-width: 768px) {
+  /* Empilement du formulaire sur mobile */
+  .search-bar {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-bar input,
+  .search-bar .btn {
+    flex: 1 1 100%;
+  }
+}

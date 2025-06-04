@@ -72,6 +72,9 @@ catch (PDOException $e1) {
 
 
 //$Doc = new db($conn, 'doc', 'id',['id','mois','an','nbpanneaux','nbonduleur','puissancecrete','surface','pente','penteopti','orientation','pvgis','panneau_id','onduleur_id','localisation_id','installateur_id']);
+
+$Localisation = new db($conn, 'localisation', 'id', ['id','lat','long','postcode','postcodesuff','code_insee']);
+$Region = new db($conn, 'region', 'code_insee', ['code_insee','ville','admin1','admin2','pays']);
 $MarquePanneau = new db($conn, 'marque_panneau', 'id', ['id','nom']);
 $MarqueOnduleur = new db($conn, 'marque_onduleur', 'id', ['id','nom']);
 
@@ -81,6 +84,8 @@ $MarqueOnduleur = new db($conn, 'marque_onduleur', 'id', ['id','nom']);
 */
 
 $databaseTables = [
+    'localisation' => $Localisation,
+    'region' => $Region,
     'marque_panneau' => $MarquePanneau,
     'marque_onduleur' => $MarqueOnduleur
 ]
