@@ -77,7 +77,8 @@ $allowedMethods = [
     'request_in_order_no_asc' => ['sortColumn'], //renvoie la BDD entiere triée en fonction du param
     'request_in_order' => ['sortColumn', 'asc'], //Renvoie la BDD entiere triée en fonction des param
     'request_if_in_order' => ['column', 'value', 'sortColumn', 'asc'], //Renvoie la DB entiere triée en fonction des parametres donnés. ATTENTION, asc doit etre 1 ou 0
-    'request_all' => [] //Renvoie toute la DB (ne prend aucun parametre sauf table !)
+    'request_all' => [], //Renvoie toute la DB (ne prend aucun parametre sauf table !)
+    'random_limit' => ['limit'] //Renvoie un morceau limité de données dans un ordre aléatoire !
     //'delete' => ['id'],
     //'change_if' => ['id', 'column', 'value'],
 ];
