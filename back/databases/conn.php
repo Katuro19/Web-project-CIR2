@@ -69,14 +69,18 @@ catch (PDOException $e1) {
 }
 
 
-
-
-//$Doc = new db($conn, 'doc', 'id',['id','mois','an','nbpanneaux','nbonduleur','puissancecrete','surface','pente','penteopti','orientation','pvgis','panneau_id','onduleur_id','localisation_id','installateur_id']);
-
-$Localisation = new db($conn, 'localisation', 'id', ['id','lat','long','postcode','postcodesuff','code_insee']);
-$Region = new db($conn, 'region', 'code_insee', ['code_insee','ville','admin1','admin2','pays']);
 $MarquePanneau = new db($conn, 'marque_panneau', 'id', ['id','nom']);
 $MarqueOnduleur = new db($conn, 'marque_onduleur', 'id', ['id','nom']);
+$ModelePanneau = new db($conn, 'modele_panneau', 'id', ['id','nom']);
+$ModeleOnduleur = new db($conn, 'modele_onduleur', 'id', ['id','nom']);
+
+$Panneau = new db($conn, 'panneau', 'id', ['id','marque_panneau','modele_panneau']);
+$Onduleur = new db($conn, 'onduleur', 'id', ['id','modele_onduleur', 'marque_onduleur']);
+
+$Region = new db($conn, 'region', 'code_insee', ['code_insee','ville','admin1','admin2','pays']);
+$Localisation = new db($conn, 'localisation', 'id', ['id','lat','long','postcode','postcodesuff','code_insee']);
+
+$Doc = new db($conn, 'doc', 'id',['id','mois','an','nbpanneaux','nbonduleur','puissancecrete','surface','pente','penteopti','orientation', 'orientation_opti','pvgis','panneau_id','onduleur_id','localisation_id','installateur_id']);
 
 
 /* 
@@ -84,10 +88,19 @@ $MarqueOnduleur = new db($conn, 'marque_onduleur', 'id', ['id','nom']);
 */
 
 $databaseTables = [
-    'localisation' => $Localisation,
-    'region' => $Region,
     'marque_panneau' => $MarquePanneau,
-    'marque_onduleur' => $MarqueOnduleur
+    'marque_onduleur' => $MarqueOnduleur,
+    'modele_panneau' => $ModelePanneau,
+    'modele_onduleur' => $ModeleOnduleur,
+
+    'panneau' => $Panneau,
+    'onduleur' => $Onduleur,
+
+    'region' => $Region,
+    'localisation' => $Localisation,
+
+    'doc' => $Doc,
+
 ]
 
 ?> 

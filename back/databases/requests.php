@@ -42,6 +42,7 @@ class db{
     - request_all (public)
     - request_if_null (public)
     - request_if_in_order (public)
+    - random_limit (public)
 
     \ -------------------------------- /
 
@@ -313,9 +314,7 @@ class db{
 
         }
         catch(PDOException $e){
-            if($verbose)
-                echo "Error on request function : ".$e->getMessage();
-            return [];
+            throw new Exception("Error in all : Request a. Infos : " . $e->getMessage());
         }
     }
 
@@ -359,9 +358,8 @@ class db{
             return $result;
         }
         catch(PDOException $e){
-            if($verbose)
-                echo "Error on request_if function : ".$e->getMessage();
-            return [];            
+            throw new Exception("Error in request_if_null : Request failed. Infos : " . $e->getMessage());
+      
         } 
     }
 
@@ -410,9 +408,8 @@ class db{
             return $result;
         }
         catch(PDOException $e){
-            if($verbose)
-                echo "Error on request_if function : ".$e->getMessage();
-            return [];            
+            throw new Exception("Error in request_in_order : Request failed. Infos : " . $e->getMessage());
+        
         } 
     }
 
@@ -471,9 +468,57 @@ class db{
             return $result;
         }
         catch(PDOException $e){
-            if($verbose)
-                echo "Error on request_if function : ".$e->getMessage();
-            return [];            
+            throw new Exception("Error in request_if_in_order : Request failed. Infos : " . $e->getMessage());
+        } 
+    }
+
+
+
+    public function random_limit($limit,$verbose=false,$details=false){
+        /* Return an array of array containing all the lines (fetched) of the database that valide the condition in order
+        Will sort using the $sortColumn values. 
+        ARGS : column,value,sortColumn,asc=true,verbose=false,details=false
+        - Fetched : YES
+
+        In case of failure, return an empty array
+        Verbose will display informations about the failure
+        Details will display informations about the queries
+        */
+
+        try {
+
+            if ($this->conn->getAttribute(PDO::ATTR_DRIVER_NAME) === 'mysql') {
+                $random = 'RAND()';
+            } else {
+                $random = 'RANDOM()';
+            }
+
+
+
+            $query = "SELECT * FROM ".$this->mainTable." ORDER BY ". $random . " LIMIT ?";
+            
+            if($details)
+            echo "<br>Requested query : ".$query;
+
+            $request = ($this->conn)->prepare($query);
+            if($details)
+                echo "<br>The prepare is done";
+
+            $request->bindValue(1, (int)$limit, PDO::PARAM_INT);
+            if($details)
+                echo "<br>".$random." bind successfull"; 
+
+            $request->execute();
+
+            $result = $request->fetchAll(PDO::FETCH_ASSOC);
+            if($details)
+                echo "<br>Request executed and fetched"; 
+            
+            
+            return $result;
+        }
+        catch(PDOException $e){
+            throw new Exception("Error in random_limit : Request failed. Infos : " . $e->getMessage());          
         } 
     }
 }
