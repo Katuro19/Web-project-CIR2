@@ -41,8 +41,8 @@
 
     <form>
       <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-control" placeholder="Votre email" required>
+        <label class="form-label">Utilisateur</label>
+        <input type="Utilisateur" class="form-control" placeholder="Nom Utilisateur" required>
       </div>
 
       <div class="mb-3">
@@ -55,12 +55,11 @@
       <!-- Message d’erreur fictif -->
       <div class="mt-3 text-danger text-center">
         <!-- Exemple de message, tu peux le supprimer -->
-        Email ou mot de passe incorrect.
+        Nom Utilisateur ou mot de passe incorrect.
       </div>
     </form>
 
     <hr>
-    <p class="text-center text-muted">Pas encore inscrit ? <a href="signup.html">S'inscrire</a></p>
   </div>
 
 </body>
