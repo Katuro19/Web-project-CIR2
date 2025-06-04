@@ -1,5 +1,7 @@
 -- MySQL Schema for Solar Panel Installation System
 
+BEGIN;
+
 DROP TABLE IF EXISTS doc;
 DROP TABLE IF EXISTS installateur;
 DROP TABLE IF EXISTS localisation;
@@ -52,14 +54,14 @@ CREATE TABLE region (
     ville VARCHAR(255),
     admin1 VARCHAR(255),
     admin2 VARCHAR(255),
-    political VARCHAR(255)
+    pays VARCHAR(255)
+
 );
 
 CREATE TABLE localisation (
     id INT AUTO_INCREMENT PRIMARY KEY,
     lat FLOAT,
     `long` FLOAT, -- mot-clé réservé, on l'entoure avec des backticks
-    pays VARCHAR(255),
     postcode VARCHAR(10),
     postcodeSuff VARCHAR(10),
     code_insee VARCHAR(255),
@@ -93,3 +95,6 @@ CREATE TABLE doc (
     FOREIGN KEY (localisation_id) REFERENCES localisation(id),
     FOREIGN KEY (installateur_id) REFERENCES installateur(id)
 );
+
+
+COMMIT;
