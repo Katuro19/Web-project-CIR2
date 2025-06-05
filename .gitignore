@@ -4,3 +4,4 @@
 .vscode
 .secret
 env.js
+front/env.js
