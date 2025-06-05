@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+  header('Location: login.php');
+  exit;
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -134,5 +144,7 @@
       overlay.classList.remove("visible");
     });
   </script>
+  
+<a href="logout.php" class="logout-btn" title="Se déconnecter">Déconnexion 🚪</a>
 </body>
 </html>

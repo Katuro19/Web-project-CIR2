@@ -2,3 +2,4 @@
 *.Identifier
 .env
 .vscode
+.secret

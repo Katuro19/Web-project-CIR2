@@ -1,3 +1,29 @@
+<?php
+session_start();
+
+// Lire le fichier .secret
+$secrets = parse_ini_file("../back/.secret");
+$expected_user = $secrets['USER'] ?? '';
+$expected_pass = $secrets['PASSWORD'] ?? '';
+
+
+// Traitement du formulaire
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $username = $_POST['username'] ?? '';
+  $password = $_POST['password'] ?? '';
+
+  if ($username === $expected_user && $password === $expected_pass) {
+    $_SESSION['user'] = $username;
+    header("Location: admin.php");
+    exit;
+  } else {
+    $error = "Nom d'utilisateur ou mot de passe incorrect.";
+  }
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -39,25 +65,24 @@
   <div id="login" class="card p-4" style="width: 350px;">
     <h2 class="text-center mb-4">Connexion</h2>
 
-    <form>
-      <div class="mb-3">
-        <label class="form-label">Utilisateur</label>
-        <input type="Utilisateur" class="form-control" placeholder="Nom Utilisateur" required>
-      </div>
+  <form method="POST" action="">
+    <div class="mb-3">
+      <label class="form-label">Utilisateur</label>
+      <input type="text" name="username" class="form-control" placeholder="Nom Utilisateur" required>
+    </div>
 
-      <div class="mb-3">
-        <label class="form-label">Mot de passe</label>
-        <input type="password" class="form-control" placeholder="Votre mot de passe" required>
-      </div>
+    <div class="mb-3">
+      <label class="form-label">Mot de passe</label>
+      <input type="password" name="password" class="form-control" placeholder="Votre mot de passe" required>
+    </div>
 
-      <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+    <button type="submit" class="btn btn-primary w-100">Se connecter</button>
 
-      <!-- Message d’erreur fictif -->
-      <div class="mt-3 text-danger text-center">
-        <!-- Exemple de message, tu peux le supprimer -->
-        Nom Utilisateur ou mot de passe incorrect.
-      </div>
-    </form>
+    <?php if (!empty($error)) : ?>
+      <div class="mt-3 text-danger text-center"><?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
+  </form>
+
 
     <hr>
   </div>
