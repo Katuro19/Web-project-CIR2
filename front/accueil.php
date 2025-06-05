@@ -28,20 +28,20 @@
           <span></span><span></span><span></span>
         </div>
         <nav class="nav-desktop">
-          <a href="accueil.php">Accueil</a>
-          <a href="recherche.php">Recherche</a>
-          <a href="carte.php">Carte</a>
-          <a href="login.php">Se Connecter</a>
+          <a href="/front/accueil.php">Accueil</a>
+          <a href="/front/recherche.php">Recherche</a>
+          <a href="/front/carte.php">Carte</a>
+          <a href="/front/login.php">Se Connecter</a>
         </nav>
       </div>
     </div>
 
     <!-- Menu mobile (initialement caché) -->
     <nav class="nav-mobile" id="navMobile">
-      <a href="accueil.php">Accueil</a>
-      <a href="recherche.php">Recherche</a>
-      <a href="carte.php">Carte</a>
-      <a href="login.php">Se Connecter</a>
+      <a href="/front/accueil.php">Accueil</a>
+      <a href="/front/recherche.php">Recherche</a>
+      <a href="/front/carte.php">Carte</a>
+      <a href="/front/login.php">Se Connecter</a>
     </nav>
   </header>
 
