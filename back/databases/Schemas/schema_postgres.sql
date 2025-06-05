@@ -46,7 +46,7 @@
     );
 
     CREATE TABLE region (
-        code_insee VARCHAR(255) PRIMARY KEY,
+        id VARCHAR(255) PRIMARY KEY,
         ville VARCHAR(255),
         admin1 VARCHAR(255),
         admin2 VARCHAR(255),
@@ -59,7 +59,7 @@
         long FLOAT,
         postcode VARCHAR(10),
         postcodeSuff VARCHAR(10),
-        code_insee VARCHAR(255) REFERENCES region(code_insee)
+        code_insee VARCHAR(255) REFERENCES region(id)
     );
 
     CREATE TABLE installateur (

@@ -50,7 +50,7 @@ CREATE TABLE onduleur (
 );
 
 CREATE TABLE region (
-    code_insee VARCHAR(255) PRIMARY KEY,
+    id VARCHAR(255) PRIMARY KEY,
     ville VARCHAR(255),
     admin1 VARCHAR(255),
     admin2 VARCHAR(255),
@@ -65,7 +65,7 @@ CREATE TABLE localisation (
     postcode VARCHAR(10),
     postcodeSuff VARCHAR(10),
     code_insee VARCHAR(255),
-    FOREIGN KEY (code_insee) REFERENCES region(code_insee)
+    FOREIGN KEY (code_insee) REFERENCES region(id)
 );
 
 CREATE TABLE installateur (
