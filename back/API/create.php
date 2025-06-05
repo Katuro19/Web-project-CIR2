@@ -30,6 +30,8 @@ $DatabaseInstance = $databaseTables[$_POST['table']];
 $allowedMethods = [
     //Methode PUT
     'change_if' => ['id', 'column', 'value'], //Change if prend 3 parametre et remplace la valeure de la colonne donnée pour un certain ID
+    'change_if_insee' => ['code_insee', 'column', 'value'], //Change if prend 3 parametre et remplace la valeure de la colonne donnée pour un certain ID
+
 
     //Methode POST
     'add_with' => ['id'] //Add with peut avoir une infinité d'argument !
@@ -50,11 +52,13 @@ foreach ($allowedMethods as $method => $expectedParams) { //Boucle sur chaque cl
     sort($filteredKeys);
 
     if ($expectedParams === $filteredKeys) { //check si on a les memes clés que la fonction qu'on verifie
+        if($method == 'change_if_insee') {$method = 'change_if';}
         $calledMethod = $method; //On choisi donc celle ci a appelé
         $methodParams = array_map(fn($param) => $_POST[$param], $unsortedParams); //Recupere les valeures de toute les clés de expectedParams dans le $_POST
         break;
     }
 }
+
 
 if($calledMethod == null || $calledMethod == 'add_with'){
     // Crée un tableau avec toutes les clés de $_POST sauf 'table' et 'method'
