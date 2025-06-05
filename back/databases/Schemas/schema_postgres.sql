@@ -59,7 +59,7 @@
         long FLOAT,
         postcode VARCHAR(10),
         postcodeSuff VARCHAR(10),
-        code_insee VARCHAR(255) REFERENCES region(code_insee)
+        code_insee VARCHAR(255) REFERENCES region(id)
     );
 
     CREATE TABLE installateur (
