@@ -28,7 +28,6 @@ header {
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
-
 .header-content {
   display: flex;
   align-items: center;
@@ -38,7 +37,6 @@ header {
   margin: 0 auto;
   padding: 10px 20px;
 }
-
 .logo-title {
   flex: 1;
   display: flex;
@@ -47,7 +45,6 @@ header {
 .logo {
   height: 40px;
 }
-
 .title-container {
   flex: 1;
   text-align: center;
@@ -56,15 +53,12 @@ header {
   font-size: 1.2rem;
   font-weight: 500;
 }
-
 .right-menu {
   flex: 1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
-
-/* Menu desktop */
 .nav-desktop {
   display: flex;
   gap: 15px;
@@ -79,8 +73,6 @@ header {
 .nav-desktop a:hover {
   color: #cccccc;
 }
-
-/* Burger (mobile) */
 .burger {
   display: none;
   flex-direction: column;
@@ -96,8 +88,6 @@ header {
   background: white;
   border-radius: 2px;
 }
-
-/* Menu mobile (caché par défaut) */
 .nav-mobile {
   display: none;
   flex-direction: column;
@@ -122,8 +112,8 @@ header {
    ============================================== */
 main.content {
   flex: 1;
-  margin-top: 80px;     /* espace sous header (≈ 60px + marge) */
-  margin-bottom: 60px;  /* espace avant footer (≈ 60px) */
+  margin-top: 80px;     /* espace sous header (~60px + marge) */
+  margin-bottom: 60px;  /* espace avant footer (~60px) */
   padding: 20px;
   max-width: 1200px;
   width: 100%;
@@ -153,12 +143,13 @@ main.content {
   align-items: flex-end;
 }
 
-/* Chaque groupe prend une part de l'espace, mais pas moins de 120px */
+/* Chaque groupe prend une part de l'espace, mais pas moins de 150px */
 .filter-form .form-group {
   display: flex;
   flex-direction: column;
-  flex: 1 1 200px;
-  min-width: 120px;
+  flex: 1 1 250px;
+  min-width: 150px;
+  position: relative;
 }
 
 .filter-form .form-group label {
@@ -166,19 +157,7 @@ main.content {
   font-weight: 500;
 }
 
-.filter-form .form-group select {
-  padding: 8px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  background: white;
-}
-
-/* Bouton « Filtrer » */
-.filter-form .button-group {
-  flex: 0 0 auto;
-}
-
+/* Style générique des boutons Filtrer */
 .btn-filter {
   background-color: #333;
   color: white;
@@ -196,6 +175,90 @@ main.content {
 }
 
 /* ==============================================
+   MULTI-SELECT DROPDOWN
+   ============================================== */
+.multi-select {
+  position: relative;
+  user-select: none;
+}
+
+.multi-select-toggle {
+  width: 100%;
+  text-align: left;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: border-color 0.2s ease;
+}
+.multi-select-toggle:hover {
+  border-color: #888;
+}
+.multi-select-toggle .arrow {
+  margin-left: 8px;
+  font-size: 0.8rem;
+  transition: transform 0.2s ease;
+}
+
+/* Lorsque la dropdown est ouverte */
+.multi-select.open .multi-select-toggle .arrow {
+  transform: rotate(180deg);
+}
+.multi-select-options {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  max-height: 200px;       /* hauteur max + scroll si nécessaire */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow-y: auto;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 500;
+  display: none;
+}
+
+/* Afficher quand class "open" présente */
+.multi-select.open .multi-select-options {
+  display: block;
+}
+
+.multi-select-options li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.multi-select-options li label {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.multi-select-options li label:hover {
+  background-color: #f5f5f5;
+}
+
+.multi-select-options input[type="checkbox"] {
+  margin-right: 8px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.multi-select-summary {
+  display: inline-block;
+  font-weight: 500;
+  color: #333;
+}
+
+/* ==============================================
    SECTION RÉSULTATS (TABLEAU)
    ============================================== */
 .results-section h2 {
@@ -205,7 +268,7 @@ main.content {
 
 .table-container {
   width: 100%;
-  overflow-x: auto; /* permet de scroller horizontalement si besoin */
+  overflow-x: auto;
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -214,7 +277,7 @@ main.content {
 .results-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 800px;  /* garantit un aspect correct sur desktop */
+  min-width: 800px;
 }
 
 .results-table thead {
@@ -242,7 +305,6 @@ main.content {
   color: #0066cc;
   text-decoration: none;
 }
-
 .results-table a:hover {
   text-decoration: underline;
 }
@@ -265,7 +327,7 @@ main.content {
    ADAPTATIONS RESPONSIVE
    ============================================== */
 
-/* Sous 992px : affichage mobile du menu (burger), formulaire plus compact */
+/* Sous 992px : menu mobile + formulaire plus compact */
 @media (max-width: 992px) {
   .nav-desktop {
     display: none;
@@ -277,7 +339,6 @@ main.content {
     display: flex;
   }
 
-  /* Filtre empilé si écran moyen */
   .filter-form {
     flex-direction: column;
     gap: 15px;
@@ -287,7 +348,7 @@ main.content {
   }
 }
 
-/* Sous 768px : champs prennent toute la largeur disponible */
+/* Sous 768px : champs prendront toute la largeur disponible */
 @media (max-width: 768px) {
   .filter-form .form-group {
     flex: 1 1 100%;
@@ -299,10 +360,35 @@ main.content {
   .btn-filter {
     width: 100%;
   }
+  .results-table {
+    min-width: auto;
+    font-size: 0.85rem;
+  }
+  .results-table th,
+  .results-table td {
+    padding: 6px 8px;
+  }
 }
 
-/* Sous 576px : transformation du tableau en « cards » */
+/* Sous 576px : ré-agencement, multi-select plein largeur */
 @media (max-width: 576px) {
+  .filter-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .filter-form .form-group {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .filter-form .form-group:last-child {
+    margin-bottom: 0;
+  }
+  .multi-select-toggle {
+    font-size: 0.95rem;
+    padding: 6px 8px;
+  }
+
+  /* Transformation du tableau en « cards » */
   .results-table thead {
     display: none;
   }
@@ -334,19 +420,4 @@ main.content {
     text-align: left;
   }
 }
-/* --------------------------------------------------
-   Sous 768px : réduire le padding et la police du tableau
-   pour le faire rentrer sans masquer de colonnes
---------------------------------------------------- */
-@media (max-width: 768px) {
-  .results-table {
-    min-width: auto;  /* plus de largeur minimale */
-    font-size: 0.85rem;
-  }
-
-  .results-table th,
-  .results-table td {
-    padding: 6px 8px; /* moins d’espacement horizontal */
-  }
-}
-
+  
