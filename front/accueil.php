@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accueil - Solaire</title>
-  <link rel="stylesheet" href="CSS/style_accueil.css" />
-  <script src="env.js" defer></script>
-  <script src="accueil.js" defer></script>
+  <link rel="stylesheet" href="/front/CSS/style_accueil.css" />
+  <script src="/front/env.js" defer></script>
+  <script src="/front/accueil.js" defer></script>
 </head>
 <body class="page-accueil">
   <!-- HEADER FIXE -->
@@ -14,7 +14,7 @@
     <div class="header-content">
       <!-- Logo à gauche -->
       <div class="logo-title">
-        <img src="image/logo.png" alt="Logo" class="logo" />
+        <img src="/front/image/logo.png" alt="Logo" class="logo" />
       </div>
 
       <!-- Titre centré -->
@@ -49,7 +49,7 @@
   <div class="layout">
     <!-- Sidebar gauche -->
     <aside class="sidebar">
-      <img src="image/pub1.png" alt="Publicité gauche" />
+      <img src="/front/image/pub1.png" alt="Publicité gauche" />
     </aside>
 
     <!-- Contenu principal -->
@@ -84,7 +84,7 @@
 
     <!-- Sidebar droite -->
     <aside class="sidebar">
-      <img src="image/pub2.png" alt="Publicité droite" />
+      <img src="/front/image/pub2.png" alt="Publicité droite" />
     </aside>
   </div>
 
