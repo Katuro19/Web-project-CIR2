@@ -77,7 +77,7 @@ $ModeleOnduleur = new db($conn, 'modele_onduleur', 'id', ['id','nom']);
 $Panneau = new db($conn, 'panneau', 'id', ['id','marque_panneau','modele_panneau']);
 $Onduleur = new db($conn, 'onduleur', 'id', ['id','modele_onduleur', 'marque_onduleur']);
 
-$Region = new db($conn, 'region', 'code_insee', ['code_insee','ville','admin1','admin2','pays']);
+$Region = new db($conn, 'region', 'id', ['id','ville','admin1','admin2','pays']);
 $Localisation = new db($conn, 'localisation', 'id', ['id','lat','long','postcode','postcodesuff','code_insee']);
 
 $Installateur = new db($conn, 'installateur', 'id', ['id','nom']);

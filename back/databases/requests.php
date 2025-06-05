@@ -34,6 +34,7 @@ class db{
     Function of the class:
 
     - __construct (public)
+    - get_columns (public)
     - request (public)
     - request_if (public)
     - add_with (public)
@@ -63,6 +64,11 @@ class db{
         $this->columns = $columnsList;
     }
 
+
+    public function get_columns(){
+        /* Return the columns array */
+        return $this->columns;
+    }
 
 
     public function request($id, $verbose = false, $details = false){

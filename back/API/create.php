@@ -34,7 +34,7 @@ $allowedMethods = [
 
 
     //Methode POST
-    'add_with' => ['id'] //Add with peut avoir une infinité d'argument !
+    'add_with' => [] //Add with peut avoir une infinité d'argument !
 ];
 
 // Détection automatique de la méthode à appeler
