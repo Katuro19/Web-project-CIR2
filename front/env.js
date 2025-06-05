@@ -1,1 +1,0 @@
-let api_link = "http://localhost:4321/back/API/request.php";
