@@ -79,7 +79,8 @@ $allowedMethods = [
     'request_if_in_order' => ['column', 'value', 'sortColumn', 'asc'], //Renvoie la table entiere triée en fonction des parametres donnés. ATTENTION, asc doit etre 1 ou 0
     'request_all' => [], //Renvoie toute la table (ne prend aucun parametre sauf table !)
     'random_limit' => ['limit'], //Renvoie un morceau limité de données dans un ordre aléatoire !
-    'distinct_count' => ['countColumn'] //Compte toute les valeures unique dans une colonne
+    'distinct_count' => ['countColumn'], //Compte toute les valeures unique dans une colonne
+    'distinct_request' => ['distinctColumn']
     //'delete' => ['id'],
     //'change_if' => ['id', 'column', 'value'],
 ];

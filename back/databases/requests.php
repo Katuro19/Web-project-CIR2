@@ -44,6 +44,7 @@ class db{
     - request_if_in_order (public)
     - random_limit (public)
     - distinct_count (public)
+    - distinct_column (public)
 
     \ -------------------------------- /
 
@@ -554,6 +555,45 @@ class db{
         }
         catch(PDOException $e){
             throw new Exception("Error in distinct count : Request failed. Infos : " . $e->getMessage());          
+        } 
+    }
+
+    public function distinct_request($distinctColumn, $verbose=false,$details=false){
+        /* Return every line that have a different value in the given column
+        ARGS : distinctColumn, verbose=false,details=false
+        - Fetched : YES
+
+        In case of failure, return an empty array
+        Verbose will display informations about the failure
+        Details will display informations about the queries
+        */
+        if(!in_array($distinctColumn,$this->columns)){
+            throw new Exception("Error in distinct_request, Invalid distinctColumn :" . $distinctColumn);
+        }
+
+        try {
+
+            $query = "SELECT DISTINCT $distinctColumn FROM ". $this->mainTable . ";";
+            
+            if($details)
+            echo "<br>Requested query : ".$query;
+
+            $request = ($this->conn)->prepare($query);
+            if($details)
+                echo "<br>The prepare is done";
+
+
+            $request->execute();
+
+            $result = $request->fetchAll(PDO::FETCH_ASSOC);
+            if($details)
+                echo "<br>Request executed and fetched"; 
+            
+            
+            return $result;
+        }
+        catch(PDOException $e){
+            throw new Exception("Error in distinct_request : Request failed. Infos : " . $e->getMessage());          
         } 
     }
 }
