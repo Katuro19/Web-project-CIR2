@@ -9,6 +9,7 @@ async function getData(api_link, args = "?table=doc") {
     }
 
     result = JSON.parse(await result.text());
+    //console.log(result);
     if (!result || !result.data) {
         throw new Error("Invalid data format received");
     }
@@ -85,17 +86,7 @@ function initializeMultiSelect(container) {
         if (e.target.type === 'checkbox') {
             e.stopPropagation();
             updateSummary();
-            let selected_departement = getSelectedDepartements(); // Appel de la fonction pour récupérer les départements sélectionnés
-            let selected_onduleur = getSelectedMarqueOnduleur(); // Appel de la fonction pour récupérer les onduleurs sélectionnés
-            let selected_panneau = getSelectedMarquePanneau(); // Appel de la fonction pour récupérer les panneaux sélectionnés
 
-            // console.log(selected_departement);
-            // console.log(selected_onduleur);
-            // console.log(selected_panneau);
-
-            getMarquePanneau(selected_departement, selected_onduleur);
-            // getMarqueOnduleur(selected_departement, selected_panneau);
-            // getDepartement(selected_onduleur, selected_panneau);
         }
     });
 
@@ -195,240 +186,791 @@ function getSelectedMarquePanneau() {
 
 function filterResults(data, values, key) {
 
-    //console.log(values);
-
-    // console.log("filter values");
-    // console.log(values);
-
-    // Garde les éléments dont la propriété key est présente dans filterValues
     const filteredData = data.filter(item => values.includes(item[key]));
-
-    //console.log("Filtered data:" + filteredData.length);
 
     return filteredData;
 }
 
 function getValuesByKey(data, key) {
 
-    // console.log(data)
-
     let values = data.map(item => item[key]);
-
-    // console.log("Values by key: " + values);
 
     return values;
 }
 
 
-async function getMarquePanneau(departement, marque_onduleur) {
+async function getDocDataParSelection(departement, marque_onduleur, marque_panneau, verbose = false) {
 
-    let doc_data = await getData(api_link, "?table=doc");
+    let doc_data = [];
 
-    console.log("dep : " + departement.length + " ond : " + marque_onduleur.length);
+    if (departement.length > 0 || marque_onduleur.length > 0 || marque_panneau.length > 0) {
+        doc_data = await getData(api_link, "?table=doc");
+    }
 
-    if (departement.length > 0 && marque_onduleur.length > 0) {
-        let marque_onduleur_data = await getData(api_link, "?table=marque_onduleur");
+    if (verbose) {
+        console.log("dep : " + departement.length + " ond : " + marque_onduleur.length + " pan : " + marque_panneau.length);
+    }
+
+    if (departement.length > 0 && marque_onduleur.length > 0 && marque_panneau.length > 0) {
+
+        ///////////////////////////////////////////
+        // Traintement des données de departement//
+        ///////////////////////////////////////////
+
         let departement_data = await getData(api_link, "?table=region");
 
-        marque_onduleur_data = filterResults(marque_onduleur_data, getValuesByKey(marque_onduleur, "text"), "nom");
+        if (verbose) {
+            console.log("Departement data: " + departement_data.length);
+            console.log(departement_data);
+        }
+
         departement_data = filterResults(departement_data, getValuesByKey(departement, "text"), "admin2");
 
-        //console.log(departement_data);
+        if (verbose) {
+            console.log("Departement data: " + departement_data.length);
+            console.log(departement_data);
+        }
 
-        let code_insee = getValuesByKey(departement_data, "code_insee");
+        let code_insee = getValuesByKey(departement_data, "id");
 
-        //console.log("Code INSEE: " + code_insee.length);
-        //console.log(code_insee);
+        if (verbose) {
+            console.log("Code INSEE: " + code_insee.length);
+            console.log(code_insee);
+        }
 
         let localisation_data = await getData(api_link, "?table=localisation");
 
-        //console.log(localisation_data);
+        if (verbose) {
+            console.log("Localisation data " + localisation_data.length);
+            console.log(localisation_data);
+        }
+
 
         localisation_data = filterResults(localisation_data, code_insee, "code_insee");
 
-        //console.log("Localisation data: " + localisation_data.length);
-        //console.log(localisation_data);
+        if (verbose) {
+            console.log("Localisation data: " + localisation_data.length);
+            console.log(localisation_data);
+        }
 
         let localisation_id = getValuesByKey(localisation_data, "id");
 
-        // console.log("IDs Localisation: " + localisation_id.length);
-        // console.log("IDs Localisation: " + localisation_id);
-
-        let id_marque_onduleur = getValuesByKey(marque_onduleur_data, "id");
-
-        // console.log("IDs Onduleur: " + ids_onduleur.length);
-        // console.log("IDs Onduleur: " + ids_onduleur);
-
-        let onduleur_data = await getData(api_link, "?table=onduleur");
-
-        // console.log("Onduleur data: " + onduleur_data.length);
-        // console.log(onduleur_data);
-
-        onduleur_data = filterResults(onduleur_data, id_marque_onduleur, "marque_onduleur");
-
-        // console.log("Onduleur data: " + onduleur_data.length);
-        // console.log(onduleur_data);
-
-        onduleur_id = getValuesByKey(onduleur_data, "id");
-
-        // console.log("IDs Onduleur: " + onduleur_id.length);
-        // console.log("IDs Onduleur: " + onduleur_id);
-
-        doc_data = await getData(api_link, "?table=doc");
-
-        // console.log("Doc data: " + doc_data.length);
-        // console.log(doc_data);
+        if (verbose) {
+            console.log("IDs Localisation: " + localisation_id.length);
+            console.log("IDs Localisation: " + localisation_id);
+        }
 
         doc_data = filterResults(doc_data, localisation_id, "localisation_id");
 
-        // console.log("Doc data: " + doc_data.length);
-        // console.log(doc_data);
+        if (verbose) {
+            console.log("Doc data: " + doc_data.length);
+            console.log(doc_data);
+        }
+
+        if (doc_data.length === 0) {
+            console.log("No data found after filter departement.");
+        }
+
+        /////////////////////////////////////////
+        // Traintement des données de onduleur //
+        /////////////////////////////////////////
+
+        let marque_onduleur_data = await getData(api_link, "?table=marque_onduleur");
+
+        if (verbose) {
+            console.log("Marque Onduleur data: " + marque_onduleur_data.length);
+            console.log(marque_onduleur_data);
+        }
+
+        marque_onduleur_data = filterResults(marque_onduleur_data, getValuesByKey(marque_onduleur, "text"), "nom");
+
+        if (verbose) {
+            console.log("Marque Onduleur data: " + marque_onduleur_data.length);
+            console.log(marque_onduleur_data);
+        }
+
+        let id_marque_onduleur = getValuesByKey(marque_onduleur_data, "id");
+
+        if (verbose) {
+            console.log("IDs Onduleur: " + ids_onduleur.length);
+            console.log("IDs Onduleur: " + ids_onduleur);
+        }
+
+        let onduleur_data = await getData(api_link, "?table=onduleur");
+
+        if (verbose) {
+            console.log("Onduleur data: " + onduleur_data.length);
+            console.log(onduleur_data);
+        }
+
+        onduleur_data = filterResults(onduleur_data, id_marque_onduleur, "marque_onduleur");
+
+        if (verbose) {
+            console.log("Onduleur data: " + onduleur_data.length);
+            console.log(onduleur_data);
+        }
+
+        onduleur_id = getValuesByKey(onduleur_data, "id");
+
+        if (verbose) {
+            console.log("IDs Onduleur: " + onduleur_id.length);
+            console.log("IDs Onduleur: " + onduleur_id);
+        }
 
         doc_data = filterResults(doc_data, onduleur_id, "onduleur_id");
 
-        console.log("Doc data: " + doc_data.length);
-        // console.log(doc_data);
-
+        if (verbose) {
+            console.log("Doc data: " + doc_data.length);
+            console.log(doc_data);
+        }
 
         if (doc_data.length === 0) {
-            console.log("No data found for the given filters.");
+            console.log("No data found after filter onduleur.");
         }
-    }
-    else {
-        if (marque_onduleur.length > 0) {
 
 
-            let marque_onduleur_data = await getData(api_link, "?table=marque_onduleur");
-            marque_onduleur_data = filterResults(marque_onduleur_data, getValuesByKey(marque_onduleur, "text"), "nom");
+        ////////////////////////////////////////
+        // Traintement des données de panneau //
+        ////////////////////////////////////////
 
-            let id_marque_onduleur = getValuesByKey(marque_onduleur_data, "id");
+        let marque_panneau_data = await getData(api_link, "?table=marque_panneau");
 
-            // console.log("IDs Onduleur: " + ids_onduleur.length);
-            // console.log("IDs Onduleur: " + ids_onduleur);
+        if (verbose) {
+            console.log("Marque Panneau data: " + marque_panneau_data.length);
+            console.log(marque_panneau_data);
+        }
 
-            let onduleur_data = await getData(api_link, "?table=onduleur");
+        marque_panneau_data = filterResults(marque_panneau_data, getValuesByKey(marque_panneau, "text"), "nom");
 
-            // console.log("Onduleur data: " + onduleur_data.length);
-            // console.log(onduleur_data);
+        if (verbose) {
+            console.log("Marque Panneau data: " + marque_panneau_data.length);
+            console.log(marque_panneau_data);
+        }
 
-            onduleur_data = filterResults(onduleur_data, id_marque_onduleur, "marque_onduleur");
+        let id_marque_panneau = getValuesByKey(marque_panneau_data, "id");
 
-            // console.log("Onduleur data: " + onduleur_data.length);
-            // console.log(onduleur_data);
+        if (verbose) {
+            console.log("IDs Panneau: " + id_marque_panneau.length);
+            console.log("IDs Panneau: " + id_marque_panneau);
+        }
 
-            onduleur_id = getValuesByKey(onduleur_data, "id");
+        let panneau_data = await getData(api_link, "?table=panneau");
 
-            // console.log("IDs Onduleur: " + onduleur_id.length);
-            // console.log("IDs Onduleur: " + onduleur_id);
+        if (verbose) {
+            console.log("Panneau data: " + panneau_data.length);
+            console.log(panneau_data);
+        }
 
-            doc_data = await getData(api_link, "?table=doc");
+        panneau_data = filterResults(panneau_data, id_marque_panneau, "marque_panneau");
 
-            // console.log("Doc data: " + doc_data.length);
-            // console.log(doc_data);
+        if (verbose) {
+            console.log("Panneau data: " + panneau_data.length);
+            console.log(panneau_data);
+        }
 
-            doc_data = filterResults(doc_data, onduleur_id, "onduleur_id");
+        panneau_id = getValuesByKey(panneau_data, "id");
 
+        if (verbose) {
+            console.log("IDs Panneau: " + panneau_id.length);
+            console.log("IDs Panneau: " + panneau_id);
+        }
+
+        doc_data = filterResults(doc_data, panneau_id, "panneau_id");
+
+        if (verbose) {
             console.log("Doc data: " + doc_data.length);
-            // console.log(doc_data);
+            console.log(doc_data);
+        }
 
-            if (doc_data.length === 0) {
-                console.log("No data found for the given filter.");
+        if (doc_data.length === 0) {
+            console.log("No data found after filter panneau.");
+        }
+
+    }
+
+    else if ((marque_panneau.length > 0 && departement.length > 0) || (marque_onduleur.length > 0 && departement.length > 0) || (marque_onduleur.length > 0 && marque_panneau.length > 0)) {
+
+        if (marque_panneau.length > 0 && departement.length > 0) {
+            ///////////////////////////////////////////
+            // Traintement des données de departement//
+            ///////////////////////////////////////////
+
+            let departement_data = await getData(api_link, "?table=region");
+
+            if (verbose) {
+                console.log("Departement data: " + departement_data.length);
+                console.log(departement_data);
             }
 
-        }
-
-        if (departement.length > 0) {
-            let departement_data = await getData(api_link, "?table=region");
             departement_data = filterResults(departement_data, getValuesByKey(departement, "text"), "admin2");
 
-            let code_insee = getValuesByKey(departement_data, "code_insee");
+            if (verbose) {
+                console.log("Departement data: " + departement_data.length);
+                console.log(departement_data);
+            }
 
-            //console.log("Code INSEE: " + code_insee.length);
-            //console.log(code_insee);
+            let code_insee = getValuesByKey(departement_data, "id");
+
+            if (verbose) {
+                console.log("Code INSEE: " + code_insee.length);
+                console.log(code_insee);
+            }
 
             let localisation_data = await getData(api_link, "?table=localisation");
 
-            // console.log("Localisation data: " + localisation_data.length);
-            //console.log(localisation_data);
+            if (verbose) {
+                console.log("Localisation data " + localisation_data.length);
+                console.log(localisation_data);
+            }
 
-            let localisation_id = getValuesByKey(localisation_data, "id");
-
-            // console.log("IDs Localisation: " + localisation_id.length);
-            // console.log("IDs Localisation: " + localisation_id);
 
             localisation_data = filterResults(localisation_data, code_insee, "code_insee");
 
-            //console.log("Localisation data: " + localisation_data.length);
-            //console.log(localisation_data);
+            if (verbose) {
+                console.log("Localisation data: " + localisation_data.length);
+                console.log(localisation_data);
+            }
 
-            doc_data = await getData(api_link, "?table=doc");
+            let localisation_id = getValuesByKey(localisation_data, "id");
 
-            // console.log("Doc data: " + doc_data.length);
-            // console.log(doc_data);
+            if (verbose) {
+                console.log("IDs Localisation: " + localisation_id.length);
+                console.log("IDs Localisation: " + localisation_id);
+            }
 
             doc_data = filterResults(doc_data, localisation_id, "localisation_id");
 
-            console.log("Doc data: " + doc_data.length);
-            // console.log(doc_data);
-
-            if (doc_data.length === 0) {
-                console.log("No data found for the given filter.");
+            if (verbose) {
+                console.log("Doc data: " + doc_data.length);
+                console.log(doc_data);
             }
 
+            if (doc_data.length === 0) {
+                console.log("No data found after filter departement.");
+            }
+
+            ////////////////////////////////////////
+            // Traintement des données de panneau //
+            ////////////////////////////////////////
+
+            let marque_panneau_data = await getData(api_link, "?table=marque_panneau");
+
+            if (verbose) {
+                console.log("Marque Panneau data: " + marque_panneau_data.length);
+                console.log(marque_panneau_data);
+            }
+
+            marque_panneau_data = filterResults(marque_panneau_data, getValuesByKey(marque_panneau, "text"), "nom");
+
+            if (verbose) {
+                console.log("Marque Panneau data: " + marque_panneau_data.length);
+                console.log(marque_panneau_data);
+            }
+
+            let id_marque_panneau = getValuesByKey(marque_panneau_data, "id");
+
+            if (verbose) {
+                console.log("IDs Panneau: " + id_marque_panneau.length);
+                console.log("IDs Panneau: " + id_marque_panneau);
+            }
+
+            let panneau_data = await getData(api_link, "?table=panneau");
+
+            if (verbose) {
+                console.log("Panneau data: " + panneau_data.length);
+                console.log(panneau_data);
+            }
+
+            panneau_data = filterResults(panneau_data, id_marque_panneau, "marque_panneau");
+
+            if (verbose) {
+                console.log("Panneau data: " + panneau_data.length);
+                console.log(panneau_data);
+            }
+
+            panneau_id = getValuesByKey(panneau_data, "id");
+
+            if (verbose) {
+                console.log("IDs Panneau: " + panneau_id.length);
+                console.log("IDs Panneau: " + panneau_id);
+            }
+
+            doc_data = filterResults(doc_data, panneau_id, "panneau_id");
+
+            if (verbose) {
+                console.log("Doc data: " + doc_data.length);
+                console.log(doc_data);
+            }
+
+            if (doc_data.length === 0) {
+                console.log("No data found after filter panneau.");
+            }
+        }
+
+        if (marque_panneau.length > 0 && marque_onduleur.length > 0) {
+            /////////////////////////////////////////
+            // Traintement des données de onduleur //
+            /////////////////////////////////////////
+
+            let marque_onduleur_data = await getData(api_link, "?table=marque_onduleur");
+
+            if (verbose) {
+                console.log("Marque Onduleur data: " + marque_onduleur_data.length);
+                console.log(marque_onduleur_data);
+            }
+
+            marque_onduleur_data = filterResults(marque_onduleur_data, getValuesByKey(marque_onduleur, "text"), "nom");
+
+            if (verbose) {
+                console.log("Marque Onduleur data: " + marque_onduleur_data.length);
+                console.log(marque_onduleur_data);
+            }
+
+            let id_marque_onduleur = getValuesByKey(marque_onduleur_data, "id");
+
+            if (verbose) {
+                console.log("IDs Onduleur: " + ids_onduleur.length);
+                console.log("IDs Onduleur: " + ids_onduleur);
+            }
+
+            let onduleur_data = await getData(api_link, "?table=onduleur");
+
+            if (verbose) {
+                console.log("Onduleur data: " + onduleur_data.length);
+                console.log(onduleur_data);
+            }
+
+            onduleur_data = filterResults(onduleur_data, id_marque_onduleur, "marque_onduleur");
+
+            if (verbose) {
+                console.log("Onduleur data: " + onduleur_data.length);
+                console.log(onduleur_data);
+            }
+
+            onduleur_id = getValuesByKey(onduleur_data, "id");
+
+            if (verbose) {
+                console.log("IDs Onduleur: " + onduleur_id.length);
+                console.log("IDs Onduleur: " + onduleur_id);
+            }
+
+            doc_data = filterResults(doc_data, onduleur_id, "onduleur_id");
+
+            if (verbose) {
+                console.log("Doc data: " + doc_data.length);
+                console.log(doc_data);
+            }
+
+            if (doc_data.length === 0) {
+                console.log("No data found after filter onduleur.");
+            }
+
+            ////////////////////////////////////////
+            // Traintement des données de panneau //
+            ////////////////////////////////////////
+
+            let marque_panneau_data = await getData(api_link, "?table=marque_panneau");
+
+            if (verbose) {
+                console.log("Marque Panneau data: " + marque_panneau_data.length);
+                console.log(marque_panneau_data);
+            }
+
+            marque_panneau_data = filterResults(marque_panneau_data, getValuesByKey(marque_panneau, "text"), "nom");
+
+            if (verbose) {
+                console.log("Marque Panneau data: " + marque_panneau_data.length);
+                console.log(marque_panneau_data);
+            }
+
+            let id_marque_panneau = getValuesByKey(marque_panneau_data, "id");
+
+            if (verbose) {
+                console.log("IDs Panneau: " + id_marque_panneau.length);
+                console.log("IDs Panneau: " + id_marque_panneau);
+            }
+
+            let panneau_data = await getData(api_link, "?table=panneau");
+
+            if (verbose) {
+                console.log("Panneau data: " + panneau_data.length);
+                console.log(panneau_data);
+            }
+
+            panneau_data = filterResults(panneau_data, id_marque_panneau, "marque_panneau");
+
+            if (verbose) {
+                console.log("Panneau data: " + panneau_data.length);
+                console.log(panneau_data);
+            }
+
+            panneau_id = getValuesByKey(panneau_data, "id");
+
+            if (verbose) {
+                console.log("IDs Panneau: " + panneau_id.length);
+                console.log("IDs Panneau: " + panneau_id);
+            }
+
+            doc_data = filterResults(doc_data, panneau_id, "panneau_id");
+
+            if (verbose) {
+                console.log("Doc data: " + doc_data.length);
+                console.log(doc_data);
+            }
+
+            if (doc_data.length === 0) {
+                console.log("No data found after filter panneau.");
+            }
+        }
+
+        if (marque_onduleur.length > 0 && departement.length > 0) {
+            ///////////////////////////////////////////
+            // Traintement des données de departement//
+            ///////////////////////////////////////////
+
+            let departement_data = await getData(api_link, "?table=region");
+
+            if (verbose) {
+                console.log("Departement data: " + departement_data.length);
+                console.log(departement_data);
+            }
+
+            departement_data = filterResults(departement_data, getValuesByKey(departement, "text"), "admin2");
+
+            if (verbose) {
+                console.log("Departement data: " + departement_data.length);
+                console.log(departement_data);
+            }
+
+            let code_insee = getValuesByKey(departement_data, "id");
+
+            if (verbose) {
+                console.log("Code INSEE: " + code_insee.length);
+                console.log(code_insee);
+            }
+
+            let localisation_data = await getData(api_link, "?table=localisation");
+
+            if (verbose) {
+                console.log("Localisation data " + localisation_data.length);
+                console.log(localisation_data);
+            }
+
+
+            localisation_data = filterResults(localisation_data, code_insee, "code_insee");
+
+            if (verbose) {
+                console.log("Localisation data: " + localisation_data.length);
+                console.log(localisation_data);
+            }
+
+            let localisation_id = getValuesByKey(localisation_data, "id");
+
+            if (verbose) {
+                console.log("IDs Localisation: " + localisation_id.length);
+                console.log("IDs Localisation: " + localisation_id);
+            }
+
+            doc_data = filterResults(doc_data, localisation_id, "localisation_id");
+
+            if (verbose) {
+                console.log("Doc data: " + doc_data.length);
+                console.log(doc_data);
+            }
+
+            if (doc_data.length === 0) {
+                console.log("No data found after filter departement.");
+            }
+
+            /////////////////////////////////////////
+            // Traintement des données de onduleur //
+            /////////////////////////////////////////
+
+            let marque_onduleur_data = await getData(api_link, "?table=marque_onduleur");
+
+            if (verbose) {
+                console.log("Marque Onduleur data: " + marque_onduleur_data.length);
+                console.log(marque_onduleur_data);
+            }
+
+            marque_onduleur_data = filterResults(marque_onduleur_data, getValuesByKey(marque_onduleur, "text"), "nom");
+
+            if (verbose) {
+                console.log("Marque Onduleur data: " + marque_onduleur_data.length);
+                console.log(marque_onduleur_data);
+            }
+
+            let id_marque_onduleur = getValuesByKey(marque_onduleur_data, "id");
+
+            if (verbose) {
+                console.log("IDs Onduleur: " + ids_onduleur.length);
+                console.log("IDs Onduleur: " + ids_onduleur);
+            }
+
+            let onduleur_data = await getData(api_link, "?table=onduleur");
+
+            if (verbose) {
+                console.log("Onduleur data: " + onduleur_data.length);
+                console.log(onduleur_data);
+            }
+
+            onduleur_data = filterResults(onduleur_data, id_marque_onduleur, "marque_onduleur");
+
+            if (verbose) {
+                console.log("Onduleur data: " + onduleur_data.length);
+                console.log(onduleur_data);
+            }
+
+            onduleur_id = getValuesByKey(onduleur_data, "id");
+
+            if (verbose) {
+                console.log("IDs Onduleur: " + onduleur_id.length);
+                console.log("IDs Onduleur: " + onduleur_id);
+            }
+
+            doc_data = filterResults(doc_data, onduleur_id, "onduleur_id");
+
+            if (verbose) {
+                console.log("Doc data: " + doc_data.length);
+                console.log(doc_data);
+            }
+
+            if (doc_data.length === 0) {
+                console.log("No data found after filter onduleur.");
+            }
         }
     }
 
+    else if (departement.length > 0 || marque_onduleur.length > 0 || marque_panneau.length > 0) {
 
+        if (marque_onduleur.length > 0) {
+            /////////////////////////////////////////
+            // Traintement des données de onduleur //
+            /////////////////////////////////////////
 
-}
+            let marque_onduleur_data = await getData(api_link, "?table=marque_onduleur");
 
+            if (verbose) {
+                console.log("Marque Onduleur data: " + marque_onduleur_data.length);
+                console.log(marque_onduleur_data);
+            }
 
-async function getMarqueOnduleur(departement = null, marque_panneau = null) {
-    console.log("dep : " + departement.length + " ond : " + marque_panneau.length);
+            marque_onduleur_data = filterResults(marque_onduleur_data, getValuesByKey(marque_onduleur, "text"), "nom");
 
-    if (departement.length > 0 && marque_panneau.length > 0) {
-        let marque_panneau_data = await getData(api_link, "?table=marque_panneau");
-        let departement_data = await getData(api_link, "?table=region");
+            if (verbose) {
+                console.log("Marque Onduleur data: " + marque_onduleur_data.length);
+                console.log(marque_onduleur_data);
+            }
 
-        marque_panneau_data = filterResults(marque_onduleur_data, marque_panneau);
-        departement_data = filterResults(departement_data, departement, "code_insee");
+            let id_marque_onduleur = getValuesByKey(marque_onduleur_data, "id");
 
+            if (verbose) {
+                console.log("IDs Onduleur: " + ids_onduleur.length);
+                console.log("IDs Onduleur: " + ids_onduleur);
+            }
 
-    }
-    else {
-        if (marque_panneau.length > 0) {
-            let marque_panneau_data = await getData(api_link, "?table=marque_panneau");
-            marque_panneau_data = filterResults(marque_onduleur_data, marque_panneau, "nom");
+            let onduleur_data = await getData(api_link, "?table=onduleur");
+
+            if (verbose) {
+                console.log("Onduleur data: " + onduleur_data.length);
+                console.log(onduleur_data);
+            }
+
+            onduleur_data = filterResults(onduleur_data, id_marque_onduleur, "marque_onduleur");
+
+            if (verbose) {
+                console.log("Onduleur data: " + onduleur_data.length);
+                console.log(onduleur_data);
+            }
+
+            onduleur_id = getValuesByKey(onduleur_data, "id");
+
+            if (verbose) {
+                console.log("IDs Onduleur: " + onduleur_id.length);
+                console.log("IDs Onduleur: " + onduleur_id);
+            }
+
+            doc_data = filterResults(doc_data, onduleur_id, "onduleur_id");
+
+            if (verbose) {
+                console.log("Doc data: " + doc_data.length);
+                console.log(doc_data);
+            }
+
+            if (doc_data.length === 0) {
+                console.log("No data found after filter onduleur.");
+            }
         }
 
         if (departement.length > 0) {
+
+            ///////////////////////////////////////////
+            // Traintement des données de departement//
+            ///////////////////////////////////////////
+
             let departement_data = await getData(api_link, "?table=region");
-            departement_data = filterResults(departement_data, departement, "admin2");
-        }
-    }
-}
 
-async function getDepartement(marque_onduleur = null, marque_panneau = null) {
-    console.log("dep : " + marque_panneau.length + " ond : " + marque_onduleur.length);
+            if (verbose) {
+                console.log("Departement data: " + departement_data.length);
+                console.log(departement_data);
+            }
 
-    if (marque_panneau.length > 0 && marque_onduleur.length > 0) {
-        let marque_onduleur_data = await getData(api_link, "?table=marque_onduleur");
-        let marque_panneau_data = await getData(api_link, "?table=marque_panneau");
+            departement_data = filterResults(departement_data, getValuesByKey(departement, "text"), "admin2");
 
-        marque_onduleur_data = filterResults(marque_onduleur_data, marque_onduleur);
-        marque_panneau_data = filterResults(departement_data, marque_panneau, "code_insee");
+            if (verbose) {
+                console.log("Departement data: " + departement_data.length);
+                console.log(departement_data);
+            }
+
+            let code_insee = getValuesByKey(departement_data, "id");
+
+            if (verbose) {
+                console.log("Code INSEE: " + code_insee.length);
+                console.log(code_insee);
+            }
+
+            let localisation_data = await getData(api_link, "?table=localisation");
+
+            if (verbose) {
+                console.log("Localisation data " + localisation_data.length);
+                console.log(localisation_data);
+            }
 
 
-    }
-    else {
-        if (marque_onduleur.length > 0) {
-            let marque_onduleur_data = await getData(api_link, "?table=marque_onduleur");
-            marque_onduleur_data = filterResults(marque_onduleur_data, marque_onduleur, "nom");
+            localisation_data = filterResults(localisation_data, code_insee, "code_insee");
+
+            if (verbose) {
+                console.log("Localisation data: " + localisation_data.length);
+                console.log(localisation_data);
+            }
+
+            let localisation_id = getValuesByKey(localisation_data, "id");
+
+            if (verbose) {
+                console.log("IDs Localisation: " + localisation_id.length);
+                console.log("IDs Localisation: " + localisation_id);
+            }
+
+            doc_data = filterResults(doc_data, localisation_id, "localisation_id");
+
+            if (verbose) {
+                console.log("Doc data: " + doc_data.length);
+                console.log(doc_data);
+            }
+
+            if (doc_data.length === 0) {
+                console.log("No data found after filter departement.");
+            }
         }
 
         if (marque_panneau.length > 0) {
+            ////////////////////////////////////////
+            // Traintement des données de panneau //
+            ////////////////////////////////////////
+
             let marque_panneau_data = await getData(api_link, "?table=marque_panneau");
-            marque_panneau_data = filterResults(departement_data, marque_panneau, "admin2");
+
+            if (verbose) {
+                console.log("Marque Panneau data: " + marque_panneau_data.length);
+                console.log(marque_panneau_data);
+            }
+
+            marque_panneau_data = filterResults(marque_panneau_data, getValuesByKey(marque_panneau, "text"), "nom");
+
+            if (verbose) {
+                console.log("Marque Panneau data: " + marque_panneau_data.length);
+                console.log(marque_panneau_data);
+            }
+
+            let id_marque_panneau = getValuesByKey(marque_panneau_data, "id");
+
+            if (verbose) {
+                console.log("IDs Panneau: " + id_marque_panneau.length);
+                console.log("IDs Panneau: " + id_marque_panneau);
+            }
+
+            let panneau_data = await getData(api_link, "?table=panneau");
+
+            if (verbose) {
+                console.log("Panneau data: " + panneau_data.length);
+                console.log(panneau_data);
+            }
+
+            panneau_data = filterResults(panneau_data, id_marque_panneau, "marque_panneau");
+
+            if (verbose) {
+                console.log("Panneau data: " + panneau_data.length);
+                console.log(panneau_data);
+            }
+
+            panneau_id = getValuesByKey(panneau_data, "id");
+
+            if (verbose) {
+                console.log("IDs Panneau: " + panneau_id.length);
+                console.log("IDs Panneau: " + panneau_id);
+            }
+
+            doc_data = filterResults(doc_data, panneau_id, "panneau_id");
+
+            if (verbose) {
+                console.log("Doc data: " + doc_data.length);
+                console.log(doc_data);
+            }
+
+            if (doc_data.length === 0) {
+                console.log("No data found after filter panneau.");
+            }
         }
+
     }
+
+    if (verbose) {
+        console.log("Final Doc Data: " + doc_data.length);
+        console.log(doc_data);
+    }
+
+    return doc_data;
 }
+
+
+document.getElementById("filter_rechercher").addEventListener("click", async function () {
+
+    let selected_departement = getSelectedDepartements(); // Appel de la fonction pour récupérer les départements sélectionnés
+    let selected_onduleur = getSelectedMarqueOnduleur(); // Appel de la fonction pour récupérer les onduleurs sélectionnés
+    let selected_panneau = getSelectedMarquePanneau(); // Appel de la fonction pour récupérer les panneaux sélectionnés
+
+    let data = await getDocDataParSelection(selected_departement, selected_onduleur, selected_panneau);
+
+    console.log("Data length: " + data.length);
+
+    if (data.length === 0) {
+        document.getElementById("resultat_recherche").innerHTML = "<tr><td colspan=\"6\">Aucun résultat trouvé.</td></tr>";
+        return;
+    }
+
+    let result = [];
+
+    for (let i = 0; i < data.length; i++) {
+
+        let doc = data[i];
+        let localisation = await getData(api_link, "?table=localisation&id=" + doc.localisation_id);
+        ville = await getData(api_link, "?table=region&id=" + localisation.code_insee);
+        ville = ville.ville;
+
+        let mois = doc.mois < 10 ? "0" + doc.mois : doc.mois;
+
+        element = "<tr id=" + doc.id + "><td value=\"date\">"
+            + mois + "-" + doc.an + "</td><td value=\"nb_panneau\">"
+            + doc.nbpanneaux + "</td><td value=\"surface\">"
+            + doc.surface + "</td><td value=\"puissance_crete\">"
+            + doc.puissancecrete + "</td><td value=\"ville\">"
+            + ville + "</td><td value=\"detail\"><a href=\"details.php?table=doc&id="
+            + doc.id + "\">Voir détails</a></td></tr>";
+
+        result.push(element);
+    }
+
+    document.getElementById("resultat_recherche").innerHTML = result.join("");
+
+    //console.log(result[0])
+});

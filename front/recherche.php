@@ -97,7 +97,7 @@
 
         <!-- BOUTON FILTRER -->
         <div class="form-group button-group">
-          <button type="submit" class="btn-filter">Filtrer</button>
+          <button type="button" class="btn-filter" id="filter_rechercher">Filtrer</button>
         </div>
       </form>
     </section>
@@ -119,25 +119,8 @@
               <th>Détail</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- 20 lignes d’exemple -->
-            <tr>
-              <td data-label="Date d’installation">03-2025</td>
-              <td data-label="Nombre de panneaux">12</td>
-              <td data-label="Surface (m²)">24.5</td>
-              <td data-label="Puissance crête (kW)">5.0</td>
-              <td data-label="Localisation">Caen</td>
-              <td data-label="Détail"><a href="details.php">Voir détails</a></td>
-            </tr>
-            <tr>
-              <td data-label="Date d’installation">12-2024</td>
-              <td data-label="Nombre de panneaux">8</td>
-              <td data-label="Surface (m²)">16.0</td>
-              <td data-label="Puissance crête (kW)">3.2</td>
-              <td data-label="Localisation">Rennes</td>
-              <td data-label="Détail"><a href="details.php">Voir détails</a></td>
-            </tr>
-            <!-- … autres lignes … -->
+          <tbody id="resultat_recherche">
+            <!-- Les lignes du tableau seront ajoutées dynamiquement par JavaScript -->
           </tbody>
         </table>
       </div>
