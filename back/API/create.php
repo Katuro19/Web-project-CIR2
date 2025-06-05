@@ -50,8 +50,6 @@ foreach ($allowedMethods as $method => $expectedParams) { //Boucle sur chaque cl
 
     sort($expectedParams);
     sort($filteredKeys);
-    echo("Expected: " . implode(',', $expectedParams))."\n";
-    echo("Filtered: " . implode(',', $filteredKeys))."\n";
 
 
     if ($expectedParams === $filteredKeys) { //check si on a les memes clés que la fonction qu'on verifie
