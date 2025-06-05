@@ -1,0 +1,300 @@
+/* ============================
+   RÉINITIALISATION ET STYLE GÉNÉRAL
+   ============================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9f9;
+  /* Pour laisser la place sous le header fixe (≈60px + marge) */
+  padding-top: 80px;
+  /* Pour laisser la place au footer fixe (≈60px) */
+  padding-bottom: 60px;
+}
+
+/* ============================
+   HEADER FIXE
+   ============================ */
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background: #1a1a1a;
+  color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+.logo-title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.logo {
+  height: 40px;
+}
+
+.title-container {
+  flex: 1;
+  text-align: center;
+}
+.title {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.right-menu {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Menu desktop */
+.nav-desktop {
+  display: flex;
+}
+.nav-desktop a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.nav-desktop a:hover {
+  color: #cccccc;
+}
+
+/* Burger (mobile) */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 18px;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+.burger span {
+  display: block;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+}
+
+/* Menu mobile (caché par défaut) */
+.nav-mobile {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 60px; /* sous header */
+  right: 0;
+  background: #1a1a1a;
+  width: 200px;
+}
+.nav-mobile a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.nav-mobile a:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Affiche burger, masque menu desktop < 750px */
+@media (max-width: 750px) {
+  .nav-desktop {
+    display: none;
+  }
+  .burger {
+    display: flex;
+  }
+  .nav-mobile.show {
+    display: flex;
+  }
+}
+
+/* ============================
+   CONTENEUR PRINCIPAL CENTRÉ
+   ============================ */
+.container {
+  flex: 1; /* Pour que le container prenne l’espace disponible entre header et footer */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ============================
+   STYLE DES BOUTONS (comme "Carte" et "Recherche")
+   ============================ */
+.btn {
+  display: inline-block;
+  background: #0d6efd;
+  color: white;
+  padding: 12px 24px;
+  margin: 10px;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.btn:hover {
+  background: #084298;
+  transform: scale(1.05);
+}
+
+/* ============================
+   BOUTONS D’ACTION (Supprimer / Modifier / Request)
+   (Réutilisent la classe .btn pour l’uniformité)
+   ============================ */
+.action-buttons {
+  margin-top: 20px;
+}
+
+/* ============================
+   OVERLAY DU FORMULAIRE
+   ============================ */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.overlay.visible {
+  display: flex;
+}
+
+/* ============================
+   CONTENEUR DU FORMULAIRE
+   ============================ */
+.form-container {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 360px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.form-container h3 {
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  text-align: center;
+  color: #333;
+}
+
+/* ============================
+   CHAMPS DU FORMULAIRE
+   ============================ */
+.form-field {
+  margin-bottom: 15px;
+  text-align: left;
+}
+.form-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+.form-field input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+.form-field input:focus {
+  border-color: #0d6efd;
+  outline: none;
+}
+
+/* ============================
+   BOUTONS DU FORMULAIRE
+   ============================ */
+.form-buttons {
+  display: flex;
+  gap: 10px;
+}
+.submit-btn {
+  flex: 1;
+  background: #0d6efd;
+}
+.submit-btn:hover {
+  background: #084298;
+}
+.cancel-btn {
+  flex: 1;
+  background: #6c757d;
+}
+.cancel-btn:hover {
+  background: #5a6268;
+}
+
+/* ============================
+   FOOTER FIXE
+   ============================ */
+.footer {
+  width: 100%;
+  background: #1a1a1a;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  position: fixed;
+  bottom: 0;
+}
+
+/* ============================
+   RESPONSIVE GÉNÉRAL
+   ============================ */
+@media (max-width: 480px) {
+  .form-buttons {
+    flex-direction: column;
+  }
+  .form-buttons .btn {
+    width: 100%;
+  }
+  .header-content {
+    padding: 10px;
+  }
+  .title {
+    font-size: 1rem;
+  }
+}
