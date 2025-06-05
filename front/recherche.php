@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Installations - Gestion Panneaux Photovoltaïques</title>
   <link rel="stylesheet" href="CSS/style_recherche.css" />
+  <script src="recherche.js" defer></script>
 </head>
 <body class="page-carte">
 

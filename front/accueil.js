@@ -1,9 +1,9 @@
+inclede("env.js");
+
 function toggleMenu() {
   document.getElementById("navMobile").classList.toggle("show");
 }
 
-
-let api_link = "http://localhost:3945/back/API/request.php";
 
 async function getData(api_link, args = "?table=doc") {
   let result = await fetch(api_link + args);
