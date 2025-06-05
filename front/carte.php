@@ -53,8 +53,8 @@
     <!-- Formulaire de recherche positionné sous la navbar -->
     <div class="search-bar-container">
       <form class="search-bar">
-        <input type="number" id="selAnnee" placeholder="Année d'installation" />
-        <input type="text" id="selDepartement" placeholder="Département" />
+        <input type="select" id="selAnnee" placeholder="Année d'installation" />
+        <input type="select" id="selDepartement" placeholder="Département" />
         <button type="submit" class="btn">Rechercher</button>
       </form>
     </div>
