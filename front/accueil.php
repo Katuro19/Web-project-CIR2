@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accueil - Solaire</title>
   <link rel="stylesheet" href="CSS/style_accueil.css" />
+  <script src="accueil.js" defer></script>
 </head>
 <body class="page-accueil">
   <!-- HEADER FIXE -->
@@ -63,13 +64,13 @@
       <section class="section">
         <h2>Statistiques</h2>
         <div class="grid">
-          <div class="box">📊 1247 enregistrements</div>
-          <div class="box">📅 328/an</div>
-          <div class="box">🌍 75 par région</div>
-          <div class="box">📈 1350/an/région</div>
-          <div class="box">👷‍♂️ 84 installateurs</div>
-          <div class="box">🔌 12 marques onduleurs</div>
-          <div class="box">🔆 15 marques panneaux</div>
+          <div class="box" id="enregistrement"></div>
+          <div class="box" id="install_an"></div>
+          <div class="box" id="install_region"></div>
+          <div class="box" id="install_an_region"></div>
+          <div class="box" id="installateur"></div>
+          <div class="box" id="marque_onduleur"></div>
+          <div class="box" id="marque_panneau"></div>
         </div>
       </section>
 
@@ -91,10 +92,5 @@
     <p>Kévin Pierre-Luc Eliott – Groupe 3 – 2025</p>
   </footer>
 
-  <script>
-    function toggleMenu() {
-      document.getElementById("navMobile").classList.toggle("show");
-    }
-  </script>
 </body>
 </html>
