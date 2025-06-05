@@ -1,13 +1,6 @@
-include("env.js");
-
-
 function toggleMenu() {
     document.getElementById("navMobile").classList.toggle("show");
 }
-
-
-
-
 
 async function getData(api_link, args = "?table=doc") {
     let result = await fetch(api_link + args);

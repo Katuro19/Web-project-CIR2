@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accueil - Solaire</title>
   <link rel="stylesheet" href="CSS/style_accueil.css" />
+  <script src="env.js" defer></script>
   <script src="accueil.js" defer></script>
 </head>
 <body class="page-accueil">

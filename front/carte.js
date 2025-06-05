@@ -1,15 +1,9 @@
-include("env.js");
-
-
 function toggleMenu() {
     document.getElementById("navMobile").classList.toggle("show");
 }
 
 const map_container = document.getElementById("map-container");
 var map = L.map('map-container').setView([46.603354, 1.888334], 6);
-
-
-let api_link = "http://localhost:3945/back/API/request.php";
 
 
 async function getData(api_link, args = "?table=doc") {

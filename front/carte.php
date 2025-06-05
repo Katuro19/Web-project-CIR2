@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="CSS/style_carte.css" />
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
+  <script src="env.js" defer></script>
   <script src="carte.js" defer></script>
 
 </head>

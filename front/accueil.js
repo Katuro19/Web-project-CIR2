@@ -1,5 +1,3 @@
-inclede("env.js");
-
 function toggleMenu() {
   document.getElementById("navMobile").classList.toggle("show");
 }
