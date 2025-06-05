@@ -21,6 +21,11 @@
     button {
       padding: 5px 10px;
     }
+    pre {
+      background: #f3f3f3;
+      padding: 10px;
+      white-space: pre-wrap;
+    }
   </style>
 </head>
 <body>
@@ -28,22 +33,22 @@
   <h2>Test API - Requête REST</h2>
 
   <label for="host">Adresse du serveur :</label>
-  <input type="text" id="host" placeholder="Ex: 192.168.1.50 ou localhost:4321" value="localhost:4321" />
+  <input type="text" id="host" placeholder="Ex: localhost:4321" value="localhost:4321" />
 
   <br><br>
 
-  <label for="method">Méthode REST :</label>
+  <label for="method">Méthode :</label>
   <select id="method">
-    <option value="POST">POST</option>
     <option value="GET">GET</option>
+    <option value="POST">POST</option>
     <option value="PUT">PUT</option>
     <option value="DELETE">DELETE</option>
   </select>
 
   <br><br>
 
-  <label for="table">Nom de la table :</label>
-  <input type="text" id="table" placeholder="Ex: utilisateurs" />
+  <label for="table">Table :</label>
+  <input type="text" id="table" placeholder="Nom de la table" />
 
   <div id="fields"></div>
 
@@ -55,6 +60,7 @@
 
   <script>
     const fieldsContainer = document.getElementById('fields');
+    const resultContainer = document.getElementById('result');
 
     function addField() {
       const div = document.createElement('div');
@@ -69,48 +75,46 @@
 
     function submitData() {
       const host = document.getElementById('host').value.trim();
-      const method = document.getElementById('method').value;
+      let method = document.getElementById('method').value;
       const table = document.getElementById('table').value.trim();
+
       const cols = document.querySelectorAll('.col');
       const vals = document.querySelectorAll('.val');
+
       const data = { table };
 
       cols.forEach((colInput, i) => {
         const col = colInput.value.trim();
         const val = vals[i].value.trim();
-        if (col) {
-          data[col] = val;
-        }
+        if (col) data[col] = val;
       });
 
-      // URL dynamique selon méthode
-      const urlMap = {
-        GET: `http://${host}/back/API/request.php`,
-        POST: `http://${host}/back/API/create.php`,
-        PUT: `http://${host}/back/API/update.php`,
-        DELETE: `http://${host}/back/API/request_delete.php`
+      // Ciblage du bon fichier PHP
+      const phpMap = {
+        GET: 'request.php',
+        POST: 'create.php',
+        PUT: 'create.php',
+        DELETE: 'delete.php'
       };
-      const url = urlMap[method];
 
-      const options = {
-        method: method,
-        headers: {
-          'Content-Type': method === 'PUT' ? 'application/json' : 'application/x-www-form-urlencoded'
-        }
-      };
+      const endpoint = phpMap[method];
+      const url = `http://${host}/back/API/${endpoint}`;
 
       if (method === 'GET') {
-        const queryString = new URLSearchParams(data).toString();
-        fetch(`${url}?${queryString}`, options)
-          .then(handleResponse)
-          .catch(handleError);
-      } else if (method === 'PUT') {
-        options.body = JSON.stringify(data);
-        fetch(url, options)
+        const query = new URLSearchParams(data).toString();
+        fetch(`${url}?${query}`)
           .then(handleResponse)
           .catch(handleError);
       } else {
-        options.body = new URLSearchParams(data);
+        // POST seulement (même pour PUT/DELETE)
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams(data)
+        };
+
         fetch(url, options)
           .then(handleResponse)
           .catch(handleError);
@@ -121,18 +125,18 @@
       return res.text().then(text => {
         try {
           const json = JSON.parse(text);
-          document.getElementById('result').textContent = JSON.stringify(json, null, 2);
+          resultContainer.textContent = JSON.stringify(json, null, 2);
         } catch {
-          document.getElementById('result').textContent = 'Réponse brute:\n\n' + text;
+          resultContainer.textContent = 'Réponse brute:\n\n' + text;
         }
       });
     }
 
     function handleError(err) {
-      document.getElementById('result').textContent = 'Erreur: ' + err;
+      resultContainer.textContent = 'Erreur: ' + err;
     }
 
-    addField(); // Champ de base
+    addField(); // Champ initial
   </script>
 
 </body>

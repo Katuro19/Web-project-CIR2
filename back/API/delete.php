@@ -1,7 +1,7 @@
 <?php
 
-/* Cette API répond au requete POST, PUT envoyée via un formulaire ($_POST):
-    En fonction du type de parametre, on peut précisé si on veut un DELETE, directment via un seul $_POST pour plus de simplicitée !
+/* Cette API répond au requete DELETE envoyée via un formulaire ($_POST):
+    En fonction du type de parametre, on peut précisé si on veut un POST ou un PUT, directment via un seul $_POST pour plus de simplicitée !
 
     Réponses : 
         La réponse (réussite ou echec) se trouve dans "data", sous forme de BOOL
@@ -16,7 +16,7 @@
 include_once "../databases/conn.php"; // Important pour le $databaseTables
 header('Content-Type: application/json');
 
-if (!isset($_POST['table']) || !isset($databaseTables[$_POST['table']])) { 
+if (!isset($_POST['table']) || !isset($databaseTables[$_POST['table']])) { //si il n'y a aps la table, on ne peut rien faire !
     echo json_encode([
         'status' => 'error',
         'message' => 'Paramètre table manquant ou invalide (Est-ce que la table est définie dans la conn?)'
@@ -28,11 +28,10 @@ $DatabaseInstance = $databaseTables[$_POST['table']];
 
 // Définition des méthodes disponibles
 $allowedMethods = [
-    //Methode PUT
-    'change_if' => ['id', 'column', 'value'], //Change if prend 3 parametre et remplace la valeure de la colonne donnée pour un certain ID
+    //Methode DELETE
+    'delete' => ['id'], //Delete n'accepte que les ID
+    'delete_insee' => ['code_insee'], //Delete n'accepte que les ID
 
-    //Methode POST
-    'add_with' => ['id'] //Add with peut avoir une infinité d'argument !
 ];
 
 // Détection automatique de la méthode à appeler
@@ -49,22 +48,14 @@ foreach ($allowedMethods as $method => $expectedParams) { //Boucle sur chaque cl
     sort($expectedParams);
     sort($filteredKeys);
 
+
     if ($expectedParams === $filteredKeys) { //check si on a les memes clés que la fonction qu'on verifie
-        $calledMethod = $method; //On choisi donc celle ci a appelé
+        if($method == "delete_insee") {$calledMethod = "delete";} else {$calledMethod = $method;}
         $methodParams = array_map(fn($param) => $_POST[$param], $unsortedParams); //Recupere les valeures de toute les clés de expectedParams dans le $_POST
         break;
     }
 }
 
-if($calledMethod == null || $calledMethod == 'add_with'){
-    // Crée un tableau avec toutes les clés de $_POST sauf 'table' et 'method'
-    $dataToAdd = array_diff_key($_POST, array_flip(['table', 'method'])); //Array flip créer un dico avec les valeures 0, 1
-
-    $calledMethod = 'add_with';
-    $methodParams = [$dataToAdd];
-    if($filteredKeys == []) $calledMethod = null;
-
-}
 
 if ($calledMethod && method_exists($DatabaseInstance, $calledMethod)) { //si la methode est valide
     

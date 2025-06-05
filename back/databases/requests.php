@@ -176,8 +176,11 @@ class db{
 
         try {
 
+            $driver = $this->conn->getAttribute(PDO::ATTR_DRIVER_NAME);
+            $quote = ($driver === 'mysql') ? '`' : '"'; //If we use mysql, we are going to use the backsticks
+
             // get the columns
-            $columns = array_map(fn($col) => '"' . $col . '"', array_keys($values)); //here, this will add "" to every column. I did this because they may have conflict with SQL keywords, like END.
+            $columns = array_map(fn($col) => $quote . $col . $quote, array_keys($values)); //here, this will add "" or `` to every column. I did this because they may have conflict with SQL keywords, like END.
 
             
             // get the values
