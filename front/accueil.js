@@ -3,33 +3,6 @@ function toggleMenu() {
 }
 
 
-async function getData(api_link, args = "?table=doc") {
-  let result = await fetch(api_link + args);
-  if (!result.ok) {
-    throw new Error("Network response was not ok " + result.statusText);
-  }
-  // console.log(result);
-
-  result = JSON.parse(await result.text());
-  if (!result || !result.data) {
-    throw new Error("Invalid data format received");
-  }
-
-  temp = result['data'];
-
-  let data = {}
-
-  for (let i = 0; i < temp.length; i++) {
-    data[i] = temp[i];
-  }
-
-  console.log(data);
-
-  return data;
-
-}
-
-
 
 
 async function statistics() {
