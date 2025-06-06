@@ -13,7 +13,7 @@
   <header>
     <div class="header-content">
       <div class="logo-title">
-        <img src="image/logo.png" alt="Logo" class="logo" />
+        <img src="/front/image/logo.png" alt="Logo" class="logo" />
       </div>
       <div class="title-container">
         <span class="title">Gestion de panneau solaire</span>
