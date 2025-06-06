@@ -34,7 +34,7 @@ async function getData(api_link, args = "?table=doc") {
 
 async function statistics() {
 
-  
+
   console.log("Fetching statistics...");
 
   let installations = await getData(api_link, "?table=doc&countColumn=id");
@@ -44,12 +44,12 @@ async function statistics() {
   let panneaux = await getData(api_link, "?table=marque_panneau&countColumn=id");
   let installateurs = await getData(api_link, "?table=installateur&countColumn=id");
 
-  console.log("Installations: ", installations[0].count);
-  console.log("Années: ", années[0].count);
-  console.log("Régions: ", regions[0].count);
-  console.log("Onduleurs: ", oduleurs[0].count);
-  console.log("Panneaux: ", panneaux[0].count);
-  console.log("Installateurs: ", installateurs[0].count);
+  console.log("Installations:", installations[0]?.count ?? "Aucune donnée");
+  console.log("Années: ", années[0].count ?? "Aucune donnée");
+  console.log("Régions: ", regions[0].count ?? "Aucune donnée");
+  console.log("Onduleurs: ", oduleurs[0].count ?? "Aucune donnée");
+  console.log("Panneaux: ", panneaux[0].count ?? "Aucune donnée");
+  console.log("Installateurs: ", installateurs[0].count ?? "Aucune donnée");
 
   let statistics = {
     "installations": installations[0].count,
@@ -62,7 +62,7 @@ async function statistics() {
 
   console.log(statistics);
 
-  
+
 
   insertStatistics(statistics);
 }
@@ -72,8 +72,8 @@ function insertStatistics(statistics) {
   document.getElementById("enregistrement").innerText = statistics.installations + " installations";
   document.getElementById("install_an").innerText = statistics.années + " ans";
   document.getElementById("install_region").innerText = statistics.régions + " régions";
-  document.getElementById("install_an_region").innerText = Math.round((statistics.installations/ (statistics.années + statistics.régions))) + " installations/region/an  ";
-  document.getElementById("marque_panneau").innerText =  statistics.panneaux + " marques de panneaux solaires";
+  document.getElementById("install_an_region").innerText = Math.round((statistics.installations / (statistics.années + statistics.régions))) + " installations/region/an  ";
+  document.getElementById("marque_panneau").innerText = statistics.panneaux + " marques de panneaux solaires";
   document.getElementById("marque_onduleur").innerText = statistics.onduleurs + " marques d'onduleurs";
   document.getElementById("installateur").innerText = statistics.installateurs + " installateurs";
 
