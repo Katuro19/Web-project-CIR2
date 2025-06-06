@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Installations - Gestion Panneaux Photovoltaïques</title>
+  <title>Installations - Gestion de panneau solaire</title>
   <link rel="stylesheet" href="/front/CSS/style_recherche.css" />
   <script src="/front/JS/env.js" defer></script>
   <script src="/front/JS/utils.js" defer></script>
@@ -16,7 +16,7 @@
         <img src="/front/image/logo.png" alt="Logo" class="logo" />
       </div>
       <div class="title-container">
-        <span class="title">Gestion Panneau Photovoltaïque</span>
+        <span class="title">Gestion de panneau solaire</span>
       </div>
       <div class="right-menu">
         <div class="burger" id="burger" onclick="toggleMenu()">
