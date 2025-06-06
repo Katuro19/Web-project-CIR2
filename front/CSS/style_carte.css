@@ -1,6 +1,5 @@
 /* === CSS pour la page “carte” === */
 
-/* Corps en flex pour gérer header et footer */
 body.page-carte {
   display: flex;
   flex-direction: column;
@@ -56,14 +55,13 @@ header {
   align-items: center;
 }
 
-/* Menu desktop */
 .nav-desktop {
   display: flex;
+  gap: 15px;
 }
 .nav-desktop a {
   color: white;
   text-decoration: none;
-  margin-left: 15px;
   font-weight: 500;
   transition: color 0.2s ease;
 }
@@ -71,7 +69,6 @@ header {
   color: #cccccc;
 }
 
-/* Burger (pour mobile) */
 .burger {
   display: none;
   flex-direction: column;
@@ -88,12 +85,11 @@ header {
   border-radius: 2px;
 }
 
-/* Menu mobile (caché par défaut) */
 .nav-mobile {
   display: none;
   flex-direction: column;
   position: absolute;
-  top: 60px; /* sous header */
+  top: 60px;
   right: 0;
   background: #1a1a1a;
   width: 200px;
@@ -108,7 +104,6 @@ header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Affiche burger et masque nav desktop sous 750px */
 @media (max-width: 750px) {
   .nav-desktop {
     display: none;
@@ -122,64 +117,98 @@ header {
 }
 
 /* === CONTENU PRINCIPAL === */
-/* Espace sous header (environ 60px) */
 .main.no-padding {
-  margin-top: 60px;
+  margin-top: 80px;
+  margin-bottom: 60px;
+  padding: 20px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 120px); /* 60px header + 60px footer */
+  gap: 30px;
   width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Formulaire de recherche */
+/* Barre de recherche */
 .search-bar-container {
-  width: 100%;
-  background-color: #f8f8f8;
-  padding: 10px 20px;
-  box-sizing: border-box;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
 }
 
 .search-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  max-width: 1000px;
-  margin: 0 auto;
+  gap: 20px;
+  align-items: flex-end;
 }
 
-.search-bar input {
-  flex: 1 1 200px;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  min-width: 120px;
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 250px;
+  min-width: 150px;
 }
 
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+/* Bouton Rechercher */
 .search-bar .btn {
-  flex: 0 0 auto;
-  background: #0d6efd;
+  background-color: #333;
   color: white;
-  padding: 10px 20px;
   border: none;
-  border-radius: 6px;
+  padding: 10px 25px;
+  border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
-}
-.search-bar .btn:hover {
-  background: #084298;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-/* Conteneur de la carte (prend tout l’espace restant) */
+.search-bar .btn:hover {
+  background-color: #555;
+  transform: translateY(-1px);
+}
+
+/* Style général des select */
+select {
+  padding: 10px 12px;
+  font-size: 1rem;
+  color: #555;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%227%22%20viewBox%3D%220%200%2010%207%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M1%200l4%204%204-4%22%20stroke%3D%22%23000%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
+  min-width: 160px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+select:focus {
+  border-color: #0d6efd;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+}
+
+/* === CARTE === */
 #map-container {
   flex: 1;
-  width: 60%;
-  background-color: #ddd; /* fond temporaire */
-  min-height: 200px;
-  align-self: center;
+  width: 100%;
+  min-height: 400px;
+  background-color: #ddd;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
-/* === FOOTER FIXE === */
+/* === FOOTER === */
 .footer {
   width: 100%;
   background: #1a1a1a;
@@ -188,20 +217,13 @@ header {
   position: fixed;
   bottom: 0;
   z-index: 1000;
+  padding: 10px 0;
 }
 
-/* === ADAPTATIONS RESPONSIVE === */
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
-  /* Empilement du formulaire sur mobile */
   .search-bar {
     flex-direction: column;
     gap: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .search-bar input,
-  .search-bar .btn {
-    flex: 1 1 100%;
   }
 }

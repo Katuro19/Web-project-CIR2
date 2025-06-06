@@ -188,7 +188,15 @@ async function departement_data(doc_data, api_link, departement, verbose = false
     return doc_data;
 }
 
+function filterResults(data, values, key) {
+    const filteredData = data.filter(item => values.includes(item[key]));
+    return filteredData;
+}
 
+function getValuesByKey(data, key) {
+    let values = data.map(item => item[key]);
+    return values;
+}
 
 async function getData(api_link, args = "?table=doc") {
     let result = await fetch(api_link + args);

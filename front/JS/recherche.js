@@ -171,21 +171,6 @@ function getSelectedMarquePanneau() {
 
 
 
-function filterResults(data, values, key) {
-
-    const filteredData = data.filter(item => values.includes(item[key]));
-
-    return filteredData;
-}
-
-function getValuesByKey(data, key) {
-
-    let values = data.map(item => item[key]);
-
-    return values;
-}
-
-
 async function getDocDataParSelection(departement, marque_onduleur, marque_panneau, verbose = false) {
 
     let doc_data = [];
@@ -237,6 +222,9 @@ async function getDocDataParSelection(departement, marque_onduleur, marque_panne
         console.log("Final Doc Data: " + doc_data.length);
         console.log(doc_data);
     }
+
+
+    console.log("Final Doc Data: " + doc_data.length);
 
     return doc_data;
 }

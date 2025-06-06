@@ -65,9 +65,13 @@
             <option value="" disabled selected>Selection...</option>
           </select>
         </div>
-        <button type="button" class="btn">Rechercher</button>
+        <button type="button" class="btn" id="carte_recherche">Rechercher</button>
       </form>
+      <br>
+      <div id="searchResults" class="search-results">
+        
     </div>
+    <br>
     <div id="map-container"></div>
   </main>
   <footer class="footer">
