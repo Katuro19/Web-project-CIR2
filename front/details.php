@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Détails d’une installation</title>
   <link rel="stylesheet" href="CSS/style_details.css" />
+  <script src="env.js" defer></script>
+  <script src="utils.js" defer></script>
+  <script src="details.js" defer></script>
 </head>
 <body class="page-accueil">
   <!-- HEADER FIXE -->
@@ -47,28 +50,8 @@
   <main class="content">
     <section class="section">
       <h2>Détails de l’installation</h2>
-      <div class="grid">
-        <div class="box">ID</div>
-        <div class="box">Date d’installation</div>
-        <div class="box">Nombre de panneaux</div>
-        <div class="box">Marques panneaux</div>
-        <div class="box">Modèle panneaux</div>
-        <div class="box">Nombre d’onduleurs</div>
-        <div class="box">Marques onduleur</div>
-        <div class="box">Modèle onduleur</div>
-        <div class="box">Puissance crête</div>
-        <div class="box">Surface</div>
-        <div class="box">Pente</div>
-        <div class="box">Pente optimum</div>
-        <div class="box">Orientation</div>
-        <div class="box">Orientation optimum</div>
-        <div class="box">Installateur</div>
-        <div class="box">Latitude/Longitude</div>
-        <div class="box">Pays</div>
-        <div class="box">Code postal</div>
-        <div class="box">Ville</div>
-        <div class="box">Région</div>
-        <div class="box">Département</div>
+      <div class="grid" id="details">
+        
       </div>
     </section>
   </main>
