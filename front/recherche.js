@@ -248,19 +248,21 @@ document.getElementById("filter_rechercher").addEventListener("click", async fun
     let selected_onduleur = getSelectedMarqueOnduleur(); // Appel de la fonction pour récupérer les onduleurs sélectionnés
     let selected_panneau = getSelectedMarquePanneau(); // Appel de la fonction pour récupérer les panneaux sélectionnés
 
-    let data = await getDocDataParSelection(selected_departement, selected_onduleur, selected_panneau, true);
+    let data = await getDocDataParSelection(selected_departement, selected_onduleur, selected_panneau);
 
-    console.log("Data length: " + data.length);
+    //console.log("Data length: " + data.length);
 
     if (data.length === 0) {
-        document.getElementById("resultat_recherche").innerHTML = "<tr><td colspan=\"6\">Aucun résultat trouvé.</td></tr>";
+        document.getElementById("resultat_recherche").innerHTML = "<tr><td colspan=\"6\">Aucun résultat trouvé pour les elements sélectionnés.</td></tr>";
         return;
     }
+
+
+    //console.log(data[0]);
 
     let result = [];
 
     for (let i = 0; i < data.length; i++) {
-
         let doc = data[i];
         let localisation = await getData(api_link, "?table=localisation&id=" + doc.localisation_id);
         ville = await getData(api_link, "?table=region&id=" + localisation.code_insee);
@@ -270,9 +272,9 @@ document.getElementById("filter_rechercher").addEventListener("click", async fun
 
         element = "<tr id=" + doc.id + "><td value=\"date\">"
             + mois + "-" + doc.an + "</td><td value=\"nb_panneau\">"
-            + doc.nbpanneaux + "</td><td value=\"surface\">"
+            + doc.nb_panneaux + "</td><td value=\"surface\">"
             + doc.surface + "</td><td value=\"puissance_crete\">"
-            + doc.puissancecrete + "</td><td value=\"ville\">"
+            + doc.puissance_crete + "</td><td value=\"ville\">"
             + ville + "</td><td value=\"detail\"><a href=\"details.php?table=doc&id="
             + doc.id + "\">Voir détails</a></td></tr>";
 
