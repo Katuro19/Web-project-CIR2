@@ -208,3 +208,7 @@ async function getData(api_link, args = "?table=doc") {
 
     return data;
 }
+
+function toggleMenu() {
+  document.getElementById("navMobile").classList.toggle("show");
+}

@@ -1,36 +1,5 @@
-function toggleMenu() {
-    document.getElementById("navMobile").classList.toggle("show");
-}
-
 const map_container = document.getElementById("map-container");
 var map = L.map('map-container').setView([46.603354, 1.888334], 6);
-
-
-async function getData(api_link, args = "?table=doc") {
-    let result = await fetch(api_link + args);
-    if (!result.ok) {
-        throw new Error("Network response was not ok " + result.statusText);
-    }
-    //console.log(result);
-
-    result = JSON.parse(await result.text());
-    if (!result || !result.data) {
-        throw new Error("Invalid data format received");
-    }
-
-    temp = result['data'];
-
-    let data = {}
-
-    for (let i = 0; i < temp.length; i++) {
-        data[i] = temp[i];
-    }
-
-    console.log(data);
-
-    return data;
-
-}
 
 const années = document.getElementById("selAnnee");
 const departement = document.getElementById("selDepartement");

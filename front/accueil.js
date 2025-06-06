@@ -1,8 +1,3 @@
-function toggleMenu() {
-  document.getElementById("navMobile").classList.toggle("show");
-}
-
-
 
 
 async function statistics() {

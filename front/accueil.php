@@ -10,20 +10,14 @@
   <script src="/front/accueil.js" defer></script>
 </head>
 <body class="page-accueil">
-  <!-- HEADER FIXE -->
   <header>
     <div class="header-content">
-      <!-- Logo à gauche -->
       <div class="logo-title">
         <img src="/front/image/logo.png" alt="Logo" class="logo" />
       </div>
-
-      <!-- Titre centré -->
       <div class="title-container">
         <span class="title">Gestion de panneau solaire</span>
       </div>
-
-      <!-- Burger et menu desktop à droite -->
       <div class="right-menu">
         <div class="burger" id="burger" onclick="toggleMenu()">
           <span></span><span></span><span></span>
@@ -36,8 +30,6 @@
         </nav>
       </div>
     </div>
-
-    <!-- Menu mobile (initialement caché) -->
     <nav class="nav-mobile" id="navMobile">
       <a href="/front/accueil.php">Accueil</a>
       <a href="/front/recherche.php">Recherche</a>
@@ -45,15 +37,10 @@
       <a href="/front/login.php">Se Connecter</a>
     </nav>
   </header>
-
-  <!-- LAYOUT EN 3 COLONNES -->
   <div class="layout">
-    <!-- Sidebar gauche -->
     <aside class="sidebar">
       <img src="/front/image/pub1.png" alt="Publicité gauche" />
     </aside>
-
-    <!-- Contenu principal -->
     <main class="main">
       <section class="section">
         <h2>Bienvenue</h2>
@@ -82,17 +69,12 @@
         <a href="/front/carte.php" class="btn">🗺️ Carte</a>
       </section>
     </main>
-
-    <!-- Sidebar droite -->
     <aside class="sidebar">
       <img src="/front/image/pub2.png" alt="Publicité droite" />
     </aside>
   </div>
-
-  <!-- FOOTER FIXE -->
   <footer class="footer">
     <p>Kévin Pierre-Luc Eliott – Groupe 3 – 2025</p>
   </footer>
-
 </body>
 </html>
