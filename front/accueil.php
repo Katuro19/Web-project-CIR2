@@ -77,8 +77,8 @@
 
       <section class="section text-center">
         <h2>Accès rapide</h2>
-        <a href="recherche.php" class="btn">🔎 Recherche</a>
-        <a href="carte.php" class="btn">🗺️ Carte</a>
+        <a href="/front/recherche.php" class="btn">🔎 Recherche</a>
+        <a href="/front/carte.php" class="btn">🗺️ Carte</a>
       </section>
     </main>
 
