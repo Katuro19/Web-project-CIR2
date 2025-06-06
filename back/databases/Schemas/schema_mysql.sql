@@ -61,9 +61,9 @@ CREATE TABLE region (
 CREATE TABLE localisation (
     id INT AUTO_INCREMENT PRIMARY KEY,
     lat FLOAT,
-    `long` FLOAT, -- mot-clé réservé, on l'entoure avec des backticks !
+    `long` FLOAT, -- mot-clé réservé, on l'entoure avec des backticks
     postcode VARCHAR(10),
-    postcodeSuff VARCHAR(10),
+    postcode_suff VARCHAR(10),
     code_insee VARCHAR(255),
     FOREIGN KEY (code_insee) REFERENCES region(id)
 );
@@ -77,12 +77,12 @@ CREATE TABLE doc (
     id INT AUTO_INCREMENT PRIMARY KEY,
     mois INT,
     an INT,
-    nbPanneaux INT,
-    nbOnduleur INT,
-    puissanceCrete FLOAT,
+    nb_panneaux INT,
+    nb_onduleur INT,
+    puissance_crete FLOAT,
     surface FLOAT,
     pente FLOAT,
-    penteOpti FLOAT,
+    pente_opti FLOAT,
     orientation VARCHAR(50),
     orientation_opti VARCHAR(50),
     pvgis FLOAT,
