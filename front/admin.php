@@ -143,7 +143,6 @@ if (!isset($_SESSION['user'])) {
     document.getElementById("navMobile").classList.toggle("show");
   }
 
-  // Récupération des éléments HTML
   const actionButtons = document.querySelectorAll(".btn[data-action]");
   const overlay = document.getElementById("formOverlay");
   const formTitle = document.getElementById("formTitle");
@@ -155,22 +154,19 @@ if (!isset($_SESSION['user'])) {
 
   let schema = {};
 
-  // Gestion des clics sur les boutons Créer, Modifier, Supprimer
   actionButtons.forEach(btn => {
     btn.addEventListener("click", async () => {
       const action = btn.getAttribute("data-action");
       formTitle.textContent = "Formulaire";
       dynamicFields.innerHTML = "";
 
-      if (["creer", "modifier", "supprimer"].includes(action)) {
+      if (["creer", "modifier", "supprimer", "request"].includes(action)) {
         tableSelectorContainer.style.display = "block";
 
-        // Fetch du schéma des tables/colonnes
         try {
-          const res = await fetch("../back/API/schema.php");
+          const res = await fetch("/back/API/schema.php");
           schema = await res.json();
 
-          // Remplissage du <select> des tables
           tableSelector.innerHTML = '<option value="">-- Choisir une table --</option>';
           Object.keys(schema).forEach(table => {
             const opt = document.createElement("option");
@@ -186,11 +182,9 @@ if (!isset($_SESSION['user'])) {
 
       if (action === "creer") {
         formTitle.textContent = "Formulaire de création";
-
         tableSelector.onchange = () => {
           const selectedTable = tableSelector.value;
           dynamicFields.innerHTML = "";
-
           if (selectedTable && schema[selectedTable]) {
             schema[selectedTable].forEach(column => {
               const label = column === "id" ? "Code INSEE" : column;
@@ -204,19 +198,17 @@ if (!isset($_SESSION['user'])) {
             });
           }
         };
+      }
 
-      } else if (action === "modifier") {
+      else if (action === "modifier") {
         formTitle.textContent = "Formulaire de modification";
-
         tableSelector.onchange = () => {
           const selectedTable = tableSelector.value;
           if (!selectedTable) {
             dynamicFields.innerHTML = "";
             return;
           }
-
           const colonnes = schema[selectedTable].filter(c => c.toLowerCase() !== "id");
-
           dynamicFields.innerHTML = `
             <div class="form-field">
               <label for="idModifier">ID à modifier</label>
@@ -234,10 +226,10 @@ if (!isset($_SESSION['user'])) {
             </div>
           `;
         };
+      }
 
-      } else if (action === "supprimer") {
+      else if (action === "supprimer") {
         formTitle.textContent = "Formulaire de suppression";
-
         tableSelector.onchange = () => {
           dynamicFields.innerHTML = `
             <div class="form-field">
@@ -248,21 +240,42 @@ if (!isset($_SESSION['user'])) {
         };
       }
 
+      else if (action === "request") {
+        formTitle.textContent = "Formulaire de recherche";
+        tableSelector.onchange = () => {
+          const selectedTable = tableSelector.value;
+          if (!selectedTable || !schema[selectedTable]) {
+            dynamicFields.innerHTML = "";
+            return;
+          }
+          const colonnes = ['id', ...schema[selectedTable]];
+          dynamicFields.innerHTML = `
+            <div class="form-field">
+              <label for="colonneRequest">Colonne à chercher</label>
+              <select id="colonneRequest" name="colonneRequest" required>
+                ${colonnes.map(c => `<option value="${c}">${c}</option>`).join("")}
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="valeurRequest">Valeur recherchée</label>
+              <input type="text" id="valeurRequest" name="valeurRequest" required />
+            </div>
+          `;
+        };
+      }
+
       overlay.classList.add("visible");
     });
   });
 
-  // Annulation du formulaire
   cancelBtn.addEventListener("click", () => {
     overlay.classList.remove("visible");
     actionForm.reset();
     dynamicFields.innerHTML = "";
   });
 
-  // Soumission du formulaire selon le type d'action
   actionForm.addEventListener("submit", async function(e) {
     e.preventDefault();
-
     const action = formTitle.textContent;
 
     if (action.includes("création")) {
@@ -271,13 +284,12 @@ if (!isset($_SESSION['user'])) {
 
       const inputs = dynamicFields.querySelectorAll("input");
       const payload = { table };
-
       inputs.forEach(input => {
         payload[input.name] = input.value;
       });
 
       try {
-        const res = await fetch("../back/API/create.php", {
+        const res = await fetch("/back/API/create.php", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: new URLSearchParams(payload)
@@ -305,7 +317,7 @@ if (!isset($_SESSION['user'])) {
       const data = new URLSearchParams({ table, id, column: colonne, value: valeur });
 
       try {
-        const res = await fetch("../back/API/create.php", {
+        const res = await fetch("/back/API/create.php", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: data
@@ -333,7 +345,7 @@ if (!isset($_SESSION['user'])) {
       const data = new URLSearchParams({ table, id });
 
       try {
-        const res = await fetch("../back/API/delete.php", {
+        const res = await fetch("/back/API/delete.php", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: data
@@ -346,9 +358,35 @@ if (!isset($_SESSION['user'])) {
       } catch (err) {
         alert("Erreur lors de la suppression : " + err);
       }
+
+    } else if (action.includes("recherche")) {
+      const table = tableSelector.value;
+      const colonne = document.getElementById("colonneRequest")?.value;
+      const valeur = document.getElementById("valeurRequest")?.value;
+
+      if (!table || !colonne || !valeur) {
+        alert("Tous les champs sont obligatoires.");
+        return;
+      }
+
+      const params = new URLSearchParams({ table, column: colonne, value: valeur });
+
+      try {
+        const res = await fetch(`/back/API/request.php?${params.toString()}`);
+        const json = await res.json();
+        const newWindow = window.open();
+        newWindow.document.write(`<pre>${JSON.stringify(json, null, 2)}</pre>`);
+      } catch (err) {
+        alert("Erreur lors de la recherche : " + err);
+      }
+
+      overlay.classList.remove("visible");
+      actionForm.reset();
+      dynamicFields.innerHTML = "";
     }
   });
 </script>
+
 
 
 </body>
