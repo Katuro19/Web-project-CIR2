@@ -10,21 +10,21 @@
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""
   />
-  <link rel="stylesheet" href="CSS/style_carte.css" />
+  <link rel="stylesheet" href="/front/CSS/style_carte.css" />
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""
   ></script>
-  <script src="utils.js" defer></script>
-  <script src="env.js" defer></script>
-  <script src="carte.js" defer></script>
+  <script src="/front/JS/utils.js" defer></script>
+  <script src="/front/JS/env.js" defer></script>
+  <script src="/front/JS/carte.js" defer></script>
 </head>
 <body class="page-carte">
   <header>
     <div class="header-content">
       <div class="logo-title">
-        <img src="image/logo.png" alt="Logo" class="logo" />
+        <img src="/front/image/logo.png" alt="Logo" class="logo" />
       </div>
       <div class="title-container">
         <span class="title">Gestion de panneau solaire</span>
@@ -36,18 +36,18 @@
           <span></span>
         </div>
         <nav class="nav-desktop">
-          <a href="accueil.php">Accueil</a>
-          <a href="recherche.php">Recherche</a>
-          <a href="carte.php">Carte</a>
-          <a href="login.php">Se Connecter</a>
+          <a href="/front/PHP/accueil.php">Accueil</a>
+          <a href="/front/PHP/recherche.php">Recherche</a>
+          <a href="/front/PHP/carte.php">Carte</a>
+          <a href="/front/PHP/login.php">Se Connecter</a>
         </nav>
       </div>
     </div>
     <nav class="nav-mobile" id="navMobile">
-      <a href="accueil.php">Accueil</a>
-      <a href="recherche.php">Recherche</a>
-      <a href="carte.php">Carte</a>
-      <a href="login.php">Se Connecter</a>
+      <a href="/front/PHP/accueil.php">Accueil</a>
+      <a href="/front/PHP/recherche.php">Recherche</a>
+      <a href="/front/PHP/carte.php">Carte</a>
+      <a href="/front/PHP/login.php">Se Connecter</a>
     </nav>
   </header>
   <main class="main no-padding">

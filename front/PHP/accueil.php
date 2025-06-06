@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accueil - Solaire</title>
   <link rel="stylesheet" href="/front/CSS/style_accueil.css" />
-  <script src="/front/env.js" defer></script>
-  <script src="/front/utils.js" defer></script>
-  <script src="/front/accueil.js" defer></script>
+  <script src="/front/JS/env.js" defer></script>
+  <script src="/front/JS/utils.js" defer></script>
+  <script src="/front/JS/accueil.js" defer></script>
 </head>
 <body class="page-accueil">
   <header>
@@ -23,18 +23,17 @@
           <span></span><span></span><span></span>
         </div>
         <nav class="nav-desktop">
-          <a href="/front/accueil.php">Accueil</a>
-          <a href="/front/recherche.php">Recherche</a>
-          <a href="/front/carte.php">Carte</a>
-          <a href="/front/login.php">Se Connecter</a>
+          <a href="/front/PHP/accueil.php">Accueil</a>
+          <a href="/front/PHP/recherche.php">Recherche</a>
+          <a href="/front/PHP/carte.php">Carte</a>
+          <a href="/front/PHP/login.php">Se Connecter</a>
         </nav>
       </div>
     </div>
     <nav class="nav-mobile" id="navMobile">
-      <a href="/front/accueil.php">Accueil</a>
-      <a href="/front/recherche.php">Recherche</a>
-      <a href="/front/carte.php">Carte</a>
-      <a href="/front/login.php">Se Connecter</a>
+      <a href="/front/PHP/recherche.php">Recherche</a>
+      <a href="/front/PHP/carte.php">Carte</a>
+      <a href="/front/PHP/login.php">Se Connecter</a>
     </nav>
   </header>
   <div class="layout">
@@ -65,8 +64,8 @@
 
       <section class="section text-center">
         <h2>Accès rapide</h2>
-        <a href="/front/recherche.php" class="btn">🔎 Recherche</a>
-        <a href="/front/carte.php" class="btn">🗺️ Carte</a>
+        <a href="/front/PHP/recherche.php" class="btn">🔎 Recherche</a>
+        <a href="/front/PHP/carte.php" class="btn">🗺️ Carte</a>
       </section>
     </main>
     <aside class="sidebar">

@@ -16,7 +16,7 @@
 include_once "../databases/conn.php"; // Important pour le $databaseTables
 header('Content-Type: application/json');
 
-if (!isset($_POST['table']) || !isset($databaseTables[$_POST['table']])) { //si il n'y a aps la table, on ne peut rien faire !
+if (!isset($_POST['table']) || !isset($databaseTables[$_POST['table']])) { //si il n'y a pas la table, on ne peut rien faire !
     echo json_encode([
         'status' => 'error',
         'message' => 'Paramètre table manquant ou invalide (Est-ce que la table est définie dans la conn?)'

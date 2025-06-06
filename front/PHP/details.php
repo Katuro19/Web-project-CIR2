@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Détails d’une installation</title>
-  <link rel="stylesheet" href="CSS/style_details.css" />
-  <script src="env.js" defer></script>
-  <script src="utils.js" defer></script>
-  <script src="details.js" defer></script>
+  <link rel="stylesheet" href="/front/CSS/style_details.css" />
+  <script src="/front/JS/env.js" defer></script>
+  <script src="/front/JS/utils.js" defer></script>
+  <script src="/front/JS/details.js" defer></script>
 </head>
 <body class="page-accueil">
   <header>
@@ -23,18 +23,18 @@
           <span></span><span></span><span></span>
         </div>
         <nav class="nav-desktop">
-          <a href="accueil.php">Accueil</a>
-          <a href="recherche.php">Recherche</a>
-          <a href="carte.php">Carte</a>
-          <a href="login.php">Se Connecter</a>
+          <a href="/front/PHP/accueil.php">Accueil</a>
+          <a href="/front/PHP/recherche.php">Recherche</a>
+          <a href="/front/PHP/carte.php">Carte</a>
+          <a href="/front/PHP/login.php">Se Connecter</a>
         </nav>
       </div>
     </div>
     <nav class="nav-mobile" id="navMobile">
-      <a href="accueil.php">Accueil</a>
-      <a href="recherche.php">Recherche</a>
-      <a href="carte.php">Carte</a>
-      <a href="login.php">Se Connecter</a>
+      <a href="/front/PHP/accueil.php">Accueil</a>
+      <a href="/front/PHP/recherche.php">Recherche</a>
+      <a href="/front/PHP/carte.php">Carte</a>
+      <a href="/front/PHP/login.php">Se Connecter</a>
     </nav>
   </header>
   <main class="content">

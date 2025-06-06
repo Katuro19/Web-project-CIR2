@@ -12,7 +12,7 @@ if (!isset($_SESSION['user'])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin - Gestion panneau solaire</title>
-  <link rel="stylesheet" href="CSS/style_admin.css" />
+  <link rel="stylesheet" href="/front/CSS/style_admin.css" />
   <style>
     /* Juste pour rendre visible l'overlay quand visible */
     .overlay {
@@ -81,18 +81,18 @@ if (!isset($_SESSION['user'])) {
         <span></span><span></span><span></span>
       </div>
       <nav class="nav-desktop">
-        <a href="accueil.php">Accueil</a>
-        <a href="recherche.php">Recherche</a>
-        <a href="carte.php">Carte</a>
-        <a href="login.php">Se Connecter</a>
+        <a href="/front/PHP/accueil.php">Accueil</a>
+        <a href="/front/PHP/recherche.php">Recherche</a>
+        <a href="/front/PHP/carte.php">Carte</a>
+        <a href="/front/PHP/login.php">Se Connecter</a>
       </nav>
     </div>
   </div>
   <nav class="nav-mobile" id="navMobile">
-    <a href="accueil.php">Accueil</a>
-    <a href="recherche.php">Recherche</a>
-    <a href="carte.php">Carte</a>
-    <a href="login.php">Se Connecter</a>
+    <a href="/front/PHP/accueil.php">Accueil</a>
+    <a href="/front/PHP/recherche.php">Recherche</a>
+    <a href="/front/PHP/carte.php">Carte</a>
+    <a href="/front/PHP/login.php">Se Connecter</a>
   </nav>
 </header>
 
