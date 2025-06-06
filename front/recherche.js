@@ -199,51 +199,34 @@ async function getDocDataParSelection(departement, marque_onduleur, marque_panne
     }
 
     if (departement.length > 0 && marque_onduleur.length > 0 && marque_panneau.length > 0) {
-
         doc_data = await departement_data(doc_data, api_link, departement, verbose);
-
         doc_data = await onduleur_data(doc_data, api_link, marque_onduleur, verbose);
-
         doc_data = await panneau_data(doc_data, api_link, marque_panneau, verbose);
 
     }
 
     else if ((marque_panneau.length > 0 && departement.length > 0) || (marque_onduleur.length > 0 && departement.length > 0) || (marque_onduleur.length > 0 && marque_panneau.length > 0)) {
-
         if (marque_panneau.length > 0 && departement.length > 0) {
-
             doc_data = await departement_data(doc_data, api_link, departement, verbose);
-
             doc_data = await panneau_data(doc_data, api_link, marque_panneau, verbose);
         }
-
         if (marque_panneau.length > 0 && marque_onduleur.length > 0) {
-
             doc_data = await onduleur_data(doc_data, api_link, marque_onduleur, verbose);
-
             doc_data = await panneau_data(doc_data, api_link, marque_panneau, verbose);
         }
-
         if (marque_onduleur.length > 0 && departement.length > 0) {
-
             doc_data = await departement_data(doc_data, api_link, departement, verbose);
-
             doc_data = await onduleur_data(doc_data, api_link, marque_onduleur, verbose);
         }
     }
 
     else if (departement.length > 0 || marque_onduleur.length > 0 || marque_panneau.length > 0) {
-
         if (marque_onduleur.length > 0) {
             doc_data = await onduleur_data(doc_data, api_link, marque_onduleur, verbose);
         }
-
         if (departement.length > 0) {
-
             doc_data = await departement_data(doc_data, api_link, departement, verbose);
-
         }
-
         if (marque_panneau.length > 0) {
             doc_data = await panneau_data(doc_data, api_link, marque_panneau, verbose);
         }
