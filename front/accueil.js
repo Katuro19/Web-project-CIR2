@@ -8,7 +8,7 @@ async function getData(api_link, args = "?table=doc") {
   if (!result.ok) {
     throw new Error("Network response was not ok " + result.statusText);
   }
-  //console.log(result);
+  // console.log(result);
 
   result = JSON.parse(await result.text());
   if (!result || !result.data) {

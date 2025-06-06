@@ -6,6 +6,7 @@
   <title>Accueil - Solaire</title>
   <link rel="stylesheet" href="/front/CSS/style_accueil.css" />
   <script src="/front/env.js" defer></script>
+  <script src="front/utils.js" defer></script>
   <script src="/front/accueil.js" defer></script>
 </head>
 <body class="page-accueil">
