@@ -53,17 +53,19 @@
   <main class="main no-padding">
     <div class="search-bar-container">
       <form id="formSearch" class="search-bar">
-        <input
-          type="text"
-          id="selAnnee"
-          placeholder="Année d'installation (ex : 2023)"
-        />
-        <input
-          type="text"
-          id="selDepartement"
-          placeholder="Département (ex : 14)"
-        />
-        <button type="submit" class="btn">Rechercher</button>
+        <div class="form-group">
+          <label for="selAnnee">Année d'installation :</label>
+          <select id="selAnnee">
+            <option value="" disabled selected>Selection...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="selDepartement">Département :</label>
+          <select id="selDepartement">
+            <option value="" disabled selected>Selection...</option>
+          </select>
+        </div>
+        <button type="button" class="btn">Rechercher</button>
       </form>
     </div>
     <div id="map-container"></div>
