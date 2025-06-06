@@ -58,7 +58,7 @@
         lat FLOAT,
         long FLOAT,
         postcode VARCHAR(10),
-        postcodeSuff VARCHAR(10),
+        postcode_suff VARCHAR(10),
         code_insee VARCHAR(255) REFERENCES region(id)
     );
 
@@ -71,12 +71,12 @@
         id SERIAL PRIMARY KEY,
         mois INTEGER,
         an INTEGER,
-        nbPanneaux INTEGER,
-        nbOnduleur INTEGER,
-        puissanceCrete FLOAT,
+        nb_panneaux INTEGER,
+        nb_onduleur INTEGER,
+        puissance_crete FLOAT,
         surface FLOAT,
         pente FLOAT,
-        penteOpti FLOAT,
+        pente_opti FLOAT,
         orientation VARCHAR(50),
         orientation_opti VARCHAR(50),
         pvgis FLOAT,
