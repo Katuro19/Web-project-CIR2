@@ -2,7 +2,7 @@
 session_start();
 
 // Lire le fichier .secret
-$secrets = parse_ini_file("../back/.secret");
+$secrets = parse_ini_file("../../back/.secret");
 $expected_user = $secrets['USER'] ?? '';
 $expected_pass = $secrets['PASSWORD'] ?? '';
 
