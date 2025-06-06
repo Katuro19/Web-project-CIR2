@@ -8,7 +8,7 @@ async function getData(api_link, args = "?table=doc") {
   if (!result.ok) {
     throw new Error("Network response was not ok " + result.statusText);
   }
-  //console.log(result);
+  // console.log(result);
 
   result = JSON.parse(await result.text());
   if (!result || !result.data) {
@@ -44,7 +44,7 @@ async function statistics() {
   let panneaux = await getData(api_link, "?table=marque_panneau&countColumn=id");
   let installateurs = await getData(api_link, "?table=installateur&countColumn=id");
 
-  console.log("Installations:", installations[0]?.count ?? "Aucune donnée");
+  console.log("Installations:", installations[0]);
   console.log("Années: ", années[0].count ?? "Aucune donnée");
   console.log("Régions: ", regions[0].count ?? "Aucune donnée");
   console.log("Onduleurs: ", oduleurs[0].count ?? "Aucune donnée");

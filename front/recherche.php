@@ -6,6 +6,7 @@
   <title>Installations - Gestion Panneaux Photovoltaïques</title>
   <link rel="stylesheet" href="CSS/style_recherche.css" />
   <script src="env.js" defer></script>
+  <script src="utils.js" defer></script>
   <script src="recherche.js" defer></script>
 </head>
 <body class="page-carte">
