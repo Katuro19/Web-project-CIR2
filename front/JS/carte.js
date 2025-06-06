@@ -58,6 +58,9 @@ function clearSelection(field) {
     field.innerHTML = "";
 }
 
+async function filterResults(){
+    
+}
 
 
 
