@@ -526,7 +526,7 @@ class db{
 
 
     public function distinct_count($countColumn, $verbose=false,$details=false){
-        /* Return an int of the number of line in the table that are distinct
+        /* Return an int of the number of line in the table that are distinct. The column returned will be "count"
         ARGS : countColumn, verbose=false,details=false
         - Fetched : YES
 
@@ -540,7 +540,7 @@ class db{
 
         try {
 
-            $query = "SELECT COUNT(DISTINCT $countColumn) FROM ". $this->mainTable . ";";
+            $query = "SELECT COUNT(DISTINCT $countColumn) AS count FROM ". $this->mainTable . ";";
             
             if($details)
             echo "<br>Requested query : ".$query;
