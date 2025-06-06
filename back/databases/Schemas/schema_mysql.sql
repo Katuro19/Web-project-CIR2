@@ -61,7 +61,7 @@ CREATE TABLE region (
 CREATE TABLE localisation (
     id INT AUTO_INCREMENT PRIMARY KEY,
     lat FLOAT,
-    `long` FLOAT, -- mot-clé réservé, on l'entoure avec des backticks
+    `long` FLOAT, -- mot-clé réservé, on l'entoure avec des backticks !
     postcode VARCHAR(10),
     postcodeSuff VARCHAR(10),
     code_insee VARCHAR(255),
