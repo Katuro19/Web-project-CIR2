@@ -12,12 +12,12 @@ async function statistics() {
   let panneaux = await getData(api_link, "?table=marque_panneau&countColumn=id");
   let installateurs = await getData(api_link, "?table=installateur&countColumn=id");
 
-  console.log("Installations:", installations[0]);
-  console.log("Années: ", années[0].count ?? "Aucune donnée");
-  console.log("Régions: ", regions[0].count ?? "Aucune donnée");
-  console.log("Onduleurs: ", oduleurs[0].count ?? "Aucune donnée");
-  console.log("Panneaux: ", panneaux[0].count ?? "Aucune donnée");
-  console.log("Installateurs: ", installateurs[0].count ?? "Aucune donnée");
+  // console.log("Installations:", installations[0]);
+  // console.log("Années: ", années[0].count ?? "Aucune donnée");
+  // console.log("Régions: ", regions[0].count ?? "Aucune donnée");
+  // console.log("Onduleurs: ", oduleurs[0].count ?? "Aucune donnée");
+  // console.log("Panneaux: ", panneaux[0].count ?? "Aucune donnée");
+  // console.log("Installateurs: ", installateurs[0].count ?? "Aucune donnée");
 
   let statistics = {
     "installations": installations[0].count,
