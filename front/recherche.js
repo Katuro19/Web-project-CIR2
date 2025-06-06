@@ -939,7 +939,7 @@ document.getElementById("filter_rechercher").addEventListener("click", async fun
     let selected_onduleur = getSelectedMarqueOnduleur(); // Appel de la fonction pour récupérer les onduleurs sélectionnés
     let selected_panneau = getSelectedMarquePanneau(); // Appel de la fonction pour récupérer les panneaux sélectionnés
 
-    let data = await getDocDataParSelection(selected_departement, selected_onduleur, selected_panneau);
+    let data = await getDocDataParSelection(selected_departement, selected_onduleur, selected_panneau, true);
 
     console.log("Data length: " + data.length);
 
