@@ -21,8 +21,8 @@ async function onduleur_data(doc_data, api_link, marque_onduleur, verbose = fals
     let id_marque_onduleur = getValuesByKey(marque_onduleur_data, "id");
 
     if (verbose) {
-        console.log("IDs Onduleur: " + ids_onduleur.length);
-        console.log("IDs Onduleur: " + ids_onduleur);
+        console.log("IDs Onduleur: " + id_marque_onduleur.length);
+        console.log("IDs Onduleur: " + id_marque_onduleur);
     }
 
     let onduleur_data = await getData(api_link, "?table=onduleur");
