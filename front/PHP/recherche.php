@@ -79,8 +79,8 @@
         </div>
       </form>
     </section>
-    <section class="results-section">
-      <h2>Résultats</h2>
+    <section class="results-section" >
+      <div id="titre_recherche"><h2 style="display:inline">Résultats :</h2></div>
       <div class="table-container">
         <table class="results-table">
           <thead>

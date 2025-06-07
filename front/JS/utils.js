@@ -53,7 +53,7 @@ async function onduleur_data(doc_data, api_link, marque_onduleur, verbose = fals
         console.log(doc_data);
     }
 
-    if (doc_data.length === 0) {
+    if (doc_data.length === 0  && verbose) {
         console.log("No data found after filter onduleur.");
     }
 
@@ -117,7 +117,7 @@ async function panneau_data(doc_data, api_link, marque_panneau, verbose = false)
         console.log(doc_data);
     }
 
-    if (doc_data.length === 0) {
+    if (doc_data.length === 0 && verbose) {
         console.log("No data found after filter panneau.");
     }
 
@@ -181,7 +181,7 @@ async function departement_data(doc_data, api_link, departement, verbose = false
         console.log(doc_data);
     }
 
-    if (doc_data.length === 0) {
+    if (doc_data.length === 0 && verbose) {
         console.log("No data found after filter departement.");
     }
 

@@ -28,7 +28,7 @@ async function statistics() {
     "installateurs": installateurs[0].count
   };
 
-  console.log(statistics);
+  // console.log(statistics);
 
 
 

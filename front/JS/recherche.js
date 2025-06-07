@@ -223,15 +223,21 @@ async function getDocDataParSelection(departement, marque_onduleur, marque_panne
         console.log(doc_data);
     }
 
-
-    console.log("Final Doc Data: " + doc_data.length);
-
     return doc_data;
 }
 
 
 document.getElementById("filter_rechercher").addEventListener("click", async function () {
 
+    document.getElementById("titre_recherche").innerHTML = "<h2 style=\"display:inline\">Résultats : </h2>"
+    document.getElementById("resultat_recherche").innerHTML = "";
+    document.getElementById("resultat_recherche").innerHTML = "<tr><td colspan=\"6\">Recherche en cours...</td></tr>";
+
+    await recherche();
+
+});
+
+async function recherche() {
     let selected_departement = getSelectedDepartements(); // Appel de la fonction pour récupérer les départements sélectionnés
     let selected_onduleur = getSelectedMarqueOnduleur(); // Appel de la fonction pour récupérer les onduleurs sélectionnés
     let selected_panneau = getSelectedMarquePanneau(); // Appel de la fonction pour récupérer les panneaux sélectionnés
@@ -241,35 +247,43 @@ document.getElementById("filter_rechercher").addEventListener("click", async fun
     //console.log("Data length: " + data.length);
 
     if (data.length === 0) {
+        document.getElementById("resultat_recherche").innerHTML = "";
         document.getElementById("resultat_recherche").innerHTML = "<tr><td colspan=\"6\">Aucun résultat trouvé pour les elements sélectionnés.</td></tr>";
+        document.getElementById("titre_recherche").innerHTML = "<h2 style=\"display:inline\">Résultats : </h2>&nbsp;" + data.length + " résultats trouvés";
         return;
+    } else {
+
+
+
+        //console.log(data[0]);
+
+        let result = [];
+
+        for (let i = 0; i < data.length; i++) {
+            let doc = data[i];
+            let localisation = await getData(api_link, "?table=localisation&id=" + doc.localisation_id);
+            ville = await getData(api_link, "?table=region&id=" + localisation.code_insee);
+            ville = ville.ville;
+
+            let mois = doc.mois < 10 ? "0" + doc.mois : doc.mois;
+
+            element = "<tr id=" + doc.id + "><td value=\"date\">"
+                + mois + "-" + doc.an + "</td><td value=\"nb_panneau\">"
+                + doc.nb_panneaux + "</td><td value=\"surface\">"
+                + doc.surface + "</td><td value=\"puissance_crete\">"
+                + doc.puissance_crete + "</td><td value=\"ville\">"
+                + ville + "</td><td value=\"detail\"><a href=\"details.php?table=doc&id="
+                + doc.id + "\">Voir détails</a></td></tr>";
+
+            result.push(element);
+        }
+
+        document.getElementById("resultat_recherche").innerHTML = result.join("");
+        document.getElementById("titre_recherche").innerHTML = "<h2 style=\"display:inline\">Résultats : </h2>&nbsp;&nbsp;&nbsp;" + data.length + " résultats trouvés";
+
+        //console.log(result[0])
     }
 
 
-    //console.log(data[0]);
 
-    let result = [];
-
-    for (let i = 0; i < data.length; i++) {
-        let doc = data[i];
-        let localisation = await getData(api_link, "?table=localisation&id=" + doc.localisation_id);
-        ville = await getData(api_link, "?table=region&id=" + localisation.code_insee);
-        ville = ville.ville;
-
-        let mois = doc.mois < 10 ? "0" + doc.mois : doc.mois;
-
-        element = "<tr id=" + doc.id + "><td value=\"date\">"
-            + mois + "-" + doc.an + "</td><td value=\"nb_panneau\">"
-            + doc.nb_panneaux + "</td><td value=\"surface\">"
-            + doc.surface + "</td><td value=\"puissance_crete\">"
-            + doc.puissance_crete + "</td><td value=\"ville\">"
-            + ville + "</td><td value=\"detail\"><a href=\"details.php?table=doc&id="
-            + doc.id + "\">Voir détails</a></td></tr>";
-
-        result.push(element);
-    }
-
-    document.getElementById("resultat_recherche").innerHTML = result.join("");
-
-    //console.log(result[0])
-});
+}

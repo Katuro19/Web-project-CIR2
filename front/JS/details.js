@@ -9,7 +9,7 @@ async function getInstallationData(id) {
     let installateur = await getInstallateurData(installation.installateur_id);
     let localisation = await getloacalisationData(installation.localisation_id);
 
-    console.log("Installation :", installation);
+    // console.log("Installation :", installation);
 
     installation = {
         id: installation.id,
@@ -38,7 +38,7 @@ async function getInstallationData(id) {
         long: localisation.long
     };
 
-    console.log("Installation :", installation);
+    // console.log("Installation :", installation);
 
     return installation;
 }
@@ -130,7 +130,9 @@ async function display_details() {
 
     let installation = await getInstallationData(id);
 
-    console.log("Installation :", installation);
+    installation.mois = installation.mois < 10 ? "0" + installation.mois : installation.mois;
+
+    // console.log("Installation :", installation);
 
     let content = "<div class=\"box\" id=\"id\">ID : "
         + installation.id + "</div><div class=\"box\" id=\"date\">Date d’installation : "
