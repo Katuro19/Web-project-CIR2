@@ -35,6 +35,7 @@ header {
   display: flex;
   align-items: center;
 }
+
 .logo-title .logo {
   height: 40px;
 }
@@ -43,6 +44,7 @@ header {
   flex: 1;
   text-align: center;
 }
+
 .title-container .title {
   font-size: 1.2rem;
   font-weight: 500;
@@ -59,12 +61,14 @@ header {
   display: flex;
   gap: 15px;
 }
+
 .nav-desktop a {
   color: white;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
 }
+
 .nav-desktop a:hover {
   color: #cccccc;
 }
@@ -78,6 +82,7 @@ header {
   cursor: pointer;
   margin-left: 1rem;
 }
+
 .burger span {
   display: block;
   height: 3px;
@@ -94,12 +99,14 @@ header {
   background: #1a1a1a;
   width: 200px;
 }
+
 .nav-mobile a {
   color: white;
   text-decoration: none;
   padding: 10px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 .nav-mobile a:last-child {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -108,9 +115,11 @@ header {
   .nav-desktop {
     display: none;
   }
+
   .burger {
     display: flex;
   }
+
   .nav-mobile.show {
     display: flex;
   }
@@ -137,6 +146,7 @@ header {
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 15px;
+  flex-grow: 1;
 }
 
 .search-bar {
@@ -149,7 +159,7 @@ header {
 .form-group {
   display: flex;
   flex-direction: column;
-  flex: 1 1 250px;
+  flex: 1 1;
   min-width: 150px;
 }
 
@@ -202,7 +212,7 @@ select:focus {
 #map-container {
   flex: 1;
   width: 100%;
-  min-height: 400px;
+  min-height: 600px;
   background-color: #ddd;
   border-radius: 6px;
   border: 1px solid #ccc;

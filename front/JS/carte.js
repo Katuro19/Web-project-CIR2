@@ -91,6 +91,8 @@ async function filterResults_carte(annee, departement) {
         return;
     }
 
+    let markers = [];
+
     for (let i = 0; i < doc_data.length; i++) {
         let doc = doc_data[i];
         let localisation_doc = await getData(api_link, "?table=localisation&id=" + doc.localisation_id);
@@ -99,20 +101,18 @@ async function filterResults_carte(annee, departement) {
         let long = localisation_doc.long;
 
 
-        let marker = L.marker([lat, long]).addTo(map);
-
-        marker.bindPopup("<b>Installation n°" + doc.id + "</b><br>Puissance max: " 
-            + doc.puissance_crete+ "<br>Surface : "
-            + doc.surface + " m²<br>Detail : <a href=\"details.php?table=doc&id=" 
-            + doc.id + "\">Voir</a>");
+        markers.push(L.marker([lat, long]).bindPopup("<b>Installation n°" + doc.id + "</b><br>Puissance max: "
+            + doc.puissance_crete + "<br>Surface : "
+            + doc.surface + " m²<br>Detail : <a href=\"details.php?table=doc&id="
+            + doc.id + "\">Voir</a>"));
     }
+    markers.forEach(marker => marker.addTo(map));
+
+    const bounds = L.latLngBounds(markers.map(marker => marker.getLatLng()));
+
+    map.fitBounds(bounds);
 
 }
-
-var marker = L.marker([46.603354, 1.888334]).addTo(map);
-
-marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
-
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,

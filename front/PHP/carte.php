@@ -50,6 +50,7 @@
       <a href="/front/PHP/login.php">Se Connecter</a>
     </nav>
   </header>
+
   <main class="main no-padding">
     <div class="search-bar-container">
       <form id="formSearch" class="search-bar">
@@ -74,6 +75,7 @@
     <br>
     <div id="map-container"></div>
   </main>
+  
   <footer class="footer">
     <p>Kévin Pierre-Luc Eliott – Groupe 3 – 2025</p>
   </footer>
