@@ -1,9 +1,54 @@
-// import {getData, onduleur_data, panneau_data, departement_data} from "./utils.js";
+
+const elements_par_page = document.getElementById("elements_par_page");
+
+let selectedValue = elements_par_page.value;
+
+let page = 1;
+
+elements_par_page.addEventListener("change", function () {
+    selectedValue = elements_par_page.value;
+    console.log("Nombre d'éléments par page sélectionné : " + selectedValue);
+     display_elements(1, selectedValue);
+});
 
 
+document.getElementById("prevBtn").addEventListener("click", function () {
+    if (page > 1) {
+        page--;
+        display_elements(page, selectedValue);
+    }
+});
 
-function toggleMenu() {
-    document.getElementById("navMobile").classList.toggle("show");
+document.getElementById("nextBtn").addEventListener("click", function () {
+    if (document.querySelectorAll("tr[recherche-id]").length > page * selectedValue) {
+        page++;
+        display_elements(page, selectedValue);
+    }
+});
+
+function display_elements(page,elements_per_page){
+
+    let start_elem_id = (page - 1) * elements_per_page;
+    let final_elem_id = start_elem_id + parseInt(elements_per_page, 10);
+
+    console.log(start_elem_id + " - " + final_elem_id);
+
+    // console.log("Affichage des éléments de la page " + page + " (éléments par page : " + elements_per_page + ")");
+    // console.log("Démarrage à l'élément ID : " + start_elem_id);
+
+    let elements = document.querySelectorAll("tr[recherche-id]");
+    let total_elements = elements.length;
+
+    // Afficher uniquement les éléments de la page actuelle
+
+    for (let i = 0; i < total_elements; i++) {
+        if (i >= start_elem_id && i < final_elem_id) {
+            elements[i].style.display = ""; // Afficher l'élément
+            // console.log("Affichage de l'élément ID : " + elements[i].getAttribute("recherche-id"));
+        } else {
+            elements[i].style.display = "none"; // Masquer l'élément
+        }
+    }
 }
 
 
@@ -267,7 +312,7 @@ async function recherche() {
 
             let mois = doc.mois < 10 ? "0" + doc.mois : doc.mois;
 
-            element = "<tr id=" + doc.id + "><td value=\"date\">"
+            element = "<tr recherche-id=\"" + i + "\"display=\"\"id=\"" + doc.id + "\"><td value=\"date\">"
                 + mois + "-" + doc.an + "</td><td value=\"nb_panneau\">"
                 + doc.nb_panneaux + "</td><td value=\"surface\">"
                 + doc.surface + "</td><td value=\"puissance_crete\">"
@@ -280,6 +325,8 @@ async function recherche() {
 
         document.getElementById("resultat_recherche").innerHTML = result.join("");
         document.getElementById("titre_recherche").innerHTML = "<h2 style=\"display:inline\">Résultats : </h2>&nbsp;&nbsp;&nbsp;" + data.length + " résultats trouvés";
+
+        display_elements(1, selectedValue); // Afficher la première page avec le nombre d'éléments sélectionné
 
         //console.log(result[0])
     }

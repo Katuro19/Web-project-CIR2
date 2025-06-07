@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,6 +10,7 @@
   <script src="/front/JS/utils.js" defer></script>
   <script src="/front/JS/recherche.js" defer></script>
 </head>
+
 <body class="page-carte">
   <header>
     <div class="header-content">
@@ -79,8 +81,20 @@
         </div>
       </form>
     </section>
-    <section class="results-section" >
-      <div id="titre_recherche"><h2 style="display:inline">Résultats :</h2></div>
+    <section class="results-section">
+      <div class="header-bar">
+        <h2 id="titre_recherche">Résultats de la recherche</h2>
+
+        <div class="items-per-page-selector">
+          <label for="elements_par_page">Éléments par page :</label>
+          <select id="elements_par_page">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+      </div>
       <div class="table-container">
         <table class="results-table">
           <thead>
@@ -99,14 +113,25 @@
         </table>
       </div>
     </section>
+    <div class="pagination">
+      <button id="prevBtn" aria-label="Page précédente">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <button id="nextBtn" aria-label="Page suivante">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
   </main>
   <footer class="footer">
     <p>Kévin Pierre-Luc Eliott – Groupe 3 – 2025</p>
   </footer>
-  <script>
-    function toggleMenu() {
-      document.getElementById("navMobile").classList.toggle("show");
-    }
-  </script>
 </body>
+
 </html>
