@@ -1,5 +1,15 @@
 <?php
 
+
+
+session_start();
+if (!isset($_SESSION['user'])) {
+  header('Location: login.php');
+  exit;
+}
+
+
+
 /* Cette API répond au requete POST, PUT envoyée via un formulaire ($_POST):
     En fonction du type de parametre, on peut précisé si on veut un DELETE, directment via un seul $_POST pour plus de simplicitée !
 

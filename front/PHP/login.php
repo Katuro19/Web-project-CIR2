@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+if (isset($_SESSION['user'])) {
+  header("Location: admin.php");
+  exit;
+}
+
+
 // Lire le fichier .secret
 $secrets = parse_ini_file("../../back/.secret");
 $expected_user = $secrets['USER'] ?? '';
