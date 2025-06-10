@@ -69,6 +69,13 @@ catch (PDOException $e1) {
 }
 
 
+/*
+
+Création des instances de tables
+
+*/
+
+
 $MarquePanneau = new db($conn, 'marque_panneau', 'id', ['id','nom']);
 $MarqueOnduleur = new db($conn, 'marque_onduleur', 'id', ['id','nom']);
 $ModelePanneau = new db($conn, 'modele_panneau', 'id', ['id','nom']);
@@ -87,6 +94,7 @@ $Doc = new db($conn, 'doc', 'id',['id','mois','an','nbpanneaux','nbonduleur','pu
 
 /* 
     La variable $databaseTables est utilisée pour faire correspondre une instance de classe a un parametre passé dans les requetes GET !
+    La clé doit etre le nom du parametre qui devrai correspondre dans un $_GET
 */
 
 $databaseTables = [
