@@ -1,17 +1,24 @@
+/* style_details.css */
+
 /* === VARIABLES DE COULEURS ET RÉINITIALISATION GLOBALE === */
 :root {
-  --color-bg: #eaf0ea;              
-  --color-section-bg: #ffffff;       
-  --color-primary: #1a1a1a;          
-  --color-accent: #5a7d23;           
-  --color-card-bg-odd: #e3e8e2;      
-  --color-card-bg-even: #dce3d8;     
-  --color-text: #333333;   
+  --color-bg: #eaf0ea;               /* fond vert-gris léger */
+  --color-section-bg: #ffffff;       /* blanc pur */
+  --color-primary: #1a1a1a;          /* header/footer */
+  --color-accent: #5a7d23;           /* vert mousse */
+  --color-card-bg-odd: #e3e8e2;      /* fond carte impaire */
+  --color-card-bg-even: #dce3d8;     /* fond carte paire */
+  --color-text: #333333;             /* texte principal */
   --color-shadow: rgba(0, 0, 0, 0.06);
   --transition: 0.25s ease;
 }
 
-
+/* === RESET & BODY === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body.page-accueil {
   display: flex;
   flex-direction: column;
@@ -32,8 +39,10 @@ header {
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-
-.header-content { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; max-width: 1100px; margin: 0 auto; padding: 10px 20px; }
+.header-content {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; max-width: 1100px; margin: 0 auto; padding: 10px 20px;
+}
 .logo-title { flex: 1; display: flex; align-items: center; }
 .logo        { height: 40px; }
 .title-container { flex: 1; text-align: center; }
@@ -41,15 +50,29 @@ header {
 .right-menu  { flex: 1; display: flex; justify-content: flex-end; align-items: center; }
 
 .nav-desktop { display: flex; }
-.nav-desktop a { color: white; text-decoration: none; margin-left: 15px; font-weight: 500; transition: color var(--transition); }
+.nav-desktop a {
+  color: white; text-decoration: none; margin-left: 15px; font-weight: 500;
+  transition: color var(--transition);
+}
 .nav-desktop a:hover { color: #cccccc; }
 
-.burger { display: none; flex-direction: column; justify-content: space-between; width: 25px; height: 18px; cursor: pointer; margin-left: 1rem; }
+.burger {
+  display: none; flex-direction: column; justify-content: space-between;
+  width: 25px; height: 18px; cursor: pointer; margin-left: 1rem;
+}
 .burger span { height: 3px; background: white; border-radius: 2px; }
 
-.nav-mobile { display: none; position: absolute; top: 60px; right: 0; background: var(--color-primary); width: 200px; flex-direction: column; }
-.nav-mobile a { color: white; text-decoration: none; padding: 10px 20px; border-top: 1px solid rgba(255,255,255,0.2); }
-.nav-mobile a:last-child { border-bottom: 1px solid rgba(255,255,255,0.2); }
+.nav-mobile {
+  display: none; position: absolute; top: 60px; right: 0;
+  background: var(--color-primary); width: 200px; flex-direction: column;
+}
+.nav-mobile a {
+  color: white; text-decoration: none; padding: 10px 20px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+.nav-mobile a:last-child {
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
 
 @media (max-width: 750px) {
   .nav-desktop { display: none; }
@@ -57,6 +80,7 @@ header {
   .nav-mobile.show { display: flex; }
 }
 
+/* === CONTENU PRINCIPAL === */
 main.content {
   flex: 1;
   margin: 80px auto 60px;
@@ -86,19 +110,19 @@ main.content {
   border-radius: 2px;
 }
 
-/* responsif */
+/* Grille responsive, cartes un peu plus compactes */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* réduit min-width */
+  gap: 24px;                                                 /* espace légèrement réduit */
 }
 
-
+/* === CARTES “NATURE” REDIMENSIONNÉES === */
 .box {
   position: relative;
-  padding: 24px;
+  padding: 16px;            /* padding réduit */
   border-radius: 14px;
-  min-height: 130px;
+  min-height: 100px;        /* hauteur minimale réduite */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,7 +138,7 @@ main.content {
   background: var(--color-card-bg-even);
 }
 
-/* bar vertical */
+/* barre d’accent vertical */
 .box::before {
   content: '';
   position: absolute;
@@ -125,7 +149,6 @@ main.content {
   border-bottom-left-radius: 14px;
 }
 
-
 .box:hover {
   transform: translateY(-6px);
   box-shadow: 0 8px 20px var(--color-shadow);
@@ -135,7 +158,7 @@ main.content {
 @media (max-width: 480px) {
   main.content { padding: 24px 18px; }
   .section h2 { font-size: 1.7rem; margin-bottom: 24px; }
-  .box { padding: 18px; font-size: 1rem; }
+  .box { padding: 14px; font-size: 0.95rem; min-height: 90px; }
 }
 
 /* === FOOTER FIXE EN BAS === */
