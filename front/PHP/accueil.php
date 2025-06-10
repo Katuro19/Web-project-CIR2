@@ -44,8 +44,10 @@
       <section class="section">
         <h2>Bienvenue</h2>
         <p>
-          Ce site vous permet de consulter les installations solaires, leurs détails techniques,
-          les localiser sur une carte et analyser des statistiques.
+          Bienvenue sur notre plateforme dédiée aux installations solaires. Grâce à notre interface intuitive, vous pouvez explorer en détail chaque projet photovoltaïque : puissance installée, nombre de panneaux, onduleurs utilisés, inclinaison et orientation optimales, et bien plus encore.
+          <br>
+          <br>
+          Visualisez ensuite la répartition géographique de ces installations sur une carte interactive, filtrez-les par région, département ou année d’installation, et zoomez pour obtenir des informations précises au niveau local. Enfin, plongez dans nos outils d’analyse statistique pour comparer les performances, suivre l’évolution des déploiements solaires et identifier les tendances clés du secteur.
         </p>
       </section>
 
