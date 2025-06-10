@@ -10,7 +10,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
-  background: #f9f9f9;
+  background: #f2f2f2;
   margin: 0;
 }
 
@@ -20,7 +20,7 @@ header {
   position: fixed;
   top: 0;
   background: #1a1a1a;
-  color: #f9f9f9;
+  color: white;
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -65,14 +65,14 @@ header {
   display: flex;
 }
 .nav-desktop a {
-  color: #f9f9f9;
+  color: white;
   text-decoration: none;
   margin-left: 15px;
   font-weight: 500;
   transition: color 0.2s ease;
 }
 .nav-desktop a:hover {
-  color: #f9f9f9;
+  color: #cccccc;
 }
 
 /* Burger (mobile) */
@@ -88,7 +88,7 @@ header {
 .burger span {
   display: block;
   height: 3px;
-  background: #f9f9f9;
+  background: white;
   border-radius: 2px;
 }
 
@@ -143,8 +143,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  background: #f9f9f9;
+  background: #f2f2f2;
 }
 .sidebar img {
   width: 100%;
@@ -166,7 +165,7 @@ header {
 .main {
   flex: 0 0 850px;  
   max-width: 850px;
-  background: #f9f9f9;
+  background: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
@@ -210,7 +209,7 @@ header {
 .box {
   flex: 1 1 calc(33% - 10px);
   min-width: 120px;
-  background: #f9f9f9;
+  background: #e6f0fa;
   padding: 15px;
   border-radius: 6px;
   text-align: center;
@@ -224,7 +223,7 @@ header {
 .btn {
   display: inline-block;
   background: #0d6efd;
-  color: #f9f9f9;
+  color: white;
   padding: 10px 20px;
   margin: 10px 5px;
   text-decoration: none;
@@ -239,7 +238,7 @@ header {
 .footer {
   width: 100%;
   background: #1a1a1a;
-  color: #f9f9f9;
+  color: #f2f2f2;
   text-align: center;
   padding: 15px 0;
   bottom: 0;
