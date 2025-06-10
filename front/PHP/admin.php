@@ -34,6 +34,8 @@ if (!isset($_SESSION['user'])) {
       max-width: 400px;
       width: 90%;
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      max-height: 80vh;         /* Limite la hauteur à 80% de la fenêtre */
+      overflow-y: auto;         /* Ajoute une barre de scroll verticale si besoin */
     }
     .form-field {
       margin-bottom: 15px;
