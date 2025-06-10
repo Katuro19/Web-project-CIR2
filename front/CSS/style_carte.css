@@ -230,7 +230,7 @@ select:focus {
   padding: 10px 0;
 }
 
-/* === RESPONSIVE === */
+/* === RESPONSIVE  === */
 @media (max-width: 768px) {
   .search-bar {
     flex-direction: column;
