@@ -6,7 +6,6 @@ Bienvenue ! Ce guide vous expliquera comment configurer et lancer le site en loc
 
 ## 📦 Prérequis
 
-- Node.js / npm
 - MySQL **ou** PostgreSQL
 - Un serveur HTTP (Apache, nginx, etc.)
 
@@ -20,12 +19,12 @@ Bienvenue ! Ce guide vous expliquera comment configurer et lancer le site en loc
 
 Dans le dossier `/back/databases/`, créez un fichier `.env` avec les informations de connexion à votre base de données :
 
-`env`
+{env}
 DB_HOST=monHost
 DB_NAME=maDatabase
 DB_USER=monUser
 DB_PASSWORD=monMdp
-`/env`
+{/env}
 
 > ℹ️ Un fichier `.env.exemple` est disponible pour vous guider.
 
