@@ -101,10 +101,10 @@ async function filterResults_carte(annee, departement) {
         let long = localisation_doc.long;
 
 
-        markers.push(L.marker([lat, long]).bindPopup("<b>Installation n°" + doc.id + "</b><br>Puissance max: "
-            + doc.puissance_crete + "<br>Surface : "
-            + doc.surface + " m²<br>Detail : <a href=\"details.php?table=doc&id="
-            + doc.id + "\">Voir</a>"));
+        markers.push(L.marker([lat, long]).bindPopup("<b>Installation n° <a href=\"details.php?table=doc&id="
+            + doc.id + "\">" + doc.id + "</a></b><br>Puissance max: "
+            + doc.puissance_crete + " w<br>Surface : "
+            + doc.surface + " m²"));
     }
     markers.forEach(marker => marker.addTo(map));
 

@@ -17,12 +17,12 @@ async function getInstallationData(id) {
         an: installation.an,
         nb_panneaux: installation.nb_panneaux,
         nb_onduleur: installation.nb_onduleur,
-        puissance_crete: installation.puissance_crete,
-        surface: installation.surface,
-        pente: installation.pente,
-        pente_opti: installation.pente_opti,
-        orientation: installation.orientation,
-        orientation_opti: installation.orientation_opti,
+        puissance_crete: installation.puissance_crete == null ? "Non renseignée" : installation.puissance_crete + " w",
+        surface: installation.surface + " m²",
+        pente: installation.pente == null ? "Non renseignée" : installation.pente + "°",
+        pente_opti: installation.pente_opti == null ? "Non renseignée" : installation.pente_opti + "°",
+        orientation: installation.orientation == null ? "Non renseignée" : installation.orientation + "°",
+        orientation_opti: installation.orientation_opti == null ? "Non renseignée" : installation.orientation_opti + "°",
         pvgis: installation.pvgis,
         marque_panneau: panneau.marque_panneau,
         modele_panneau: panneau.modele_panneau,
@@ -134,6 +134,7 @@ async function display_details() {
 
     // console.log("Installation :", installation);
 
+
     let content = "<div class=\"box\" id=\"id\">ID : "
         + installation.id + "</div><div class=\"box\" id=\"date\">Date d’installation : "
         + installation.mois + "-" + installation.an + "</div><div class=\"box\" id=\"nb_panneau\">Nombre de panneaux : "
@@ -143,12 +144,12 @@ async function display_details() {
         + installation.nb_onduleur + "</div><div class=\"box\" id=\"marque_onduleur\">Marques onduleur : "
         + installation.marque_onduleur + "</div><div class=\"box\" id=\"modele_onduleur\">Modèle onduleur : "
         + installation.modele_onduleur + "</div><div class=\"box\" id=\"pw_crete\">Puissance crête : "
-        + installation.puissance_crete + " kw</div><div class=\"box\" id=\"surface\">Surface : "
-        + installation.surface + "m²</div><div class=\"box\" id=\"pente\">Pente : "
-        + installation.pente + "°</div><div class=\"box\" id=\"pente_opti\">Pente optimum : "
-        + installation.pente_opti + "°</div><div class=\"box\" id=\"orientation\">Orientation : "
-        + installation.orientation + "°</div><div class=\"box\" id=\"orientation_opti\">Orientation optimum : "
-        + installation.orientation_opti + "°</div><div class=\"box\" id=\"installateur\">Installateur : "
+        + installation.puissance_crete + "</div><div class=\"box\" id=\"surface\">Surface : "
+        + installation.surface + "</div><div class=\"box\" id=\"pente\">Pente : "
+        + installation.pente + "</div><div class=\"box\" id=\"pente_opti\">Pente optimum : "
+        + installation.pente_opti + "</div><div class=\"box\" id=\"orientation\">Orientation : "
+        + installation.orientation + "</div><div class=\"box\" id=\"orientation_opti\">Orientation optimum : "
+        + installation.orientation_opti + "</div><div class=\"box\" id=\"installateur\">Installateur : "
         + installation.installateur + "</div><div class=\"box\" id=\"pos\">Latitude/Longitude : "
         + installation.lat + " - " + installation.long + "</div><div class=\"box\" id=\"pays\">Pays : "
         + installation.pays + "</div><div class=\"box\" id=\"code_postal\">Code postal : "
