@@ -1,4 +1,3 @@
-
 const elements_par_page = document.getElementById("elements_par_page"); // Récupère l'élément select pour le nombre d'éléments par page
 
 let selectedValue = elements_par_page.value;    // Initialise la valeur sélectionnée avec la valeur par défaut du select
@@ -63,7 +62,7 @@ function display_elements(page,elements_per_page){
 
 
 
-// Fonction pour initialiser un multi-select spécifique
+// Fonction pour initialiser un multi-select
 function initializeMultiSelect(container) {
     const toggleBtn = container.querySelector('.multi-select-toggle');
     const optionsList = container.querySelector('.multi-select-options');
@@ -153,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Cette fonction remplit les sélecteurs avec des données aléatoires au chargement de la page
 async function initialFill() {
-    try {
         let marque_onduleur_data = await getData(api_link, "?table=marque_onduleur&limit=20");
         let marque_panneau_data = await getData(api_link, "?table=marque_panneau&limit=20");
         let departement_data = await getData(api_link, "?table=region&limit=20");
@@ -184,10 +182,6 @@ async function initialFill() {
         departement.innerHTML = departement_options;
 
         initializeAllMultiSelects();    // Initialiser tous les multi-selects après avoir rempli les options
-
-    } catch (error) {
-        console.error('Erreur lors du chargement des données:', error);
-    }
 }
 
 // Cette fonction vide le contenu d'un champ de sélection
