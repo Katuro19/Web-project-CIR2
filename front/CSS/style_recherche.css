@@ -107,12 +107,12 @@ header {
 }
 
 /* ==============================================
-   MAIN (CONTENU ENTRE HEADER ET FOOTER)
+   MAIN
    ============================================== */
 main.content {
   flex: 1;
-  margin-top: 80px;     /* espace sous header (~60px + marge) */
-  margin-bottom: 60px;  /* espace avant footer (~60px) */
+  margin-top: 80px;     /* espace sous header */
+  margin-bottom: 60px;  /* espace avant footer */
   padding: 20px;
   max-width: 1200px;
   width: 100%;
@@ -124,7 +124,7 @@ main.content {
 }
 
 /* ==============================================
-   SECTION FILTRAGE (BARRE DE RECHERCHE)
+   BARRE DE RECHERCHE
    ============================================== */
 .filter-section h2 {
   font-size: 1.4rem;
@@ -156,7 +156,7 @@ main.content {
   font-weight: 500;
 }
 
-/* Style générique des boutons Filtrer */
+/* Style des boutons Filtrer */
 .btn-filter {
   background-color: #333;
   color: white;
@@ -429,20 +429,20 @@ main.content {
 }
 
 .pagination button {
-  background-color: #f0f0f0;      /* gris clair */
-  border: 2px solid #c0c0c0;      /* bord gris moyen */
+  background-color: #f0f0f0;   
+  border: 2px solid #c0c0c0;    
   padding: 10px;
-  border-radius: 6px;             /* coins légèrement arrondis */
+  border-radius: 6px;            
   cursor: pointer;
   transition: background-color 0.2s, transform 0.1s;
 }
 
 .pagination button svg {
-  stroke: #444; /* flèche gris foncé */
+  stroke: #444; 
 }
 
 .pagination button:hover {
-  background-color: #e0e0e0; /* légèrement plus foncé au survol */
+  background-color: #e0e0e0; 
   transform: scale(1.05);
 }
 
@@ -466,7 +466,7 @@ main.content {
 }
 
 .items-per-page-selector label {
-  font-weight: normal; /* Texte non gras */
+  font-weight: normal;
   font-size: 0.95em;
   color: #333;
 }
@@ -475,9 +475,9 @@ main.content {
   padding: 0.4em 0.8em;
   border-radius: 4px;
   border: 1px solid #ccc;
-  background-color: #fff; /* Fond blanc */
+  background-color: #fff; 
   color: #333;
-  font-size: 1em; /* Texte plus gros */
+  font-size: 1em;
   cursor: pointer;
 }
 
