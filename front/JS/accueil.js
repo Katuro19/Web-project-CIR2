@@ -1,4 +1,4 @@
-//Cette fonction récupère les données statistiques de l'API.
+//Cette fonction récupère les données statistiques de l'API et les ajoute dans le DOM.
 async function statistics() {
 
   // console.log("Fetching statistics...");
@@ -27,12 +27,6 @@ async function statistics() {
   };
 
   // console.log(statistics);
-
-  insertStatistics(statistics);
-}
-
-// Cette fonction insère les statistiques dans le DOM.
-function insertStatistics(statistics) {
 
   document.getElementById("enregistrement").innerText = statistics.installations + " installations";
   document.getElementById("install_an").innerText = statistics.années + " ans";
