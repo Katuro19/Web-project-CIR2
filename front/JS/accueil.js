@@ -1,9 +1,7 @@
-
-
+//Cette fonction récupère les données statistiques de l'API.
 async function statistics() {
 
-
-  console.log("Fetching statistics...");
+  // console.log("Fetching statistics...");
 
   let installations = await getData(api_link, "?table=doc&countColumn=id");
   let années = await getData(api_link, "?table=doc&countColumn=an");
@@ -30,11 +28,10 @@ async function statistics() {
 
   // console.log(statistics);
 
-
-
   insertStatistics(statistics);
 }
 
+// Cette fonction insère les statistiques dans le DOM.
 function insertStatistics(statistics) {
 
   document.getElementById("enregistrement").innerText = statistics.installations + " installations";
@@ -49,23 +46,4 @@ function insertStatistics(statistics) {
 
 }
 
-//data = getData(api_link, "?table=doc&limit=10");
 statistics();
-
-
-
-function getYearMonth() {
-  let date = new Date();
-  let year = date.getFullYear();
-  let month = date.getMonth() + 1; // Months are zero-based in JavaScript
-
-  let result = {
-    year: year,
-    month: month
-  };
-
-  return result;
-
-}
-
-getYearMonth();

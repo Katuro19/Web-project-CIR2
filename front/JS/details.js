@@ -1,13 +1,14 @@
+// Cette fonction permet de récupérer les données d'une installation à partir de son ID
 async function getInstallationData(id) {
 
-    let installation = await getData(api_link, "?table=doc&id=" + id);
+    let installation = await getData(api_link, "?table=doc&id=" + id);  // Récupère les données de l'installation à partir de son ID
 
     // console.log("Données de l'installation :", installation);
 
-    let panneau = await getPanneauData(installation.panneau_id)
-    let onduleur = await getOnduleurData(installation.onduleur_id)
-    let installateur = await getInstallateurData(installation.installateur_id);
-    let localisation = await getloacalisationData(installation.localisation_id);
+    let panneau = await getPanneauData(installation.panneau_id);    // Récupère les données du panneau à partir de l'ID du panneau
+    let onduleur = await getOnduleurData(installation.onduleur_id); // Récupère les données de l'onduleur à partir de l'ID de l'onduleur
+    let installateur = await getInstallateurData(installation.installateur_id);     // Récupère les données de l'installateur à partir de l'ID de l'installateur
+    let localisation = await getloacalisationData(installation.localisation_id);    // Récupère les données de localisation à partir de l'ID de localisation
 
     // console.log("Installation :", installation);
 
@@ -43,15 +44,16 @@ async function getInstallationData(id) {
     return installation;
 }
 
+// Cette fonction permet de récupérer les données d'un panneau à partir de son ID
 async function getPanneauData(id) {
 
-    let panneau = await getData(api_link, "?table=panneau&id=" + id);
+    let panneau = await getData(api_link, "?table=panneau&id=" + id);   // Récupère les données du panneau à partir de son ID
 
-    let marque_panneau = await getData(api_link, "?table=marque_panneau&id=" + panneau.marque_panneau);
+    let marque_panneau = await getData(api_link, "?table=marque_panneau&id=" + panneau.marque_panneau); // Récupère la marque du panneau à partir de l'ID de la marque
 
     // console.log("Marque du panneau :", marque_panneau);
 
-    let modele_panneau = await getData(api_link, "?table=modele_panneau&id=" + panneau.modele_panneau);
+    let modele_panneau = await getData(api_link, "?table=modele_panneau&id=" + panneau.modele_panneau); // Récupère le modèle du panneau à partir de l'ID du modèle
 
     // console.log("Modèle du panneau :", modele_panneau);
 
@@ -65,14 +67,16 @@ async function getPanneauData(id) {
     return panneau;
 }
 
+// Cette fonction permet de récupérer les données d'un onduleur à partir de son ID
 async function getOnduleurData(id) {
-    let onduleur = await getData(api_link, "?table=onduleur&id=" + id);
 
-    let marque_onduleur = await getData(api_link, "?table=marque_onduleur&id=" + onduleur.marque_onduleur);
+    let onduleur = await getData(api_link, "?table=onduleur&id=" + id); // Récupère les données de l'onduleur à partir de son ID
+
+    let marque_onduleur = await getData(api_link, "?table=marque_onduleur&id=" + onduleur.marque_onduleur); // Récupère la marque de l'onduleur à partir de l'ID de la marque
 
     // console.log("Marque de l'onduleur :", marque_onduleur);
 
-    let modele_onduleur = await getData(api_link, "?table=modele_onduleur&id=" + onduleur.modele_onduleur);
+    let modele_onduleur = await getData(api_link, "?table=modele_onduleur&id=" + onduleur.modele_onduleur); // Récupère le modèle de l'onduleur à partir de l'ID du modèle
 
     // console.log("Modèle de l'onduleur :", modele_onduleur);
 
@@ -86,21 +90,24 @@ async function getOnduleurData(id) {
     return onduleur;
 }
 
+// Cette fonction permet de récupérer les données d'un installateur à partir de son ID
 async function getInstallateurData(id) {
-    let installateur = await getData(api_link, "?table=installateur&id=" + id);
+
+    let installateur = await getData(api_link, "?table=installateur&id=" + id); // Récupère les données de l'installateur à partir de son ID
 
     // console.log("Installateur :", installateur);
 
     return installateur;
 }
 
-
+// Cette fonction permet de récupérer les données de localisation à partir de l'ID
 async function getloacalisationData(id) {
-    let localisation = await getData(api_link, "?table=localisation&id=" + id);
+
+    let localisation = await getData(api_link, "?table=localisation&id=" + id); // Récupère les données de localisation à partir de l'ID
 
     // console.log("Localisation :", localisation);
 
-    let region = await getData(api_link, "?table=region&id=" + localisation.code_insee);
+    let region = await getData(api_link, "?table=region&id=" + localisation.code_insee);    // Récupère les données de la région à partir du code INSEE
 
     let localisation_data = {
         lat: localisation.lat,
@@ -118,19 +125,20 @@ async function getloacalisationData(id) {
     return localisation_data;
 }
 
+// Cette fonction permet d'afficher les détails d'une installation à partir de l'ID passé dans l'URL
 async function display_details() {
 
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
+    const params = new URLSearchParams(window.location.search); // Récupère les paramètres de l'URL
+    const id = params.get("id");    // Récupère l'ID de l'installation à partir des paramètres de l'URL
 
     if (id == null) {
         console.log("ID non présent dans l'URL");
     }
 
 
-    let installation = await getInstallationData(id);
+    let installation = await getInstallationData(id);   // Récupère les données de l'installation à partir de l'ID
 
-    installation.mois = installation.mois < 10 ? "0" + installation.mois : installation.mois;
+    installation.mois = installation.mois < 10 ? "0" + installation.mois : installation.mois; // Formate le mois pour qu'il soit sur deux chiffres
 
     // console.log("Installation :", installation);
 
@@ -159,7 +167,7 @@ async function display_details() {
         + installation.departement + "</div>";
 
 
-    document.getElementById("details").innerHTML = content;
+    document.getElementById("details").innerHTML = content; // Affiche les détails de l'installation dans la div avec l'ID "details"
 }
 
 display_details()
