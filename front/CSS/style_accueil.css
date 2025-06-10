@@ -92,12 +92,12 @@ header {
   border-radius: 2px;
 }
 
-/* Menu mobile (caché par défaut) */
+/* Menu mobile*/
 .nav-mobile {
   display: none;
   flex-direction: column;
   position: absolute;
-  top: 60px; /* sous header */
+  top: 60px; 
   right: 0;
   background: #1a1a1a;
   width: 200px;
@@ -111,6 +111,8 @@ header {
 .nav-mobile a:last-child {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+
 
 /* Affiche burger, masque menu desktop en dessous de 750px */
 @media (max-width: 750px) {
@@ -129,10 +131,10 @@ header {
 .layout {
   display: flex;
   flex: 1;
-  margin-top: 80px;   /* espace sous header (hauteur ~60px + marge) */
-  margin-bottom: 60px;/* espace pour footer (hauteur ~60px) */
+  margin-top: 80px;
+  margin-bottom: 60px;
   width: 100%;
-  min-height: calc(100vh - 140px); /* total header+footer ≈ 140px */
+  min-height: calc(100vh - 140px);
 }
 
 /* Sidebar (pubs) */
@@ -151,6 +153,8 @@ header {
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
+
+
 /* Masquer les pubs si l’écran < 1000px */
 @media (max-width: 1400px) {
   .sidebar {
@@ -160,7 +164,7 @@ header {
 
 /* Contenu principal */
 .main {
-  flex: 0 0 850px;    /* largeur fixe de 850px */
+  flex: 0 0 850px;  
   max-width: 850px;
   background: white;
   padding: 20px;

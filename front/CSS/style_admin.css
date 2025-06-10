@@ -17,9 +17,7 @@ body {
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
   background: #f9f9f9;
-  /* Pour laisser la place sous le header fixe (≈60px + marge) */
   padding-top: 80px;
-  /* Pour laisser la place au footer fixe (≈60px) */
   padding-bottom: 60px;
 }
 
@@ -103,7 +101,7 @@ header {
   border-radius: 2px;
 }
 
-/* Menu mobile (caché par défaut) */
+/* Menu mobile */
 .nav-mobile {
   display: none;
   flex-direction: column;
