@@ -19,12 +19,10 @@ Bienvenue ! Ce guide vous expliquera comment configurer et lancer le site en loc
 
 Dans le dossier `/back/databases/`, créez un fichier `.env` avec les informations de connexion à votre base de données :
 
-{env}
-DB_HOST=monHost
-DB_NAME=maDatabase
-DB_USER=monUser
-DB_PASSWORD=monMdp
-{/env}
+    DB_HOST=monHost
+    DB_NAME=maDatabase
+    DB_USER=monUser
+    DB_PASSWORD=monMdp
 
 > ℹ️ Un fichier `.env.exemple` est disponible pour vous guider.
 
@@ -48,10 +46,8 @@ Importez-les dans votre base de données en respectant l'ordre :
 
 Créez un fichier `.secret` dans le dossier `/back/`, avec les identifiants d'accès administrateur :
 
-`env`
-USER=myUser
-PASSWORD=myPassword
-`/env`
+    USER=myUser
+    PASSWORD=myPassword
 
 ---
 
@@ -59,9 +55,7 @@ PASSWORD=myPassword
 
 Créez un fichier `env.js` dans `/front/JS/`, avec l'adresse de votre API :
 
-`js`
-let api_link = "http://YOUR_IP_ADDRESS/YOUR_API_PATH";
-`/js`
+    let api_link = "http://YOUR_IP_ADDRESS/YOUR_API_PATH";
 
 ---
 
