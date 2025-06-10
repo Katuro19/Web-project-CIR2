@@ -6,7 +6,6 @@ $secrets = parse_ini_file("../../back/.secret");
 $expected_user = $secrets['USER'] ?? '';
 $expected_pass = $secrets['PASSWORD'] ?? '';
 
-
 // Traitement du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $username = $_POST['username'] ?? '';
@@ -22,70 +21,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Connexion</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #f0f2f5;
-    }
-
-    #login {
-      box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.2);
-      border-radius: 10px;
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
-
-    #login:hover {
-      transform: translateY(-5px);
-      box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.3);
-    }
-
-    .form-label {
-      font-weight: 500;
-    }
-
-    .text-muted {
-      font-size: 0.9rem;
-    }
-
-    .card {
-      background-color: white;
-    }
-  </style>
+  <link rel="stylesheet" href="/front/CSS/style_accueil.css" />
+  <link rel="stylesheet" href="/front/CSS/style_login.css" />
+  <script src="/front/JS/env.js" defer></script>
+  <script src="/front/JS/utils.js" defer></script>
+  <script src="/front/JS/accueil.js" defer></script>
 </head>
-<body class="d-flex justify-content-center align-items-center vh-100">
-
-  <div id="login" class="card p-4" style="width: 350px;">
-    <h2 class="text-center mb-4">Connexion</h2>
-
-  <form method="POST" action="">
-    <div class="mb-3">
-      <label class="form-label">Utilisateur</label>
-      <input type="text" name="username" class="form-control" placeholder="Nom Utilisateur" required>
+<body class="page-login">
+  <header>
+    <div class="header-content">
+      <div class="logo-title">
+        <img src="/front/image/logo.png" alt="Logo" class="logo" />
+      </div>
+      <div class="title-container">
+        <span class="title">Gestion de panneau solaire</span>
+      </div>
+      <div class="right-menu">
+        <div class="burger" id="burger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
+        <nav class="nav-desktop">
+          <a href="/front/PHP/accueil.php">Accueil</a>
+          <a href="/front/PHP/recherche.php">Recherche</a>
+          <a href="/front/PHP/carte.php">Carte</a>
+          <a href="/front/PHP/login.php">Se Connecter</a>
+        </nav>
+      </div>
     </div>
+    <nav class="nav-mobile" id="navMobile">
+      <a href="/front/PHP/recherche.php">Recherche</a>
+      <a href="/front/PHP/carte.php">Carte</a>
+      <a href="/front/PHP/login.php">Se Connecter</a>
+    </nav>
+  </header>
 
-    <div class="mb-3">
-      <label class="form-label">Mot de passe</label>
-      <input type="password" name="password" class="form-control" placeholder="Votre mot de passe" required>
+  <main class="main-login">
+    <div class="form-container">
+      <h2>Connexion</h2>
+      <?php if (!empty($error)) : ?>
+        <div class="error"><?php echo htmlspecialchars($error); ?></div>
+      <?php endif; ?>
+      <form method="post">
+        <div class="form-group">
+          <label for="username">Nom d'utilisateur</label>
+          <input type="text" name="username" id="username" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" name="password" id="password" required />
+        </div>
+        <button type="submit" class="btn">Se connecter</button>
+      </form>
     </div>
+  </main>
 
-    <button type="submit" class="btn btn-primary w-100">Se connecter</button>
-
-    <?php if (!empty($error)) : ?>
-      <div class="mt-3 text-danger text-center"><?= htmlspecialchars($error) ?></div>
-    <?php endif; ?>
-  </form>
-
-
-    <hr>
-  </div>
-
+  <footer class="footer">
+    <p>Kévin Pierre-Luc Eliott – Groupe 3 – 2025</p>
+  </footer>
 </body>
 </html>
